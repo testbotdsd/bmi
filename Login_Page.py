@@ -11,6 +11,8 @@ class Login (tk.Frame):
         self.welcome_label = tk.Label(self, text="WELCOME", font="Arial 20 bold")
         self.welcome_label.place(x=0, y=0)
 
+        self.email_label = tk.Label(self, text="Email:")
+        self.email_label.place(x=10, y=20)
         self.email_entry = tk.Entry(self, border=1)
         self.email_entry.place(x=10, y=50)
 
@@ -21,7 +23,7 @@ class Login (tk.Frame):
         self.continue_button.place(x=70, y=550)
 
         self.forgot_password_button = tk.Button(self, text = 'Forgot your password?', bd = 0, command=self.go_to_forgot_password)
-        self.forgot_password_button.place (x= 30, y=50)
+        self.forgot_password_button.place (x= 30, y=400)
 
     def go_to_forgot_password(self):
         self.parent.change_window('Signup')
