@@ -13,8 +13,9 @@ class MainWindow(tk.Tk):
         self.frames ['Welcome_Page'] = Welcome_Page.Welcome(self)
 
         self.frames ['Login'] = Login_Page.Login(self)
-        self.frames ['Signup'] = SIgnup_Page.Signup(self)
+        self.frames ['Forgot_Password'] = Login_Page.Forgot_Password(self)
 
+        self.frames ['Signup'] = SIgnup_Page.Signup(self)
         self.frames ['BMI'] = BMI_Page.BMI(self)
 
 
