@@ -7,7 +7,7 @@ class BMI(tk.Frame):
         self.config(width=400, height=600)
         
         # MAIN FRAME
-        self.main_frame = tk.Frame(self, bd=20, width=350, height=600, bg='sky blue', relief='sunken')
+        self.main_frame = tk.Frame(self, bd=20, width=400, height=600, bg='#7B6079', relief='sunken')
         self.welcome_frame = tk.Frame(self.main_frame, bd=10, width=300, height=70, bg='grey', relief='raised')
         
         # TOP FRAMES

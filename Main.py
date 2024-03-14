@@ -12,10 +12,13 @@ class MainWindow(tk.Tk):
         self.frames = {}
         self.frames ['Welcome_Page'] = Welcome_Page.Welcome(self)
 
+        #login Page
         self.frames ['Login'] = Login_Page.Login(self)
         self.frames ['Forgot_Password'] = Login_Page.Forgot_Password(self)
 
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
+        self.frames ['Photo'] = SIgnup_Page.Photo(self)
+        
         self.frames ['BMI'] = BMI_Page.BMI(self)
 
         self.change_window('Welcome_Page')
