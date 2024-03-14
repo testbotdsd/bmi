@@ -66,12 +66,10 @@ class Forgot_Password (tk.Frame):
         self.login_bg = tk.Frame(self, bg='#7B6079', height=595, width=450)
         self.login_bg.place(x=0, y=0)
 
-        self.welcome_label = tk.Label(self.login_bg, text="FORGOT PASSWORD", font=('Courier', 20, 'bold'), fg='white', 
-                                      bg='#7B6079')
+        self.welcome_label = tk.Label(self.login_bg, text="FORGOT PASSWORD", font=('Courier', 20, 'bold'), fg='white', bg='#7B6079')
         self.welcome_label.place(x=95, y=40)
 
-        self.back_button = tk.Button(self.login_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'),
-                                     bg='#FFE9D6')
+        self.back_button = tk.Button(self.login_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'),bg='#FFE9D6')
         self.back_button.place(x=5, y=10)
 
     def go_to_login(self):
