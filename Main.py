@@ -3,7 +3,7 @@ import Welcome_Page
 import Login_Page
 import BMI_Page
 import SIgnup_Page
-imp
+
 
 class MainWindow(tk.Tk):
     def __init__(self):
