@@ -6,20 +6,20 @@ class Signup(tk.Frame):
         self.parent = master
         self.config(width=400, height=600)
 
-        self.create_account_bg = tk.Frame(self, bg='#4F4A45', height=600, width=400)
+        self.create_account_bg = tk.Frame(self, bg='#7B6079', height=600, width=400)
         self.create_account_bg.place(x=0, y=0)
-
-        self.back_button = tk.Button(self, text="back", command=self.go_to_welcome_page)
-        self.back_button.place(x=30, y=550)
-
-        self.continue_button = tk.Button(self, text='Login', command=self.go_to_Login_Page)
-        self.continue_button.place(x=70, y=550)
 
         self.create_account_label = tk.Label(self, text='Create an Account', font='Arial 20 bold', bg='#4F4A45', foreground="#ED7D31")
         self.create_account_label.place(x=75, y=10)
 
         self.to_get_started_label = tk.Label(self, text='to get started', font='Arial 16',  bg='#4F4A45', foreground="#ED7D31")
         self.to_get_started_label.place(x=130, y=40)
+
+        self.back_button = tk.Button(self, text="back", command=self.go_to_welcome_page)
+        self.back_button.place(x=30, y=550)
+
+        self.continue_button = tk.Button(self, text='Login', command=self.go_to_Login_Page)
+        self.continue_button.place(x=70, y=550)
 
         self.first_name_label = tk.Label(self, text='First Name')
         self.first_name_label.place(x=10, y=100)
@@ -66,8 +66,13 @@ class Signup(tk.Frame):
         self.sign_up_button = tk.Button(self, text='Sign Up', height=1, width=50)
         self.sign_up_button.place(x=20, y=415)
 
-        self.already_have_an_account_login = tk.Button(self, text='Already have an account? Login', height=1, width=50)
-        self.already_have_an_account_login.place(x=20, y=455)
+        self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#7B6079', font="Courier 8")
+        self.have_an_account_login_label.place(x=20, y=455)
+        
+        self.login_clickable = tk.Button(self, text="Login", bg='#7B6079', bd=0, font=('Courier', 8, 'bold'))
+        self.login_clickable.place(x=194, y=455)
+
+        
 
 
 
