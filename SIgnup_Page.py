@@ -58,8 +58,15 @@ class Signup(tk.Frame):
         self.captcha_label = tk.Label(self, text='Captcha')
         self.captcha_label.place(x=10, y=432)
 
-        self.terms_and_conditions_label = tk.Label(self, text='Terms & Conditions')
-        self.terms_and_conditions_label.place(x=10, y=475)
+        self.tnc_checkbox = tk.Checkbutton(self, text="I agree to the", bg='#7B6079', font="Courier 10", foreground='white')
+        self.tnc_checkbox.place(x=10, y=475)
+
+        # self.agree_tnc_label = tk.Label(self, text="I agree to the", bg='#7B6079', font="Courier 10", foreground='white')
+        # self.agree_tnc_label.place(x=10, y=475)
+
+        self.terms_conditions_btn = tk.Button(self, text="Terms & Conditions",font=('Courier', 11), 
+                                                fg='#88f2ea', bg='#7B6079',bd = 0)
+        self.terms_conditions_btn.place(x=150, y=475)
 
         # self.back_button = tk.Button(self, text="back", command=self.go_to_welcome_page)
         # self.back_button.place(x=30, y=550)
