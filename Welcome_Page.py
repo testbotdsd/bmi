@@ -22,10 +22,10 @@ class Welcome(tk.Frame):
         self.welcome2_label.place(x=20, y=80)
 
         self.login_btn = tk.Button(self, text="Login", font="Garamond 12 bold", width=12, command=self.go_to_login_page)
-        self.login_btn.place(x=100, y=195)
+        self.login_btn.place(x=120, y=195)
 
         self.sign_up_btn = tk.Button(self, text="Signup", font="Garamond 12 bold", width=12)
-        self.sign_up_btn.place(x=100, y=235)
+        self.sign_up_btn.place(x=120, y=235)
         
 
     def go_to_login_page(self):
