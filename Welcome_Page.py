@@ -26,4 +26,5 @@ class Welcome(tk.Frame):
     def go_to_login_page(self):
         self.master.change_window('Login')
         
-
+    def on_return(self):
+        pass
