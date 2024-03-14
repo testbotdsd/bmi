@@ -4,11 +4,10 @@ class Signup(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__ (self, master)
         self.parent = master
-        self.config(width=450, height=595)
+        self.config(width=400, height=600)
 
         #WELCOME LABELS
-
-        self.create_account_bg = tk.Frame(self, bg='#7B6079', height=595, width=450)
+        self.create_account_bg = tk.Frame(self, bg='#7B6079', height=600, width=400)
         self.create_account_bg.place(x=0, y=0)
 
         self.create_account_label = tk.Label(self, text='Create an Account', font=('Courier', 25, 'bold'), bg='#7B6079', foreground="white")
@@ -53,7 +52,13 @@ class Signup(tk.Frame):
 
         self.confirm_password_entry = tk.Entry(self, border=1)
         self.confirm_password_entry.place(x=10, y=389)
-
+        
+        self.birthday_label = tk.Label(self, text = 'Birthday', font=('Courier', 12), fg='white', bg='#7B6079')
+        self.birthday_label.place(x=200, y=365)
+        
+        self.birthday_entry = tk.Entry(self, border=1)
+        self.birthday_entry.place(x=200, y=389)  
+        
         self.captcha_label = tk.Label(self, text='Captcha')
         self.captcha_label.place(x=10, y=432)
 

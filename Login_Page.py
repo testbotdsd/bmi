@@ -63,7 +63,7 @@ class Forgot_Password (tk.Frame):
         self.parent = master
         self.config(width=400, height=600)
 
-        self.forgot_password_label_bg = tk.Frame(self, bg='#7B6079', height=600, width=450)
+        self.forgot_password_label_bg = tk.Frame(self, bg='#7B6079', height=600, width=400)
         self.forgot_password_label_bg.place(x=0, y=0)
 
         self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="Forgot Password", font=('Courier', 20, 'bold'), fg='white', bg='#7B6079')
