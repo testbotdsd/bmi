@@ -5,9 +5,8 @@ class BMI(tk.Frame):
         tk.Frame.__init__  (self, master)
         self.parent = master
         self.config(width=400, height=600)
-        dshdfbshdfbsh
+        
         # MAIN FRAME
-        ina mo john paul
         self.main_frame = tk.Frame(self, bd=20, width=350, height=600, bg='sky blue', relief='sunken')
         self.welcome_frame = tk.Frame(self.main_frame, bd=10, width=300, height=70, bg='grey', relief='raised')
         
@@ -76,7 +75,7 @@ class BMI(tk.Frame):
         
         self.height_cm_entry.bind('<KeyRelease>', self.update_height_cm)
         self.height_m_entry.bind('<KeyRelease>', self.update_height_m)
-
+  
     def update_weight_lb(self, event):
         try:
             kg_value = float(self.weight_kg_entry.get())

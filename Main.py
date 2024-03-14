@@ -9,15 +9,15 @@ class MainWindow(tk.Tk):
         self.wm_title("BMI CALCULATOR")     
         
         self.frames = {}
-        self.frames['Front_Page'] = Welcome_Page.Welcome(self)
+        self.frames ['Welcome_Page'] = Welcome_Page.Welcome(self)
 
-        self.frames['Login_Page'] = Login_Page.Login(self)
+        self.frames ['Login'] = Login_Page.Login(self)
 
-        self.frames['BMI_Page'] = BMI_Page.BMI(self)
-        
+        self.frames ['BMI'] = BMI_Page.BMI(self)
 
-        self.change_window('Front_Page')
-        
+
+        self.change_window('Welcome_Page')
+
     def change_window(self, name):
         for frame in self.frames.values():
             frame.grid_forget()

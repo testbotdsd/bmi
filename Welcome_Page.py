@@ -15,12 +15,9 @@ class Welcome(tk.Frame):
         self.signup_label = tk.Button(self, text="Sign Up", bg="grey", width=30)
         self.signup_label.place(x=100, y=400)
         
-        
-    # def go_to_login_page(self):
-    #     self.master.change_window('Login')
 
     def go_to_login_page(self):
-        self.master.change_window('Login_Page')
+        self.master.change_window('Login')
         
     def on_return(self):
         pass
