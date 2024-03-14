@@ -72,13 +72,6 @@ class Signup(tk.Frame):
         self.login_clickable = tk.Button(self, text="Login", bg='#7B6079', bd=0, font=('Courier', 8, 'bold'))
         self.login_clickable.place(x=194, y=455)
 
-        
-
-
-
-
-
-
 
 
     def go_to_welcome_page(self):
