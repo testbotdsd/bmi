@@ -9,10 +9,12 @@ class Signup(tk.Frame):
         self.create_account_bg = tk.Frame(self, bg='#7B6079', height=600, width=400)
         self.create_account_bg.place(x=0, y=0)
 
-        self.create_account_label = tk.Label(self, text='Create an Account', font=('Courier', 25, 'bold'), bg='#7B6079', foreground="white")
+        self.create_account_label = tk.Label(self, text='Create an Account', font=('Courier', 25, 'bold'), 
+                                             bg='#7B6079', foreground="white")
         self.create_account_label.place(x=10, y=10)
 
-        self.to_get_started_label = tk.Label(self, text='to get started', font=('Courier', 15, 'bold'),  bg='#7B6079', foreground="white")
+        self.to_get_started_label = tk.Label(self, text='to get started', font=('Courier', 15, 'bold'),  
+                                             bg='#7B6079', foreground="white")
         self.to_get_started_label.place(x=130, y=40)
 
         self.back_button = tk.Button(self, text="back", command=self.go_to_welcome_page)
@@ -66,7 +68,8 @@ class Signup(tk.Frame):
         self.sign_up_button = tk.Button(self, text='Sign Up', height=1, width=50)
         self.sign_up_button.place(x=20, y=415)
 
-        self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#7B6079', font="Courier 8")
+        self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#7B6079', 
+                                                    font="Courier 8")
         self.have_an_account_login_label.place(x=20, y=455)
         
         self.login_clickable = tk.Button(self, text="Login", bg='#7B6079', bd=0, font=('Courier', 8, 'bold'))
