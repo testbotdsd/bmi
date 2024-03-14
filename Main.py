@@ -4,7 +4,6 @@ import Login_Page
 import BMI_Page
 import SIgnup_Page
 
-
 class MainWindow(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
