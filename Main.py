@@ -39,5 +39,4 @@ root.resizable(True, True)
 
 # Bind the window resize event to the update_content method
 root.bind("<Configure>", lambda event: root.update_content())
-
 root.mainloop()
