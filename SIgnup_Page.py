@@ -15,10 +15,10 @@ class Signup(tk.Frame):
         self.continue_button = tk.Button(self, text='Login', command=self.go_to_Login_Page)
         self.continue_button.place(x=70, y=550)
 
-        self.create_account_label = tk.Label(self, text='Create an Account', font='Arial 20 bold', bg='#4F4A45')
+        self.create_account_label = tk.Label(self, text='Create an Account', font='Arial 20 bold', bg='#4F4A45', foreground="#ED7D31")
         self.create_account_label.place(x=75, y=10)
 
-        self.to_get_started_label = tk.Label(self, text='to get started', font='Arial 16',  bg='#4F4A45')
+        self.to_get_started_label = tk.Label(self, text='to get started', font='Arial 16',  bg='#4F4A45', foreground="#ED7D31")
         self.to_get_started_label.place(x=130, y=40)
 
         self.first_name_label = tk.Label(self, text='First Name')
@@ -39,7 +39,39 @@ class Signup(tk.Frame):
         self.gmail_entry = tk.Entry(self, border=1)
         self.gmail_entry.place(x=55, y=170)
 
-        
+        self.username_label = tk.Label(self, text='Username')
+        self.username_label.place(x=10, y=205)
+
+        self.username_entry = tk.Entry(self, border=1)
+        self.username_entry.place(x=80, y=205)
+
+        self.password_label = tk.Label(self, text='Password')
+        self.password_label.place(x=10, y=240)
+
+        self.password_entry = tk.Entry(self, border=1)
+        self.password_entry.place(x=75, y=240)
+
+        self.confirm_password_label = tk.Label(self, text='Confirm Password')
+        self.confirm_password_label.place(x=10, y=275)
+
+        self.confirm_password_entry = tk.Entry(self, border=1)
+        self.confirm_password_entry.place(x=125, y=275)
+
+        self.captcha_label = tk.Label(self, text='Captcha')
+        self.captcha_label.place(x=10, y=310)
+
+        self.terms_and_conditions_label = tk.Label(self, text='Terms & Conditions')
+        self.terms_and_conditions_label.place(x=10, y=345)
+
+        self.sign_up_button = tk.Button(self, text='Sign Up', height=1, width=50)
+        self.sign_up_button.place(x=20, y=415)
+
+        self.already_have_an_account_login = tk.Button(self, text='Already have an account? Login', height=1, width=50)
+        self.already_have_an_account_login.place(x=20, y=455)
+
+
+
+
 
 
 
