@@ -36,7 +36,8 @@ class Login (tk.Frame):
 
         self.no_account_label = tk.Label(self, text="Don't have an account?", bg='#7B6079', font="Courier 8")
         self.no_account_label.place(x=99, y=488)
-        self.sign_up_btn = tk.Button(self, text="Sign up now", bg='#7B6079', bd=0, font=('Courier', 8, 'bold'), command=self.go_to_signup)
+
+        self.sign_up_btn = tk.Button(self, text="Sign up now", bg='#7B6079', bd=0, font=('Courier', 8, 'bold'), command=self.go_to_signup, foreground='#88f2ea')
         self.sign_up_btn.place(x=259, y=488)
 
     def go_to_forgot_password(self):
@@ -57,11 +58,14 @@ class Forgot_Password (tk.Frame):
         self.parent = master
         self.config(width=400, height=600)
 
-        self.forgot_label = tk.Label (self, text='forgot password', font='arial 20')
-        self.forgot_label.place (x=10, y=30)
+        self.login_bg = tk.Frame(self, bg='#7B6079', height=595, width=450)
+        self.login_bg.place(x=0, y=0)
 
-        self.back_button = tk.Button(self, text='back', command=self.go_to_login)
-        self.back_button.place(x=10, y=50)
+        self.welcome_label = tk.Label(self.login_bg, text="FORGOT PASSWORD", font=('Courier', 20, 'bold'), fg='white', bg='#7B6079')
+        self.welcome_label.place(x=95, y=40)
+
+        self.back_button = tk.Button(self.login_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'),bg='#FFE9D6')
+        self.back_button.place(x=5, y=10)
 
     def go_to_login(self):
         self.parent.change_window('Login')
