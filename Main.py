@@ -27,6 +27,24 @@ class MainWindow(tk.Tk):
         
         self.frames[name].grid()
 
+    def update_content(self):
+        # Get the updated window size
+        window_width = self.winfo_width()
+        window_height = self.winfo_height()
+
+        # Print the updated window size (you can replace this with your content update logic)
+        print(f"Window size updated: {window_width} x {window_height}")
+           
+  
 root = MainWindow()
+root.resizable(True, True)
+
+# Bind the window resize event to the update_content method
+root.bind("<Configure>", lambda event: root.update_content())
+
+root.mainloop()
+
+""" root = MainWindow()
 root.resizable(False, False)
 root.mainloop()
+ """
