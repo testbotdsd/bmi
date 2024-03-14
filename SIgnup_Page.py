@@ -57,7 +57,7 @@ class Signup(tk.Frame):
         self.birthday_label.place(x=200, y=365)
         
         self.birthday_entry = tk.Entry(self, border=1)
-        self.birthday_entry.place(x=200, y=389)  
+        self.birthday_entry.place(x=10, y=389)  
         
         self.captcha_label = tk.Label(self, text='Captcha')
         self.captcha_label.place(x=10, y=432)
