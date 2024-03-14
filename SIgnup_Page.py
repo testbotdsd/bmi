@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 
 class Signup(tk.Frame):
     def __init__(self, master):
@@ -54,16 +55,33 @@ class Signup(tk.Frame):
         self.confirm_password_entry.place(x=81, y=384)
         
         self.birthday_label = tk.Label(self, text = 'Birthday', font=('Courier', 13), fg='white', bg='#7B6079')
-        self.birthday_label.place(x=81, y=420)
+        self.birthday_label.place(x=81, y=420) 
         
-        self.birthday_entry = tk.Entry(self, border=1, font=('Courier', 13))
-        self.birthday_entry.place(x=170, y=420)  
-        
-        self.captcha_label = tk.Label(self, text='Captcha')
-        self.captcha_label.place(x=189, y=460)
+        # Adding a Birthday Picker using a Combobox
+        self.day_var = tk.StringVar()
+        self.month_var = tk.StringVar()
+        self.year_var = tk.StringVar()
 
-        self.terms_and_conditions_label = tk.Label(self, text='Terms & Conditions')
-        self.terms_and_conditions_label.place(x=170, y=484)
+        self.day_label = tk.Label(self, text="Day", font=('Courier', 10), fg='white', bg='#7B6079')
+        self.day_label.place(x=81, y=444)
+        self.day_combo = ttk.Combobox(self, textvariable=self.day_var, state='readonly', font=('Courier', 13), width=3)
+        self.day_combo['values'] = [str(i) for i in range(1, 32)]
+        self.day_combo.place(x=111, y=444)
+        self.day_combo.current(0)
+
+        self.month_label = tk.Label(self, text="Month", font=('Courier', 10), fg='white', bg='#7B6079')
+        self.month_label.place(x=170, y=444)
+        self.month_combo = ttk.Combobox(self, textvariable=self.month_var, state='readonly', font=('Courier', 13), width=3)
+        self.month_combo['values'] = [str(i) for i in range(1, 13)]
+        self.month_combo.place(x=220, y=444)
+        self.month_combo.current(0)
+
+        self.year_label = tk.Label(self, text="Year", font=('Courier', 10), fg='white', bg='#7B6079')
+        self.year_label.place(x=280, y=444)
+        self.year_combo = ttk.Combobox(self, textvariable=self.year_var, state='readonly', font=('Courier', 13), width=4)
+        self.year_combo['values'] = [str(i) for i in range(1900, 2025)]
+        self.year_combo.place(x=317, y=444)
+        self.year_combo.current(0)
 
         self.sign_up_button = tk.Button(self, text='Next', width=21, font=('Courier', 15, 'bold'),bg='#DE8971', command=self.go_to_Photo_page)
         self.sign_up_button.place(x=65, y=517)
@@ -97,14 +115,20 @@ class Photo (tk.Frame):
         self.Photo_bg = tk.Frame(self, bg='#7B6079', height=600, width=450)
         self.Photo_bg.place(x=0, y=0)
         
-        self.photo_label = tk.Label(self, text="photo")
+        self.photo_label = tk.Label(self, text="photo", font=('Courier', 20, 'bold'))
         self.photo_label.place(x=50, y=100)
         
         self.Back_button = tk.Button(self, text="Return", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_create_acc)
         self.Back_button.place(x=5, y=5)
         
-        self.Finish_button = tk.Button(self, text="Finish", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
-        self.Finish_button.place(x=275, y=559)
+        self.Finish_button = tk.Button(self, text='Finish', width=21, font=('Courier', 15, 'bold'),bg='#DE8971', command=self.go_to_Login_Page)
+        self.Finish_button.place(x=65, y=517)
+        
+        self.captcha_label = tk.Label(self, text='Captcha')
+        self.captcha_label.place(x=189, y=460)
+
+        self.terms_and_conditions_label = tk.Label(self, text='Terms & Conditions')
+        self.terms_and_conditions_label.place(x=170, y=484)
         
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
