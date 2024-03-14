@@ -4,7 +4,7 @@ class Signup(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__ (self, master)
         self.parent = master
-        self.config(width=350, height=400)
+        self.config(width=400, height=600)
 
         self.create_account_bg = tk.Frame(self, bg='#4F4A45', height=600, width=400)
         self.create_account_bg.place(x=0, y=0)
