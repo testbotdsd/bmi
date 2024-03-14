@@ -4,7 +4,7 @@ class Signup(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__ (self, master)
         self.parent = master
-        self.config(width=400, height=600)
+        self.config(width=350, height=400)
 
         self.back_button = tk.Button(self, text="back", command=self.go_to_welcome_page)
         self.back_button.place(x=30, y=30)

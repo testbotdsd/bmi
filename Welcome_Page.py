@@ -6,12 +6,12 @@ class Welcome(tk.Frame):
         self.parent = master
         self.config(width=350, height=400)
 
-        self.login_bg = tk.Frame(self, bg='#4F4A45', height=400, width=350)
+        self.login_bg = tk.Frame(self, bg='#7B6079', height=400, width=350)
         self.login_bg.place(x=0, y=0)
 
-        self.welcome1_label = tk.Label(self, text="WELCOME TO", font="Arial 25 bold", bg='#4F4A45', foreground='#ED7D31')
+        self.welcome1_label = tk.Label(self, text="WELCOME TO", font="Arial 25 bold", bg='#7B6079', foreground='#faf1e8')
         self.welcome1_label.place(x=57, y=40)
-        self.welcome2_label = tk.Label(self, text="BMI CALCULATOR", font="Arial 25 bold", bg='#4F4A45', foreground='#ED7D31')
+        self.welcome2_label = tk.Label(self, text="BMI CALCULATOR", font="Arial 25 bold", bg='#7B6079', foreground='#faf1e8')
         self.welcome2_label.place(x=20, y=80)
 
         self.login_btn = tk.Button(self, text="Login", font="Garamond 12 bold", width=12, command=self.go_to_login_page)
