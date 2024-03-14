@@ -2,6 +2,7 @@ import tkinter as tk
 import Welcome_Page
 import Login_Page
 import BMI_Page
+import SIgnup_Page
 
 class MainWindow(tk.Tk):
     def __init__(self):
@@ -12,6 +13,7 @@ class MainWindow(tk.Tk):
         self.frames ['Welcome_Page'] = Welcome_Page.Welcome(self)
 
         self.frames ['Login'] = Login_Page.Login(self)
+        self.frames ['Signup'] = SIgnup_Page.Signup(self)
 
         self.frames ['BMI'] = BMI_Page.BMI(self)
 
