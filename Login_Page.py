@@ -11,17 +11,17 @@ class Login (tk.Frame):
         self.login_bg.place(x=0, y=0)
 
         self.welcome_label = tk.Label(self, text="WELCOME", font="Arial 20 bold", bg='#4F4A45', foreground="#ED7D31")
-        self.welcome_label.place(x=50, y=20)
+        self.welcome_label.place(x=125, y=20)
 
         self.email_label = tk.Label(self, text="Email:")
         self.email_label.place(x=10, y=120)
         self.email_entry = tk.Entry(self, border=1)
-        self.email_entry.place(x=10, y=150)
+        self.email_entry.place(x=55, y=121)
 
         self.pass_label = tk.Label(self, text="Password:")
         self.pass_label.place(x=10, y=170)
         self.pass_entry = tk.Entry(self, border=1)
-        self.pass_entry.place(x=10, y=190)
+        self.pass_entry.place(x=75, y=171)
 
         self.back_button = tk.Button(self, text="back", command=self.go_to_welcome_page)
         self.back_button.place(x=30, y=550)
