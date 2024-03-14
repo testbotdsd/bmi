@@ -30,20 +30,20 @@ class Login (tk.Frame):
                                      bg='#FFE9D6',command=self.go_to_welcome_page)
         self.back_button.place(x=5, y=10)
 
-        self.login_button = tk.Button(self.login_bg, text='LOGIN', width=19, font=('Courier', 15, 'bold'),bg='#DE8971',
+        self.login_button = tk.Button(self.login_bg, text='LOGIN', width=23, font=('Courier', 15, 'bold'),bg='#DE8971',
                                       command=self.go_to_BMI_Page)
-        self.login_button.place(x=100, y=444)
+        self.login_button.place(x=80, y=444)
 
         self.forgot_password_button = tk.Button(self.login_bg, text = 'Forgot your password?',  font=('Courier', 11), 
                                                 fg='#88f2ea', bg='#7B6079',bd = 0, command=self.go_to_forgot_password)
         self.forgot_password_button.place (x=153, y=282)
 
-        self.no_account_label = tk.Label(self, text="Don't have an account?", bg='#7B6079', font="Courier 8")
-        self.no_account_label.place(x=99, y=488)
+        self.no_account_label = tk.Label(self, text="Don't have an account?", bg='#7B6079', font="Courier 10", foreground='white')
+        self.no_account_label.place(x=82, y=488)
 
-        self.sign_up_btn = tk.Button(self, text="Sign up now", bg='#7B6079', bd=0, font=('Courier', 8, 'bold'), 
+        self.sign_up_btn = tk.Button(self, text="Sign up now", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), 
                                      command=self.go_to_signup, foreground='#88f2ea')
-        self.sign_up_btn.place(x=259, y=488)
+        self.sign_up_btn.place(x=264, y=487)
 
     def go_to_forgot_password(self):
         self.parent.change_window('Forgot_Password')
