@@ -7,11 +7,21 @@ class Login (tk.Frame):
         self.config(width=400, height=600)
     
         #ANGELAINE NEW
-        self.welcome_label = tk.Label(self, text="WELCOME", font="Arial 20 bold")
-        self.welcome_label.place(x=0, y=0)
+        self.login_bg = tk.Frame(self, bg='#4F4A45', height=600, width=400)
+        self.login_bg.place(x=0, y=0)
 
+        self.welcome_label = tk.Label(self, text="WELCOME", font="Arial 20 bold", bg='#4F4A45', foreground="#ED7D31")
+        self.welcome_label.place(x=50, y=20)
+
+        self.email_label = tk.Label(self, text="Email:")
+        self.email_label.place(x=10, y=120)
         self.email_entry = tk.Entry(self, border=1)
-        self.email_entry.place(x=10, y=50)
+        self.email_entry.place(x=10, y=150)
+
+        self.pass_label = tk.Label(self, text="Password:")
+        self.pass_label.place(x=10, y=170)
+        self.pass_entry = tk.Entry(self, border=1)
+        self.pass_entry.place(x=10, y=190)
 
         self.back_button = tk.Button(self, text="back", command=self.go_to_welcome_page)
         self.back_button.place(x=30, y=550)
@@ -20,7 +30,7 @@ class Login (tk.Frame):
         self.continue_button.place(x=70, y=550)
 
         self.forgot_password_button = tk.Button(self, text = 'Forgot your password?', bd = 0, command=self.go_to_forgot_password)
-        self.forgot_password_button.place (x= 30, y=50)
+        self.forgot_password_button.place (x= 30, y=400)
 
     def go_to_forgot_password(self):
         self.parent.change_window('Forgot_Password')
