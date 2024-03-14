@@ -41,7 +41,3 @@ root.resizable(True, True)
 root.bind("<Configure>", lambda event: root.update_content())
 
 root.mainloop()
-
-root = MainWindow()
-root.resizable(False, False)
-root.mainloop()
