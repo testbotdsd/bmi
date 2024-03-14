@@ -69,15 +69,15 @@ class Signup(tk.Frame):
         # self.continue_button = tk.Button(self, text='Login', command=self.go_to_Login_Page)
         # self.continue_button.place(x=70, y=550)
 
-        self.sign_up_button = tk.Button(self, text='Sign Up', width=19, font=('Courier', 15, 'bold'),bg='#DE8971')
-        self.sign_up_button.place(x=20, y=508)
+        self.sign_up_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'),bg='#DE8971')
+        self.sign_up_button.place(x=65, y=517)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#7B6079', 
                                                     font="Courier 10", foreground='white')
-        self.have_an_account_login_label.place(x=20, y=556)
+        self.have_an_account_login_label.place(x=68, y=560)
         
         self.login_clickable = tk.Button(self, text="Login", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
-        self.login_clickable.place(x=194, y=556)
+        self.login_clickable.place(x=275, y=559)
 
 
 
