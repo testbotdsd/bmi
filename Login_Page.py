@@ -10,6 +10,7 @@ class Login (tk.Frame):
         self.login_bg = tk.Frame(self, bg='#7B6079', height=500, width=450)
         self.login_bg.place(x=0, y=0)
 
+<<<<<<< HEAD
         self.welcome_label = tk.Label(self.login_bg, text="WELCOME", font=('Courier', 25, 'bold'), fg='white', bg='#7B6079')
         self.welcome_label.place(x=150, y=40)
 
@@ -18,6 +19,20 @@ class Login (tk.Frame):
 
         self.email_entry = tk.Entry(self.login_bg, border=1, width=20, font=('Courier', 15), bg='#694e67')
         self.email_entry.place(x=100, y=170)
+=======
+        self.welcome_label = tk.Label(self, text="WELCOME", font="Arial 20 bold", bg='#4F4A45', foreground="#ED7D31")
+        self.welcome_label.place(x=125, y=20)
+
+        self.email_label = tk.Label(self, text="Email:")
+        self.email_label.place(x=10, y=120)
+        self.email_entry = tk.Entry(self, border=1)
+        self.email_entry.place(x=55, y=121)
+
+        self.pass_label = tk.Label(self, text="Password:")
+        self.pass_label.place(x=10, y=170)
+        self.pass_entry = tk.Entry(self, border=1)
+        self.pass_entry.place(x=75, y=171)
+>>>>>>> ffb308988368a98004e3e12caac8aec91ecda476
 
         self.pass_label = tk.Label(self.login_bg, text="Password", font=('Courier', 15), fg='white', bg='#7B6079')
         self.pass_label.place(x=100, y=225)
