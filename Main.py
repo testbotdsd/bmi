@@ -18,7 +18,6 @@ class MainWindow(tk.Tk):
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
         self.frames ['BMI'] = BMI_Page.BMI(self)
 
-
         self.change_window('Welcome_Page')
 
     def change_window(self, name):
@@ -34,8 +33,7 @@ class MainWindow(tk.Tk):
 
         # Print the updated window size (you can replace this with your content update logic)
         print(f"Window size updated: {window_width} x {window_height}")
-           
-  
+
 root = MainWindow()
 root.resizable(True, True)
 

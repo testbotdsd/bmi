@@ -9,10 +9,10 @@ class Signup(tk.Frame):
         self.create_account_bg = tk.Frame(self, bg='#7B6079', height=600, width=400)
         self.create_account_bg.place(x=0, y=0)
 
-        self.create_account_label = tk.Label(self, text='Create an Account', font='Arial 20 bold', bg='#4F4A45', foreground="#ED7D31")
-        self.create_account_label.place(x=75, y=10)
+        self.create_account_label = tk.Label(self, text='Create an Account', font=('Courier', 30, 'bold'), bg='#4F4A45', foreground="#ED7D31")
+        self.create_account_label.place(x=10, y=10)
 
-        self.to_get_started_label = tk.Label(self, text='to get started', font='Arial 16',  bg='#4F4A45', foreground="#ED7D31")
+        self.to_get_started_label = tk.Label(self, text='to get started', font=('Courier', 15, 'bold'),  bg='#4F4A45', foreground="#ED7D31")
         self.to_get_started_label.place(x=130, y=40)
 
         self.back_button = tk.Button(self, text="back", command=self.go_to_welcome_page)
