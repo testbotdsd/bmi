@@ -94,7 +94,7 @@ class Forgot_Password (tk.Frame):
         self.verification_label = tk.Label(self.forgot_password_label_bg, text="VERIFICATION", font=('Courier', 15), fg='white', bg='#7B6079')
         self.verification_label.place(x= 100, y= 350)
         
-        self.verification_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), show='*')
+        self.verification_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12))
         self.verification_entry.place(x = 100, y = 385)
 
         #cont button
