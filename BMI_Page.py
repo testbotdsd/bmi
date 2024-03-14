@@ -8,7 +8,14 @@ class BMI(tk.Frame):
         
         # MAIN FRAME
         self.main_frame = tk.Frame(self, bd=20, width=400, height=600, bg='#7B6079', relief='sunken')
-        self.welcome_frame = tk.Frame(self.main_frame, bd=10, width=300, height=70, bg='grey', relief='raised')
+        self.welcome_frame = tk.Frame(self.main_frame, bd=10, width=300, height=70, bg='grey', relief='raised') 
+
+        #Logout
+    #     self.Logout_Page = tk.Button (self.main_frame, text = 'Return', cursor='gumby', bg="grey", fg="white", font=("SimSun"), relief="raised", height=1, width=15, command=self.go_to_logout_page)
+    #     self.Logout_Page.place(x=5, y=5)
+        
+    # def go_to_logout_page(self):
+    #     self.master.change_window('Logout') 
         
         # TOP FRAMES
         self.frame_top_left = tk.Frame(self.main_frame, bd=10, width=140, height=80, bg='grey', relief='raised')
