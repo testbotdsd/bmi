@@ -25,4 +25,5 @@ class MainWindow(tk.Tk):
         self.frames[name].grid()
 
 root = MainWindow()
+root.resizable(False, False)
 root.mainloop()
