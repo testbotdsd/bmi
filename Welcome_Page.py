@@ -4,7 +4,7 @@ class Welcome(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__ (self, master)
         self.parent = master
-        self.config(width=400, height=600)
+        self.config(width=350, height=400)
 
         self.login_bg = tk.Frame(self, bg='#4F4A45', height=400, width=350)
         self.login_bg.place(x=0, y=0)
