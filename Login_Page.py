@@ -63,18 +63,12 @@ class Forgot_Password (tk.Frame):
         self.parent = master
         self.config(width=400, height=600)
 
-        self.login_bg = tk.Frame(self, bg='#7B6079', height=595, width=450)
-        self.login_bg.place(x=0, y=0)
+        self.forgot_password_label_bg = tk.Frame(self, bg='#7B6079', height=600, width=450)
+        self.forgot_password_label_bg.place(x=0, y=0)
 
-        self.welcome_label = tk.Label(self.login_bg, text="FORGOT PASSWORD", font=('Courier', 20, 'bold'), fg='white', 
-                                      bg='#7B6079')
-        self.welcome_label.place(x=95, y=40)
+        self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="Forgot Password", font=('Courier', 20, 'bold'), fg='white', bg='#7B6079')
+        self.forgot_password_label.place(x = 40, y = 30)
 
-<<<<<<< HEAD
-        self.back_button = tk.Button(self.login_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'),
-                                     bg='#FFE9D6')
-        self.back_button.place(x=5, y=10)
-=======
         # gmail num
         self.gmail_num_label = tk.Label(self.forgot_password_label_bg, text="GMAIL NUMBER", font=('Courier', 15), fg='white', bg='#7B6079')
         self.gmail_num_label.place(x = 100, y= 110)
@@ -110,7 +104,6 @@ class Forgot_Password (tk.Frame):
         #back button
         self.back_button = tk.Button(self.forgot_password_label_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'), bg='#FFE9D6', command=self.go_to_login)
         self.back_button.place(x= 5, y= 10)
->>>>>>> f2f39102148012c4a343010b9d35ba4ae8bee04d
 
     def go_to_login(self):
         self.parent.change_window('Login')
