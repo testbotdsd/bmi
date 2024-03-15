@@ -4,11 +4,11 @@ class Signup(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__ (self, master)
         self.parent = master
-        self.config(width=400, height=600)
+        self.config(width=450, height=595)
 
         #WELCOME LABELS
 
-        self.create_account_bg = tk.Frame(self, bg='#7B6079', height=600, width=400)
+        self.create_account_bg = tk.Frame(self, bg='#7B6079', height=595, width=450)
         self.create_account_bg.place(x=0, y=0)
 
         self.create_account_label = tk.Label(self, text='Create an Account', font=('Courier', 25, 'bold'), bg='#7B6079', foreground="white")
@@ -48,8 +48,7 @@ class Signup(tk.Frame):
         self.password_entry = tk.Entry(self, border=1)
         self.password_entry.place(x=10, y=332)
 
-        self.confirm_password_label = tk.Label(self, text='Confirm Password', font=('Courier', 12), fg='white', 
-                                               bg='#7B6079')
+        self.confirm_password_label = tk.Label(self, text='Confirm Password', font=('Courier', 12), fg='white', bg='#7B6079')
         self.confirm_password_label.place(x=10, y=365)
 
         self.confirm_password_entry = tk.Entry(self, border=1)
@@ -61,13 +60,7 @@ class Signup(tk.Frame):
         self.terms_and_conditions_label = tk.Label(self, text='Terms & Conditions')
         self.terms_and_conditions_label.place(x=10, y=475)
 
-        # self.back_button = tk.Button(self, text="back", command=self.go_to_welcome_page)
-        # self.back_button.place(x=30, y=550)
-
-        # self.continue_button = tk.Button(self, text='Login', command=self.go_to_Login_Page)
-        # self.continue_button.place(x=70, y=550)
-
-        self.sign_up_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'),bg='#DE8971')
+        self.sign_up_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'),bg='#DE8971', command=self.go_to_Login_Page)
         self.sign_up_button.place(x=65, y=517)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#7B6079', font="Courier 10", foreground='white')
@@ -75,7 +68,6 @@ class Signup(tk.Frame):
         
         self.login_clickable = tk.Button(self, text="Login", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
         self.login_clickable.place(x=275, y=559)
-
 
 
     def go_to_welcome_page(self):
