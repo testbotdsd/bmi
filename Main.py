@@ -10,7 +10,7 @@ class MainWindow(tk.Tk):
         tk.Tk.__init__(self)
         self.wm_title("BMI CALCULATOR")     
 
-dasdasdsad  
+ 
         self.frames = {}
         self.frames ['Welcome_Page'] = Welcome_Page.Welcome(self)
 
