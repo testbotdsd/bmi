@@ -21,44 +21,51 @@ class Signup(tk.Frame):
         self.first_name_label = tk.Label(self, text='First Name', font=('Courier', 12), fg='white', bg='#7B6079')
         self.first_name_label.place(x=10, y=80)
 
-        self.first_name_entry = tk.Entry(self, border=1)
+        self.first_name_entry = tk.Entry(self, border=1, width=31)
         self.first_name_entry.place(x=10, y=104)
 
         self.last_name_label = tk.Label(self, text='Last Name', font=('Courier', 12), fg='white', bg='#7B6079')
         self.last_name_label.place(x=10, y=137)
 
-        self.last_name_entry = tk.Entry(self, border=1)
+        self.last_name_entry = tk.Entry(self, border=1, width=31)
         self.last_name_entry.place(x=10, y=161)
 
         self.gmail_label = tk.Label(self, text='Gmail', font=('Courier', 12), fg='white', bg='#7B6079')
         self.gmail_label.place(x=10, y=194)
 
-        self.gmail_entry = tk.Entry(self, border=1)
+        self.gmail_entry = tk.Entry(self, border=1, width=31)
         self.gmail_entry.place(x=10, y=218)
 
         self.username_label = tk.Label(self, text='Username', font=('Courier', 12), fg='white', bg='#7B6079')
         self.username_label.place(x=10, y=251)
 
-        self.username_entry = tk.Entry(self, border=1)
+        self.username_entry = tk.Entry(self, border=1, width=31)
         self.username_entry.place(x=10, y=275)
 
         self.password_label = tk.Label(self, text='Password', font=('Courier', 12), fg='white', bg='#7B6079')
         self.password_label.place(x=10, y=308)
 
-        self.password_entry = tk.Entry(self, border=1)
+        self.password_entry = tk.Entry(self, border=1, width=31)
         self.password_entry.place(x=10, y=332)
 
         self.confirm_password_label = tk.Label(self, text='Confirm Password', font=('Courier', 12), fg='white', bg='#7B6079')
         self.confirm_password_label.place(x=10, y=365)
 
-        self.confirm_password_entry = tk.Entry(self, border=1)
+        self.confirm_password_entry = tk.Entry(self, border=1, width=31)
         self.confirm_password_entry.place(x=10, y=389)
 
         self.captcha_label = tk.Label(self, text='Captcha')
         self.captcha_label.place(x=10, y=432)
 
-        self.terms_and_conditions_label = tk.Label(self, text='Terms & Conditions')
-        self.terms_and_conditions_label.place(x=10, y=475)
+        self.tnc_checkbox = tk.Checkbutton(self, text="I agree to the", bg='#7B6079', font="Courier 10", foreground='white')
+        self.tnc_checkbox.place(x=10, y=475)
+
+        # self.agree_tnc_label = tk.Label(self, text="I agree to the", bg='#7B6079', font="Courier 10", foreground='white')
+        # self.agree_tnc_label.place(x=10, y=475)
+
+        self.terms_conditions_btn = tk.Button(self, text="Terms & Conditions",font=('Courier', 11), 
+                                                fg='#88f2ea', bg='#7B6079',bd = 0)
+        self.terms_conditions_btn.place(x=150, y=475)
 
         self.sign_up_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'),bg='#DE8971', command=self.go_to_Login_Page)
         self.sign_up_button.place(x=65, y=517)

@@ -15,20 +15,20 @@ class Login (tk.Frame):
         self.welcome_label.place(x=95, y=40)
 
         self.username_label = tk.Label(self.login_bg, text="Username", font=('Courier', 15), fg='white', bg='#7B6079')
-        self.username_label.place(x=81, y=145)
+        self.username_label.place(x=81, y=185)
 
         self.username_entry = tk.Entry(self.login_bg, border=1, width=23, font=('Courier', 15), bg='#694e67')
-        self.username_entry.place(x=81, y=175)
+        self.username_entry.place(x=81, y=215)
 
         self.pass_label = tk.Label(self.login_bg, text="Password", font=('Courier', 15), fg='white', bg='#7B6079')
-        self.pass_label.place(x=81, y=225)
+        self.pass_label.place(x=81, y=265)
 
         self.pass_entry = tk.Entry(self.login_bg, border=1, width=23, font=('Courier', 15), bg='#694e67')
-        self.pass_entry.place(x=81, y=255)
+        self.pass_entry.place(x=81, y=295)
 
         self.back_button = tk.Button(self.login_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'),
                                      bg='#FFE9D6',command=self.go_to_welcome_page)
-        self.back_button.place(x=5, y=10)
+        self.back_button.place(x=5, y=5)
 
         self.login_button = tk.Button(self.login_bg, text='LOGIN', width=23, font=('Courier', 15, 'bold'),bg='#DE8971',
                                       command=self.go_to_BMI_Page)
@@ -36,7 +36,7 @@ class Login (tk.Frame):
 
         self.forgot_password_button = tk.Button(self.login_bg, text = 'Forgot your password?',  font=('Courier', 11), 
                                                 fg='#88f2ea', bg='#7B6079',bd = 0, command=self.go_to_forgot_password)
-        self.forgot_password_button.place (x=166, y=282)
+        self.forgot_password_button.place (x=166, y=322)
 
         self.no_account_label = tk.Label(self, text="Don't have an account?", bg='#7B6079', font="Courier 10", foreground='white')
         self.no_account_label.place(x=82, y=488)
@@ -110,5 +110,3 @@ class Forgot_Password (tk.Frame):
     
     def on_return(self):
         pass
-
-
