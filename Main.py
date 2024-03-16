@@ -6,6 +6,8 @@ import SIgnup_Page
 import Logout_page
 import Profile_Page
 
+asdasd
+
 class MainWindow(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
