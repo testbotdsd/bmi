@@ -1,8 +1,8 @@
 import tkinter as tk
 
-class Login (tk.Frame):
+class Login(tk.Frame):
     def __init__(self, master):
-        tk.Frame.__init__ (self, master)
+        tk.Frame.__init__(self, master)
         self.parent = master
         self.config(width=450, height=600)
     
@@ -26,11 +26,11 @@ class Login (tk.Frame):
         self.pass_entry.place(x=81, y=295)
 
         self.login_button = tk.Button(self.login_bg, text='LOGIN', width=23, font=('Courier', 15, 'bold'), bg='#E0CCBE', foreground='#3C3633', 
-                                      command=self.go_to_BMI_Page)
+                                      command=self.validate_login)
         self.login_button.place(x=80, y=444)
 
-        self.forgot_password_button = tk.Button(self.login_bg, text = 'Forgot your password?',  font=('Courier', 11), fg='#5e918e', 
-                                                bg='#3C3633',bd = 0, command=self.go_to_forgot_password)
+        self.forgot_password_button = tk.Button(self.login_bg, text='Forgot your password?',  font=('Courier', 11), fg='#5e918e', 
+                                                bg='#3C3633', bd=0, command=self.go_to_forgot_password)
         self.forgot_password_button.place (x=166, y=322)
 
         self.no_account_label = tk.Label(self, text="Don't have an account?", bg='#3C3633', font="Courier 10", foreground='#EEEDEB')
@@ -48,6 +48,17 @@ class Login (tk.Frame):
     
     def go_to_signup(self):
         self.parent.change_window('Signup')
+
+    def validate_login(self):
+        # Check if both username and password are provided
+        username = self.username_entry.get()
+        password = self.pass_entry.get()
+
+        if username.strip() == "" or password.strip() == "":
+            tk.messagebox.showerror("Error", "Please fill in both username and password fields.")
+        else:
+            self.go_to_BMI_Page()
+
 
 class Forgot_Password (tk.Frame):
     def __init__(self, master):
