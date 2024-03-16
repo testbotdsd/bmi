@@ -82,6 +82,9 @@ class BMI(tk.Frame):
         
         self.height_cm_entry.bind('<KeyRelease>', self.update_height_cm)
         self.height_m_entry.bind('<KeyRelease>', self.update_height_m)
+
+        self.clear_button = tk.Button(self.main_frame, text = 'Logout', bg="grey", fg="white", font=("SimSun"), relief="raised", width=16,) #command = self.go_to_Logout_page.Logout)
+        self.clear_button.place(x=10, y=525)
   
     def update_weight_lb(self, event):
         try:
