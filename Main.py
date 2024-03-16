@@ -3,6 +3,7 @@ import Welcome_Page
 import Login_Page
 import BMI_Page
 import SIgnup_Page
+import Logout_page
 
 class MainWindow(tk.Tk):
     def __init__(self):
@@ -12,12 +13,17 @@ class MainWindow(tk.Tk):
         self.frames = {}
         self.frames ['Welcome_Page'] = Welcome_Page.Welcome(self)
 
+        #login Page
         self.frames ['Login'] = Login_Page.Login(self)
         self.frames ['Forgot_Password'] = Login_Page.Forgot_Password(self)
 
+        #Sign Up
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
+        self.frames ['Photo'] = SIgnup_Page.Photo(self)
+        
         self.frames ['BMI'] = BMI_Page.BMI(self)
-
+        
+        self.frames ['Logout'] = Logout_page.Logout(self)
 
         self.change_window('Welcome_Page')
 
@@ -34,17 +40,10 @@ class MainWindow(tk.Tk):
 
         # Print the updated window size (you can replace this with your content update logic)
         print(f"Window size updated: {window_width} x {window_height}")
-           
-  
+
 root = MainWindow()
 root.resizable(True, True)
 
 # Bind the window resize event to the update_content method
 root.bind("<Configure>", lambda event: root.update_content())
-
 root.mainloop()
-
-""" root = MainWindow()
-root.resizable(False, False)
-root.mainloop()
- """

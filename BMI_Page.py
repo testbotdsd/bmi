@@ -7,8 +7,15 @@ class BMI(tk.Frame):
         self.config(width=400, height=600)
         
         # MAIN FRAME
-        self.main_frame = tk.Frame(self, bd=20, width=350, height=600, bg='sky blue', relief='sunken')
-        self.welcome_frame = tk.Frame(self.main_frame, bd=10, width=300, height=70, bg='grey', relief='raised')
+        self.main_frame = tk.Frame(self, bd=20, width=400, height=600, bg='#7B6079', relief='sunken')
+        self.welcome_frame = tk.Frame(self.main_frame, bd=10, width=300, height=70, bg='grey', relief='raised') 
+
+        #Logout
+    #     self.Logout_Page = tk.Button (self.main_frame, text = 'Return', cursor='gumby', bg="grey", fg="white", font=("SimSun"), relief="raised", height=1, width=15, command=self.go_to_logout_page)
+    #     self.Logout_Page.place(x=5, y=5)
+        
+    # def go_to_logout_page(self):
+    #     self.master.change_window('Logout') 
         
         # TOP FRAMES
         self.frame_top_left = tk.Frame(self.main_frame, bd=10, width=140, height=80, bg='grey', relief='raised')
@@ -75,6 +82,9 @@ class BMI(tk.Frame):
         
         self.height_cm_entry.bind('<KeyRelease>', self.update_height_cm)
         self.height_m_entry.bind('<KeyRelease>', self.update_height_m)
+
+        self.clear_button = tk.Button(self.main_frame, text = 'Logout', bg="grey", fg="white", font=("SimSun"), relief="raised", width=16,) #command = self.go_to_Logout_page.Logout)
+        self.clear_button.place(x=10, y=525)
   
     def update_weight_lb(self, event):
         try:
