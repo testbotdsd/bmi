@@ -116,7 +116,7 @@ class Signup(tk.Frame):
             messagebox.showerror("Error", "Please fill in all the fields before proceeding to the next page")
         else:
             # Clear username and password fields
-            self.reset_fields()
+            # self.reset_fields()
             self.go_to_Photo_page()
 
     def on_return(self):
