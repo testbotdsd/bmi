@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from customtkinter import *
 from tkinter import messagebox
 
 class Signup(tk.Frame):
@@ -94,7 +95,6 @@ class Signup(tk.Frame):
         self.login_clickable = tk.Button(self, text="Login", bg='#3C3633', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
         self.login_clickable.place(x=275, y=559)
 
-
     def go_to_welcome_page(self):
         self.parent.change_window('Welcome_Page')
 
@@ -103,7 +103,6 @@ class Signup(tk.Frame):
         
     def go_to_Login_Page(self):
         self.parent.change_window('Login')
-
 
     def on_return(self):
         pass
@@ -129,14 +128,31 @@ class Photo (tk.Frame):
         self.captcha_label = tk.Label(self, text='Captcha')
         self.captcha_label.place(x=189, y=460)
 
+    #     self.off_checkbox = StringVar(value='off')
+    #     self.checkbox = CTkCheckBox (self, text='Terms and condition', variable=self.off_checkbox, onvalue='on', offvalue='off')
+    #     self.checkbox.place(x=170, y=484)
         self.terms_and_conditions_var = tk.BooleanVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.terms_and_conditions_var)
         self.terms_and_conditions_check_button.place(x=95, y=484)
         
+    #     # self.terms_and_conditions_label = tk.Label(self, text='Terms & Conditions')
+    #     # self.terms_and_conditions_label.place(x=170, y=484)
+    # def go_to_terms_and_condition(self):
+    #     if self.off_checkbox.get() == 'on':
+    #         self.parent.change_window('Terms_And_Conditions')
+    #     else:
+    #         self.parent.change_window('Photo')
+
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
         
     def go_to_Login_Page(self):
         self.parent.change_window('Login')
+        
+# class terms_and_condition (tk.Frame):
+#     def __init__(self, master):
+#         tk.Frame.__init__ (self, master)
+#         self.parent = master
+#         self.config(width=200, height=200)
 
     
