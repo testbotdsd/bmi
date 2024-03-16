@@ -131,6 +131,17 @@ class Photo (tk.Frame):
         self.terms_and_conditions_var = tk.BooleanVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.terms_and_conditions_var)
         self.terms_and_conditions_check_button.place(x=95, y=484)
+<<<<<<< HEAD
+=======
+        
+    #     # self.terms_and_conditions_label = tk.Label(self, text='Terms & Conditions')
+    #     # self.terms_and_conditions_label.place(x=170, y=484)
+    # def go_to_terms_and_condition(self):
+    #     if self.off_checkbox.get() == 'on':
+    #         self.parent.change_window('Terms_And_Conditions')
+    #     else:
+    #         self.parent.change_window('Photo')
+>>>>>>> c775daf60138db3276ca8cc608b56961331927cc
 
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
