@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 class BMI(tk.Frame):
     def __init__ (self, master):
@@ -79,12 +80,14 @@ class BMI(tk.Frame):
         self.result_entry.place (x = 120, y = 8)
         
         self.evaluation_result_label = None
+
         
         self.height_cm_entry.bind('<KeyRelease>', self.update_height_cm)
         self.height_m_entry.bind('<KeyRelease>', self.update_height_m)
 
-        self.clear_button = tk.Button(self.main_frame, text = 'Logout', bg="grey", fg="white", font=("SimSun"), relief="raised", width=16,) #command = self.go_to_Logout_page.Logout)
-        self.clear_button.place(x=10, y=525)
+        self.logout_button = tk.Button(self.main_frame, text = 'Logout', bg="grey", fg="white", font=("SimSun"), relief="raised", width=16, command = self.go_to_welcome_page)
+        self.logout_button.place(x=10, y=525)
+    
   
     def update_weight_lb(self, event):
         try:
@@ -171,3 +174,13 @@ class BMI(tk.Frame):
         
     def on_return(self):
         pass
+
+    def go_to_welcome_page(self):
+        choice = messagebox.askyesno("Logout Confirmation", "Are you sure you want to logout?")
+        if choice:
+            self.master.change_window('Welcome_Page')
+        else:
+            pass
+            
+
+
