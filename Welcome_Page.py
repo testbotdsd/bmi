@@ -22,10 +22,10 @@ class Welcome(tk.Frame):
         font_style = ("Garamond", 15, "bold")
 
         self.login_btn = CTkButton(self, text="Login", height=50, width=50, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
-                                   hover_color='Blue', corner_radius=30, command=self.go_to_login_page)
+                                   hover_color='#747264', corner_radius=30, command=self.go_to_login_page)
         self.login_btn.place(x=130, y=185)
 
-        self.sign_up_btn = CTkButton(self, text="Signup", bg_color='#3C3633', height=50, width=50, hover_color="pink", fg_color='#B09079', 
+        self.sign_up_btn = CTkButton(self, text="Signup", bg_color='#3C3633', height=50, width=50, hover_color="#747264", fg_color='#B09079', 
                                      font=font_style, corner_radius=30, command=self.go_to_Sign_up_Page)
         self.sign_up_btn.place(x=125, y=270)
         
