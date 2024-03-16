@@ -4,6 +4,7 @@ import Login_Page
 import BMI_Page
 import SIgnup_Page
 import Logout_page
+from customtkinter import *
 
 class MainWindow(tk.Tk):
     def __init__(self):
