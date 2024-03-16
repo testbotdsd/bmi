@@ -4,6 +4,7 @@ import Login_Page
 import BMI_Page
 import SIgnup_Page
 import Logout_page
+import Profile_Page
 
 class MainWindow(tk.Tk):
     def __init__(self):
@@ -20,6 +21,9 @@ class MainWindow(tk.Tk):
         #Sign Up
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
         self.frames ['Photo'] = SIgnup_Page.Photo(self)
+
+        #Profile Page
+        self.frames ['Profile'] = Profile_Page.Profile(self)
         
         self.frames ['BMI'] = BMI_Page.BMI(self)
         
