@@ -86,7 +86,7 @@ class Signup(tk.Frame):
         self.year_combo.current(0)
 
         self.sign_up_button = tk.Button(self, text='Next', width=21, font=('Courier', 15, 'bold'), bg='#E0CCBE', foreground='#3C3633', 
-                                        command=self.go_to_Photo_page)
+                                        command=self.validate_signin)
         self.sign_up_button.place(x=65, y=517)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
@@ -103,6 +103,21 @@ class Signup(tk.Frame):
         
     def go_to_Login_Page(self):
         self.parent.change_window('Login')
+
+    def validate_signin(self):
+        firstname = self.first_name_entry.get()
+        lastname = self.last_name_entry.get()
+        gmail = self.gmail_entry.get()
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+        confirm_pass = self.confirm_password_entry.get()
+
+        if username.strip() == "" or password.strip() == "" or firstname.strip() == "" or lastname.strip() == "" or gmail.strip() == "" or confirm_pass.strip() == "":
+            messagebox.showerror("Error", "Please fill in all the fields before proceeding to the next page")
+        else:
+            # Clear username and password fields
+            self.reset_fields()
+            self.go_to_Photo_page()
 
     def on_return(self):
         pass

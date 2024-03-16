@@ -31,7 +31,7 @@ class Login(tk.Frame):
         self.toggle_password_button.place(x=322, y=296)
 
         self.login_button = CTkButton(self.login_bg, text='LOGIN', width=300,height=40,corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', 
-                                      text_color='black',command=self.validate_login)
+                                        text_color='black',command=self.validate_login)
         self.login_button.place(x=81, y=440)
 
         self.forgot_password_button = tk.Button(self.login_bg, text='Forgot your password?',  font=('Courier', 11), fg='#5e918e', 
@@ -42,7 +42,7 @@ class Login(tk.Frame):
         self.no_account_label.place(x=82, y=488)
 
         self.sign_up_btn = tk.Button(self.login_bg, text="Sign up now", bg='#3C3633', bd=0, font=('Courier', 10, 'bold'), 
-                                     command=self.go_to_signup, foreground='#5e918e')
+                                        command=self.go_to_signup, foreground='#5e918e')
         self.sign_up_btn.place(x=264, y=487)
 
         self.password_hidden = True 
@@ -123,7 +123,7 @@ class Forgot_Password (tk.Frame):
 
         #cont button
         self.continue_button = CTkButton(self, text='Continue', width=200, height=40,corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', 
-                                      text_color='black', command=self.go_to_login)
+                                            text_color='black', command=self.go_to_login)
         self.continue_button.place( x =100, y = 440)
 
         #back button
