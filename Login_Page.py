@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from customtkinter import *
 
 class Login(tk.Frame):
     def __init__(self, master):
@@ -29,9 +30,9 @@ class Login(tk.Frame):
         self.toggle_password_button = tk.Button(self.login_bg, text="Show", font=('Courier', 10), bg='#3C3633', fg='#5e918e', command=self.toggle_password)
         self.toggle_password_button.place(x=370, y=295)
 
-        self.login_button = tk.Button(self.login_bg, text='LOGIN', width=23, font=('Courier', 15, 'bold'), bg='#E0CCBE', foreground='#3C3633', 
-                                      command=self.validate_login)
-        self.login_button.place(x=80, y=444)
+        self.login_button = CTkButton(self.login_bg, text='LOGIN', width=300,height=40,corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', 
+                                      text_color='black',command=self.validate_login)
+        self.login_button.place(x=81, y=440)
 
         self.forgot_password_button = tk.Button(self.login_bg, text='Forgot your password?',  font=('Courier', 11), fg='#5e918e', 
                                                 bg='#3C3633', bd=0, command=self.go_to_forgot_password)
