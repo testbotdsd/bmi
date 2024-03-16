@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 class BMI(tk.Frame):
     def __init__ (self, master):
@@ -7,7 +8,7 @@ class BMI(tk.Frame):
         self.config(width=400, height=600)
         
         # MAIN FRAME
-        self.main_frame = tk.Frame(self, bd=20, width=400, height=600, bg='#7B6079', relief='sunken')
+        self.main_frame = tk.Frame(self, bd=20, width=400, height=600, bg='#A7D0CD', relief='groove')
         self.welcome_frame = tk.Frame(self.main_frame, bd=10, width=300, height=70, bg='grey', relief='raised') 
 
         #Logout
@@ -18,15 +19,15 @@ class BMI(tk.Frame):
     #     self.master.change_window('Logout') 
         
         # TOP FRAMES
-        self.frame_top_left = tk.Frame(self.main_frame, bd=10, width=140, height=80, bg='grey', relief='raised')
-        self.frame_top_right = tk.Frame(self.main_frame, bd=10, width=140, height=80, bg='grey', relief='raised')
+        self.frame_top_left = tk.Frame(self.main_frame, bd=10, width=140, height=80, bg='grey', relief='flat')
+        self.frame_top_right = tk.Frame(self.main_frame, bd=10, width=140, height=80, bg='grey', relief='flat')
         
         # BOTTOM FRAMES
-        self.frame_bottom_left = tk.Frame(self.main_frame, bd=10, width=140, height=80, bg='grey', relief='raised')
-        self.frame_bottom_right = tk.Frame(self.main_frame, bd=10, width=140, height=80, bg='grey', relief='raised')
+        self.frame_bottom_left = tk.Frame(self.main_frame, bd=10, width=140, height=80, bg='grey', relief='flat')
+        self.frame_bottom_right = tk.Frame(self.main_frame, bd=10, width=140, height=80, bg='grey', relief='flat')
         
         #Result Frame
-        self.frame_result = tk.Frame(self.main_frame, bd=10, width=300, height=70, bg='grey', relief='raised')
+        self.frame_result = tk.Frame(self.main_frame, bd=10, width=300, height=70, bg='grey', relief='flat')
 
         self.main_frame.place(x=0, y=0)
         self.welcome_frame.place(x=10, y=10)
@@ -36,7 +37,7 @@ class BMI(tk.Frame):
         self.frame_bottom_right.place(x=168, y=190)
         self.frame_result.place(x=8, y=400)
 
-        self.welcome_label = tk.Label(self.welcome_frame, text="Welcome to BMI Calculator", bg='grey', font=("Poor Richard", 16, 'bold'), foreground='white')
+        self.welcome_label = tk.Label(self.welcome_frame, text="Welcome to BMI Calculator", bg='grey', font=('Courier', 12), foreground='white')
         self.welcome_label.place(x=7, y=10)
 
         self.submit_button = tk.Button (self.main_frame, text = 'Calculate BMI', cursor='gumby', bg="grey", fg="white", font=("SimSun"), relief="raised", height=1, width=15, command=self.calculate_BMI)
@@ -79,9 +80,14 @@ class BMI(tk.Frame):
         self.result_entry.place (x = 120, y = 8)
         
         self.evaluation_result_label = None
+
         
         self.height_cm_entry.bind('<KeyRelease>', self.update_height_cm)
         self.height_m_entry.bind('<KeyRelease>', self.update_height_m)
+
+        self.logout_button = tk.Button(self.main_frame, text = 'Logout', bg="grey", fg="white", font=("SimSun"), relief="raised", width=16, command = self.go_to_welcome_page)
+        self.logout_button.place(x=10, y=525)
+    
   
     def update_weight_lb(self, event):
         try:
@@ -168,3 +174,13 @@ class BMI(tk.Frame):
         
     def on_return(self):
         pass
+
+    def go_to_welcome_page(self):
+        choice = messagebox.askyesno("Logout Confirmation", "Are you sure you want to logout?")
+        if choice:
+            self.master.change_window('Welcome_Page')
+        else:
+            pass
+            
+
+
