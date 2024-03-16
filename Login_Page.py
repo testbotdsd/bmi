@@ -1,9 +1,4 @@
 import tkinter as tk
-
-import tkinter as tk
-from tkinter import messagebox
-
-import tkinter as tk
 from tkinter import messagebox
 
 class Login(tk.Frame):
@@ -77,9 +72,13 @@ class Login(tk.Frame):
         if username.strip() == "" or password.strip() == "":
             messagebox.showerror("Error", "Please fill in both username and password fields.")
         else:
+            # Clear username and password fields
+            self.reset_fields()
             self.go_to_BMI_Page()
 
-
+    def reset_fields(self):
+        self.username_entry.delete(0, tk.END)
+        self.pass_entry.delete(0, tk.END)
 
 class Forgot_Password (tk.Frame):
     def __init__(self, master):
