@@ -69,6 +69,7 @@ class Forgot_Password (tk.Frame):
 
     def go_to_login(self):
         self.parent.change_window('Login')
+
     
     
     
