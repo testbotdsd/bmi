@@ -103,23 +103,6 @@ class Signup(tk.Frame):
     def go_to_Login_Page(self):
         self.parent.change_window('Login')
 
-<<<<<<< HEAD
-=======
-    def validate_signin(self):
-        firstname = self.first_name_entry.get()
-        lastname = self.last_name_entry.get()
-        gmail = self.gmail_entry.get()
-        username = self.username_entry.get()
-        password = self.password_entry.get()
-        confirm_pass = self.confirm_password_entry.get()
-
-        if username.strip() == "" or password.strip() == "" or firstname.strip() == "" or lastname.strip() == "" or gmail.strip() == "" or confirm_pass.strip() == "":
-            messagebox.showerror("Error", "Please fill in all the fields before proceeding to the next page")
-        else:
-            # Clear username and password fields
-            # self.reset_fields()
-            self.go_to_Photo_page()
->>>>>>> 3b203e5b79baa09d3f493c2eb45d945a915e6ac4
 
     def on_return(self):
         pass
