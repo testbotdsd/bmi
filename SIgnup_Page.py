@@ -104,20 +104,6 @@ class Signup(tk.Frame):
     def go_to_Login_Page(self):
         self.parent.change_window('Login')
 
-    def validate_signin(self):
-        firstname = self.first_name_entry.get()
-        lastname = self.last_name_entry.get()
-        gmail = self.gmail_entry.get()
-        username = self.username_entry.get()
-        password = self.password_entry.get()
-        confirm_pass = self.confirm_password_entry.get()
-
-        if username.strip() == "" or password.strip() == "" or firstname.strip() == "" or lastname.strip() == "" or gmail.strip() == "" or confirm_pass.strip() == "":
-            messagebox.showerror("Error", "Please fill in all the fields before proceeding to the next page")
-        else:
-            # Clear username and password fields
-            self.reset_fields()
-            self.go_to_Photo_page()
 
     def on_return(self):
         pass
@@ -143,23 +129,9 @@ class Photo (tk.Frame):
         self.captcha_label = tk.Label(self, text='Captcha')
         self.captcha_label.place(x=189, y=460)
 
-    #     self.off_checkbox = StringVar(value='off')
-    #     self.checkbox = CTkCheckBox (self, text='Terms and condition', variable=self.off_checkbox, onvalue='on', offvalue='off')
-    #     self.checkbox.place(x=170, y=484)
         self.terms_and_conditions_var = tk.BooleanVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.terms_and_conditions_var)
         self.terms_and_conditions_check_button.place(x=95, y=484)
-<<<<<<< HEAD
-=======
-        
-    #     # self.terms_and_conditions_label = tk.Label(self, text='Terms & Conditions')
-    #     # self.terms_and_conditions_label.place(x=170, y=484)
-    # def go_to_terms_and_condition(self):
-    #     if self.off_checkbox.get() == 'on':
-    #         self.parent.change_window('Terms_And_Conditions')
-    #     else:
-    #         self.parent.change_window('Photo')
->>>>>>> 108c775cf1d90049e46f1db7e1c4f0f58361f661
 
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
