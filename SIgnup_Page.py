@@ -1,10 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-<<<<<<< HEAD
 from customtkinter import *
-=======
 from tkinter import messagebox
->>>>>>> a349df16829c39a4dddba2b93c5d214be48ac51a
 
 class Signup(tk.Frame):
     def __init__(self, master):
@@ -131,15 +128,12 @@ class Photo (tk.Frame):
         self.captcha_label = tk.Label(self, text='Captcha')
         self.captcha_label.place(x=189, y=460)
 
-<<<<<<< HEAD
     #     self.off_checkbox = StringVar(value='off')
     #     self.checkbox = CTkCheckBox (self, text='Terms and condition', variable=self.off_checkbox, onvalue='on', offvalue='off')
     #     self.checkbox.place(x=170, y=484)
-=======
         self.terms_and_conditions_var = tk.BooleanVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.terms_and_conditions_var)
         self.terms_and_conditions_check_button.place(x=95, y=484)
->>>>>>> a349df16829c39a4dddba2b93c5d214be48ac51a
         
     #     # self.terms_and_conditions_label = tk.Label(self, text='Terms & Conditions')
     #     # self.terms_and_conditions_label.place(x=170, y=484)
@@ -154,14 +148,11 @@ class Photo (tk.Frame):
         
     def go_to_Login_Page(self):
         self.parent.change_window('Login')
-<<<<<<< HEAD
         
 # class terms_and_condition (tk.Frame):
 #     def __init__(self, master):
 #         tk.Frame.__init__ (self, master)
 #         self.parent = master
 #         self.config(width=200, height=200)
-=======
 
     
->>>>>>> a349df16829c39a4dddba2b93c5d214be48ac51a

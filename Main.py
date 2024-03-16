@@ -4,11 +4,7 @@ import Login_Page
 import BMI_Page
 import SIgnup_Page
 import Logout_page
-<<<<<<< HEAD
-from customtkinter import *
-=======
 import Profile_Page
->>>>>>> a349df16829c39a4dddba2b93c5d214be48ac51a
 
 class MainWindow(tk.Tk):
     def __init__(self):
