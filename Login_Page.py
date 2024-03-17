@@ -69,11 +69,10 @@ class Login(tk.Frame):
     def validate_login(self):
         username = self.username_entry.get()
         password = self.pass_entry.get()
-
-        if username.strip() == "" or password.strip() == "":
+        
+        if username == "" or password == "":
             messagebox.showerror("Error", "Please fill in both username and password fields.")
         else:
-            # Clear username and password fields
             self.reset_fields()
             self.go_to_BMI_Page()
 
@@ -91,43 +90,43 @@ class Forgot_Password (tk.Frame):
         self.forgot_password_label_bg.place(x=0, y=0)
 
         self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="Forgot Password", font=('Courier', 20, 'bold'), fg='white', bg='#3C3633')
-        self.forgot_password_label.place(x = 40, y = 30)
+        self.forgot_password_label.place(x = 80, y = 40)
 
         # gmail num
-        self.gmail_num_label = tk.Label(self.forgot_password_label_bg, text="GMAIL Account", font=('Courier', 15), fg='white', bg='#3C3633')
+        self.gmail_num_label = tk.Label(self.forgot_password_label_bg, text="Gmail Account", font=('Courier', 15), fg='white', bg='#3C3633')
         self.gmail_num_label.place(x = 100, y= 110)
         
-        self.gmail_num_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12))
+        self.gmail_num_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12),bg='#59504b')
         self.gmail_num_entry.place(x= 100, y= 145)
 
         #new pass
         self.new_password_label = tk.Label(self.forgot_password_label_bg, text="New Password", font=('Courier', 15), fg='white', bg='#3C3633')
         self.new_password_label.place( x = 100, y= 190)
         
-        self.new_password_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), show='*')
+        self.new_password_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), show='*', bg='#59504b')
         self.new_password_entry.place(x = 100, y= 225)
 
         #conf pass
         self.confirm_password_label = tk.Label(self.forgot_password_label_bg, text="Confirm Password", font=('Courier', 15), fg='white', bg='#3C3633')
         self.confirm_password_label.place(x= 100, y= 270)
         
-        self.confirm_password_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), show='*')
+        self.confirm_password_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), show='*,' , bg='#59504b')
         self.confirm_password_entry.place(x = 100, y = 305)
         
         #verification
         self.verification_label = tk.Label(self.forgot_password_label_bg, text="Verification", font=('Courier', 15), fg='white', bg='#3C3633')
         self.verification_label.place(x= 100, y= 350)
         
-        self.verification_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12))
+        self.verification_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), bg='#59504b')
         self.verification_entry.place(x = 100, y = 385)
 
         #cont button
         self.continue_button = CTkButton(self, text='Continue', width=200, height=40,corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', 
                                             text_color='black', command=self.go_to_login)
-        self.continue_button.place( x =100, y = 440)
+        self.continue_button.place( x =100, y = 490)
 
         #back button
-        self.back_button = tk.Button(self.forgot_password_label_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'), bg='#FFE9D6', command=self.go_to_login)
+        self.back_button = tk.Button(self.forgot_password_label_bg, text="Return", width=4, height=1, font=('Courier', 12, 'bold'), bg='#FFE9D6', command=self.go_to_login)
         self.back_button.place(x= 5, y= 10)
 
     def go_to_login(self):
