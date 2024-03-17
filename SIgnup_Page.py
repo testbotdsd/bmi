@@ -193,6 +193,9 @@ class Photo (tk.Frame):
         
         self.user_name = tk.Label(self, text='Hello,', font=('Courier', 20, 'bold'))
         self.user_name.place(x=80, y=10)
+        
+    def update_username_label(self, username):
+        self.user_name.config(text=f'Hello, {username}')
 
     def generate_captcha(self):
         captcha = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
@@ -205,9 +208,6 @@ class Photo (tk.Frame):
                  pass
             else:
                 self.terms_and_conditions_var.set(False)
-                
-    def update_username_label(self, username):
-        self.user_name.config(text=f'Hello, {username}')
         
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
