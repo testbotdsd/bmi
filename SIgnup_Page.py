@@ -128,6 +128,7 @@ class Signup(tk.Frame):
             messagebox.showerror('Error', 'Confirm password field is empty, please fill it out.')
             return False
         
+        self.parent.frames['Photo'].update_username_label(username)
         self.go_to_Photo_page()
 
         
@@ -189,6 +190,12 @@ class Photo (tk.Frame):
         self.captcha.place(x=130, y=375)
         self.captcha_input = tk.Entry(self, text="Enter Captcha here", width=20)
         self.captcha_input.place(x=135, y=425)
+        
+        self.user_name = tk.Label(self, text='Hello,', font=('Courier', 20, 'bold'))
+        self.user_name.place(x=80, y=10)
+        
+    def update_username_label(self, username):
+        self.user_name.config(text=f'Hello, {username}')
 
     def generate_captcha(self):
         captcha = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
@@ -201,7 +208,7 @@ class Photo (tk.Frame):
                  pass
             else:
                 self.terms_and_conditions_var.set(False)
-                
+        
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
         
