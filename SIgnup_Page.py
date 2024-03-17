@@ -100,7 +100,7 @@ class Signup(tk.Frame):
         gmail = self.gmail_entry.get()
         username = self.username_entry.get()
         password = self.password_entry.get()
-
+        
     def go_to_welcome_page(self):
         self.parent.change_window('Welcome_Page')
 
