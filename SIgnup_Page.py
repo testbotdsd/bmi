@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import Model
+from customtkinter import *
 
 class Signup(tk.Frame):
     def __init__(self, master):
@@ -91,7 +91,7 @@ class Signup(tk.Frame):
         self.sign_up_button = tk.Button(self, text='Continue', width=21, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.validate_sign_up)
         self.sign_up_button.place(x=85, y=517)
         
-        self.login_clickable = tk.Button(self, text="Login", fg='#EEEDEB', bg='#3C3633' , bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
+        self.login_clickable = tk.Button(self, text="Log in", fg='#EEEDEB', bg='#3C3633' , bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
         self.login_clickable.place(x=295, y=559)
 
     def validate_sign_up(self):
@@ -126,8 +126,19 @@ class Signup(tk.Frame):
             messagebox.showerror('Error', 'Confirm password field is empty, please fill it out.')
             return False
         
-        else:
-            self.go_to_Photo_page()
+        self.go_to_Photo_page()
+
+        
+    def clear_input(self):
+        self.first_name_entry.delete(0, tk.END)
+        self.last_name_entry.delete(0, tk.END)
+        self.gmail_entry.delete(0, tk.END)
+        self.username_entry.delete(0, tk.END)
+        self.password_entry.delete(0, tk.END)
+        self.confirm_password_entry.delete(0, tk.END)
+        self.day_combo.current(0)
+        self.month_combo.current(0)
+        self.year_combo.current(0)
         
     def go_to_welcome_page(self):
         self.parent.change_window('Welcome_Page')
@@ -137,11 +148,9 @@ class Signup(tk.Frame):
         
     def go_to_Login_Page(self):
         self.parent.change_window('Login')
-
-
+        
     def on_return(self):
         pass
-    
     
 class Photo (tk.Frame):
     def __init__(self, master):
@@ -158,7 +167,7 @@ class Photo (tk.Frame):
         self.Back_button = tk.Button(self, text="Return", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_create_acc)
         self.Back_button.place(x=5, y=5)
         
-        self.Finish_button = tk.Button(self, text='Finish', width=21, font=('Courier', 15, 'bold'), bg='#d3d3d3', command=self.go_to_Login_Page)
+        self.Finish_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'), bg='#d3d3d3', command=self.go_to_Login_Page)
         self.Finish_button.place(x=65, y=517)
         
         self.captcha_label = tk.Label(self, text='Captcha', font=('Courier', 12, 'bold'), fg='#EEEDEB', bg='#3C3633')
@@ -190,12 +199,15 @@ class Photo (tk.Frame):
                  pass
             else:
                 self.terms_and_conditions_var.set(False)
-        
-
+                
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
         
     def go_to_Login_Page(self):
-        self.parent.change_window('Login')
+        final = messagebox.askokcancel('Signup', 'Finish signing up?')
+        if final:
+            self.parent.frames['Signup'].clear_input()
+            self.parent.change_window('Login')
+
 
     
