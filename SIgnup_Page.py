@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from customtkinter import *
+import Model
+import Data_base_Handler
 
 class Signup(tk.Frame):
     def __init__(self, master):
