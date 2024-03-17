@@ -130,23 +130,23 @@ class Photo (tk.Frame):
         self.Back_button = tk.Button(self, text="Return", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_create_acc)
         self.Back_button.place(x=5, y=5)
         
-        self.Finish_button = tk.Button(self, text='Finish', width=21, font=('Courier', 15, 'bold'),bg='#DE8971', command=self.go_to_Login_Page)
+        self.Finish_button = tk.Button(self, text='Finish', width=21, font=('Courier', 15, 'bold'), bg='#d3d3d3', command=self.go_to_Login_Page)
         self.Finish_button.place(x=65, y=517)
         
-        self.captcha_label = tk.Label(self, text='Captcha', font=('Courier', 12, 'bold'), bg='#DE8971')
+        self.captcha_label = tk.Label(self, text='Captcha', font=('Courier', 12, 'bold'), fg='#EEEDEB', bg='#3C3633')
         self.captcha_label.place(x=160, y=240)
 
         self.terms_and_conditions_var = tk.BooleanVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.terms_and_conditions_var, command=self.terms_conditios_var)
         self.terms_and_conditions_check_button.place(x=95, y=484)
 
-        self.generate_captcha_button = tk.Button(self, text="Generate Captcha", font=('Courier', 12, 'bold'), bg='#DE8971', command=self.generate_captcha)
+        self.generate_captcha_button = tk.Button(self, text="Generate Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.generate_captcha)
         self.generate_captcha_button.place(x=110, y=275)
 
         self.captcha_label = tk.Label(self, text='', font=("Arial", 12), width=10)
         self.captcha_label.place(x=150, y=325)
             
-        self.captcha = tk.Label(self, text="Enter Captcha", font=('Courier', 12, 'bold'), bg='#DE8971')
+        self.captcha = tk.Label(self, text="Enter Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3')
         self.captcha.place(x=130, y=375)
         self.captcha_input = tk.Entry(self, text="Enter Captcha here", width=20)
         self.captcha_input.place(x=135, y=425)
