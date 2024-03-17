@@ -3,7 +3,6 @@ import Welcome_Page
 import Login_Page
 import BMI_Page
 import SIgnup_Page
-import Logout_page
 import Profile_Page
 
 
@@ -28,8 +27,6 @@ class MainWindow(tk.Tk):
         self.frames ['Profile'] = Profile_Page.Profile(self)
         
         self.frames ['BMI'] = BMI_Page.BMI(self)
-        
-        self.frames ['Logout'] = Logout_page.Logout(self)
 
         self.change_window('Welcome_Page')
 
