@@ -126,7 +126,7 @@ class Forgot_Password (tk.Frame):
         self.continue_button.place( x =100, y = 490)
 
         #back button
-        self.back_button = tk.Button(self.forgot_password_label_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'), bg='#FFE9D6', command=self.go_to_login)
+        self.back_button = tk.Button(self.forgot_password_label_bg, text="Return", width=4, height=1, font=('Courier', 12, 'bold'), bg='#FFE9D6', command=self.go_to_login)
         self.back_button.place(x= 5, y= 10)
 
     def go_to_login(self):
