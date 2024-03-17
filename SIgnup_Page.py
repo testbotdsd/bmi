@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+import Model
 
 class Signup(tk.Frame):
     def __init__(self, master):
@@ -93,6 +94,12 @@ class Signup(tk.Frame):
         self.login_clickable = tk.Button(self, text="Login", fg='#EEEDEB', bg='#3C3633' , bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
         self.login_clickable.place(x=295, y=559)
 
+    def validate_sign_up(self):
+        first_name = self.first_name_entry.get()
+        last_name = self.last_name_entry.get()
+        gmail = self.gmail_entry.get()
+        username = self.username_entry.get()
+        password = self.password_entry.get()
 
     def go_to_welcome_page(self):
         self.parent.change_window('Welcome_Page')
