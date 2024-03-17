@@ -69,8 +69,8 @@ class Login(tk.Frame):
     def validate_login(self):
         username = self.username_entry.get()
         password = self.pass_entry.get()
-
-        if username.strip() == "" or password.strip() == "":
+        
+        if username == "" or password == "":
             messagebox.showerror("Error", "Please fill in both username and password fields.")
         else:
             self.reset_fields()
