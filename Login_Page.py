@@ -73,7 +73,6 @@ class Login(tk.Frame):
         if username.strip() == "" or password.strip() == "":
             messagebox.showerror("Error", "Please fill in both username and password fields.")
         else:
-            # Clear username and password fields
             self.reset_fields()
             self.go_to_BMI_Page()
 

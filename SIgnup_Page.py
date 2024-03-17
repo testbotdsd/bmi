@@ -88,7 +88,7 @@ class Signup(tk.Frame):
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
         self.have_an_account_login_label.place(x=100, y=560)
 
-        self.sign_up_button = tk.Button(self, text='Next', width=21, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.go_to_Photo_page)
+        self.sign_up_button = tk.Button(self, text='Continue', width=21, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.validate_sign_up)
         self.sign_up_button.place(x=85, y=517)
         
         self.login_clickable = tk.Button(self, text="Login", fg='#EEEDEB', bg='#3C3633' , bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
@@ -100,6 +100,34 @@ class Signup(tk.Frame):
         gmail = self.gmail_entry.get()
         username = self.username_entry.get()
         password = self.password_entry.get()
+        confirm_password = self.confirm_password_entry.get()
+        
+        if first_name == '':
+            messagebox.showerror('Sign in', 'First name field is empyt, please fill it out.')
+            return False
+        
+        if last_name == '':
+            messagebox.showerror('Sign in', 'Last name field is empyt, please fill it out.')
+            return False
+        
+        if gmail == '':
+            messagebox.showerror('Sign in', 'Gmail field is empyt, please fill it out.')
+            return False
+        
+        if username == '':
+            messagebox.showerror('Sign in', 'Username field is empyt, please fill it out.')
+            return False
+        
+        if password == '':
+            messagebox.showerror('Sign in', 'Password field is empyt, please fill it out.')
+            return False
+        
+        if confirm_password == '':
+            messagebox.showerror('Sign in', 'Confirm password field is empyt, please fill it out.')
+            return False
+        
+        else:
+            self.go_to_Photo_page()
         
     def go_to_welcome_page(self):
         self.parent.change_window('Welcome_Page')
