@@ -103,27 +103,27 @@ class Signup(tk.Frame):
         confirm_password = self.confirm_password_entry.get()
         
         if first_name == '':
-            messagebox.showerror('Sign in', 'First name field is empyt, please fill it out.')
+            messagebox.showerror('Error', 'First name field is empty, please fill it out.')
             return False
         
         if last_name == '':
-            messagebox.showerror('Sign in', 'Last name field is empyt, please fill it out.')
+            messagebox.showerror('Error', 'Last name field is empty, please fill it out.')
             return False
         
         if gmail == '':
-            messagebox.showerror('Sign in', 'Gmail field is empyt, please fill it out.')
+            messagebox.showerror('Error', 'Gmail field is empty, please fill it out.')
             return False
         
         if username == '':
-            messagebox.showerror('Sign in', 'Username field is empyt, please fill it out.')
+            messagebox.showerror('Error', 'Username field is empty, please fill it out.')
             return False
         
         if password == '':
-            messagebox.showerror('Sign in', 'Password field is empyt, please fill it out.')
+            messagebox.showerror('Error', 'Password field is empty, please fill it out.')
             return False
         
         if confirm_password == '':
-            messagebox.showerror('Sign in', 'Confirm password field is empyt, please fill it out.')
+            messagebox.showerror('Error', 'Confirm password field is empty, please fill it out.')
             return False
         
         else:
