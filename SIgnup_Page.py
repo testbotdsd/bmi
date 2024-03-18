@@ -191,7 +191,7 @@ class Photo (tk.Frame):
         self.captcha_input = tk.Entry(self, text="Enter Captcha here", width=20)
         self.captcha_input.place(x=135, y=425)
         
-        self.user_name = tk.Label(self, text='Hello,', font=('Courier', 20, 'bold'))
+        self.user_name = tk.Label(self, text='Hello,', font=('Courier', 15, 'bold'))
         self.user_name.place(x=80, y=10)
         
     def update_username_label(self, username):
