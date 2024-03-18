@@ -4,7 +4,8 @@ from tkinter import messagebox
 from customtkinter import *
 import Model
 import Data_base_Handler
-
+import random
+import string
 class Signup(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__ (self, master)
@@ -49,17 +50,26 @@ class Signup(tk.Frame):
         self.password_label = tk.Label(self, text='Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
         self.password_label.place(x=100, y=303)
 
-        self.password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
+        self.password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
         self.password_entry.place(x=100, y=327)
 
         self.confirm_password_label = tk.Label(self, text='Confirm Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
         self.confirm_password_label.place(x=100, y=360)
 
-        self.confirm_password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
+        self.confirm_password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
         self.confirm_password_entry.place(x=100, y=384)
         
         self.birthday_label = tk.Label(self, text = 'Birthday', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
         self.birthday_label.place(x=90, y=420) 
+        
+        self.clear_button = tk.Button(self, text='Clear', font=('Courier', 12, 'bold'),bg='#d3d3d3')
+        self.clear_button.place(x=100, y=480)
+
+        self.hide_password = tk.Button(self, text='Hide', font=('Courier', 12, 'bold'),bg='#d3d3d3' )
+        self.hide_password.place(x=185, y=480)
+
+        self.unhide_password = tk.Button(self, text='Unhide', font=('Courier', 12, 'bold'),bg='#d3d3d3' )
+        self.unhide_password.place(x=260, y=480)
 
         # Adding a Birthday Picker using a Combobox
         self.day_var = tk.StringVar()
@@ -164,8 +174,8 @@ class Photo (tk.Frame):
         self.Photo_bg = tk.Frame(self, bg='#3C3633', height=600, width=450)
         self.Photo_bg.place(x=0, y=0)
         
-        self.photo_label = tk.Label(self, text="photo", font=('Courier', 20, 'bold'))
-        self.photo_label.place(x=50, y=100)
+        self.pic_frame = tk.Frame(self, bd=10, width=150, height=150, bg='white', relief='flat')
+        self.pic_frame.place(x=125, y=70)
         
         self.Back_button = tk.Button(self, text="Return", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_create_acc)
         self.Back_button.place(x=5, y=5)
@@ -174,31 +184,31 @@ class Photo (tk.Frame):
         self.Finish_button.place(x=65, y=517)
         
         self.captcha_label = tk.Label(self, text='Captcha', font=('Courier', 12, 'bold'), fg='#EEEDEB', bg='#3C3633')
-        self.captcha_label.place(x=160, y=240)
+        self.captcha_label.place(x=160, y=255)
 
         self.terms_and_conditions_var = tk.BooleanVar()
-        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.terms_and_conditions_var, command=self.terms_conditios_var)
+        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.terms_and_conditions_var, command=self.terms_conditios_var, bg='#3C3633' , fg= "white")
         self.terms_and_conditions_check_button.place(x=95, y=484)
 
         self.generate_captcha_button = tk.Button(self, text="Generate Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.generate_captcha)
-        self.generate_captcha_button.place(x=110, y=275)
+        self.generate_captcha_button.place(x=110, y=290)
 
-        self.captcha_label = tk.Label(self, text='', font=("Arial", 12), width=10)
-        self.captcha_label.place(x=150, y=325)
+        self.captcha_label = tk.Label(self, text='', font=("Arial", 12), width=10, bg='#59504b')
+        self.captcha_label.place(x=150, y=335)
             
         self.captcha = tk.Label(self, text="Enter Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3')
-        self.captcha.place(x=130, y=375)
-        self.captcha_input = tk.Entry(self, text="Enter Captcha here", width=20)
+        self.captcha.place(x=130, y=390)
+        self.captcha_input = tk.Entry(self, text="Enter Captcha here", width=20, bg='#59504b')
         self.captcha_input.place(x=135, y=425)
         
         self.user_name = tk.Label(self, text='Hello,', font=('Courier', 15, 'bold'))
-        self.user_name.place(x=80, y=10)
+        self.user_name.place(x=130, y=10)
         
     def update_username_label(self, username):
         self.user_name.config(text=f'Hello, {username}')
 
     def generate_captcha(self):
-        captcha = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
+        captcha = ''.join(random.choices(string.ascii_letters + string.digits, k=6,))
         self.captcha_label.config(text=captcha)
 
     def terms_conditios_var(self):
