@@ -16,7 +16,9 @@ class MainWindow(tk.Tk):
 
         #login Page
         self.frames ['Login'] = Login_Page.Login(self)
-        self.frames ['Forgot_Password'] = Login_Page.Forgot_Password(self)
+        self.frames ['Forgot_Password_Gmail'] = Login_Page.Forgot_Password_Gmail(self)
+        self.frames ['OTP'] = Login_Page.OTP(self)
+        self.frames ['Reset_Pass'] = Login_Page.Reset_Pass(self)
 
         #Sign Up
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
