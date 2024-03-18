@@ -62,14 +62,11 @@ class Signup(tk.Frame):
         self.birthday_label = tk.Label(self, text = 'Birthday', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
         self.birthday_label.place(x=90, y=420) 
         
-        self.clear_button = tk.Button(self, text='Clear', font=('Courier', 12, 'bold'),bg='#d3d3d3')
-        self.clear_button.place(x=100, y=480)
+        self.clear_button = tk.Button(self, text='Clear', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.clear_input)
+        self.clear_button.place(x=90, y=500)
 
-        self.hide_password = tk.Button(self, text='Hide', font=('Courier', 12, 'bold'),bg='#d3d3d3' )
-        self.hide_password.place(x=185, y=480)
-
-        self.unhide_password = tk.Button(self, text='Unhide', font=('Courier', 12, 'bold'),bg='#d3d3d3' )
-        self.unhide_password.place(x=260, y=480)
+        self.toggle_password_button = tk.Button(self, text="Show", font=('Courier', 10), bd=1, bg='white',fg='black', command=self.toggle_password)
+        self.toggle_password_button.place(x=370, y=355)
 
         # Adding a Birthday Picker using a Combobox
         self.day_var = tk.StringVar()
@@ -100,11 +97,36 @@ class Signup(tk.Frame):
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
         self.have_an_account_login_label.place(x=100, y=560)
 
-        self.sign_up_button = tk.Button(self, text='Continue', width=21, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.validate_sign_up)
-        self.sign_up_button.place(x=85, y=517)
+        self.sign_up_button = tk.Button(self, text='Continue', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.validate_sign_up)
+        self.sign_up_button.place(x=225, y=500)
         
         self.login_clickable = tk.Button(self, text="Log in", fg='#EEEDEB', bg='#3C3633' , bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
         self.login_clickable.place(x=295, y=559)
+
+        self.password_hidden = True 
+
+    def toggle_password(self):
+        if self.password_hidden:
+            self.password_entry.config(show='')
+            self.confirm_password_entry.config(show='')
+            self.toggle_password_button.config(text="Hide", bg='#3C3633', fg='white')
+            self.password_hidden = False
+        else:
+            self.password_entry.config(show='*')
+            self.confirm_password_entry.config(show='*')
+            self.toggle_password_button.config(text="Show", bg='white', fg='#3C3633')
+            self.password_hidden = True
+
+    def clear_input(self):
+        self.first_name_entry.delete(0, tk.END)
+        self.last_name_entry.delete(0, tk.END)
+        self.gmail_entry.delete(0, tk.END)
+        self.username_entry.delete(0, tk.END)
+        self.password_entry.delete(0, tk.END)
+        self.confirm_password_entry.delete(0, tk.END)
+        self.day_combo.set('')
+        self.month_combo.set('')
+        self.year_combo.set('')
 
     def validate_sign_up(self):
         first_name = self.first_name_entry.get()
@@ -227,6 +249,3 @@ class Photo (tk.Frame):
         if final:
             self.parent.frames['Signup'].clear_input()
             self.parent.change_window('Login')
-
-
-    
