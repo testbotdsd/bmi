@@ -88,28 +88,23 @@ class Forgot_Password_Gmail (tk.Frame):
         self.parent = master
         self.config(width=400, height=600)
 
-        self.forgot_password_label_bg = tk.Frame(self, bg='#3C3633', height=600, width=400)
+        self.forgot_password_label_bg = tk.Frame(self, bg='#7B6079', height=600, width=400)
         self.forgot_password_label_bg.place(x=0, y=0)
 
-        self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="Forgot Password", font=('Courier', 20, 'bold'), fg='white', bg='#3C3633')
-        self.forgot_password_label.place(x = 70, y = 40)
+        self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="Forgot Password", font=('Courier', 20, 'bold'), fg='white', bg='#7B6079')
+        self.forgot_password_label.place(x = 40, y = 30)
 
         # gmail
-        self.gmail_label = tk.Label(self.forgot_password_label_bg, text="GMAIL", font=('Courier', 15), fg='white', bg='#3C3633')
+        self.gmail_label = tk.Label(self.forgot_password_label_bg, text="GMAIL", font=('Courier', 15), fg='white', bg='#7B6079')
         self.gmail_label.place(x = 100, y= 110)
         
-        self.gmail_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), fg='white', bg='#59504b')
+        self.gmail_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12))
         self.gmail_entry.place(x= 100, y= 145)
 
         #cont button
-<<<<<<< HEAD
         self.continue_button = tk.Button(self.forgot_password_label_bg, text="CONTINUE", font=('Courier', 12), fg='white', bg='#7B6079', 
                                          command=self.validate_login)
         self.continue_button.place( x =150, y = 440)
-=======
-        self.continue_button = CTkButton(self.forgot_password_label_bg, text="CONTINUE", width=200, height=40, corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',command=self.validate_gmail_entry)
-        self.continue_button.place( x =100, y = 440)
->>>>>>> ade3e53edbbc17c64ae4414302cdab6741d3d57a
 
         #back button
         self.back_button = tk.Button(self.forgot_password_label_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'), bg='#FFE9D6', 
@@ -156,22 +151,23 @@ class OTP (tk.Frame):
         self.parent = master
         self.config(width=400, height=600)
 
-        self.forgot_password_label_bg = tk.Frame(self, bg='#3C3633', height=600, width=400)
+        self.forgot_password_label_bg = tk.Frame(self, bg='#7B6079', height=600, width=400)
         self.forgot_password_label_bg.place(x=0, y=0)
 
-        self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="OTP", font=('Courier', 20, 'bold'), fg='white', bg='#3C3633')
-        self.forgot_password_label.place(x = 170, y = 40)
+        self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="OTP", font=('Courier', 20, 'bold'), fg='white', bg='#7B6079')
+        self.forgot_password_label.place(x = 40, y = 30)
 
         # verification
-        self.verification_label = tk.Label(self.forgot_password_label_bg, text="Enter Verification Code", font=('Courier', 15), fg='white', bg='#3C3633')
-        self.verification_label.place(x = 70, y= 110)
+        self.verification_label = tk.Label(self.forgot_password_label_bg, text="Enter Verification Code", font=('Courier', 15), fg='white', bg='#7B6079')
+        self.verification_label.place(x = 100, y= 110)
         
-        self.verification_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), fg='white', bg='#59504b')
+        self.verification_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12))
         self.verification_entry.place(x= 100, y= 145)
 
         #cont button
-        self.continue_button = CTkButton(self.forgot_password_label_bg, text="Continue", width=200, height=40, corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',command=self.validate_otp_entry)
-        self.continue_button.place( x =100, y = 440)
+        self.continue_button = tk.Button(self.forgot_password_label_bg, text="CONTINUE", font=('Courier', 12), fg='white', bg='#7B6079', 
+                                         command=self.validate_otp_entry)
+        self.continue_button.place( x =150, y = 440)
 
         #back button
         self.back_button = tk.Button(self.forgot_password_label_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'), bg='#FFE9D6', 
@@ -202,67 +198,35 @@ class Reset_Pass (tk.Frame):
         self.parent = master
         self.config(width=400, height=600)
 
-        self.forgot_password_label_bg = tk.Frame(self, bg='#3C3633', height=600, width=400)
+        self.forgot_password_label_bg = tk.Frame(self, bg='#7B6079', height=600, width=400)
         self.forgot_password_label_bg.place(x=0, y=0)
 
-        self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="Reset Password", font=('Courier', 20, 'bold'), fg='white', bg='#3C3633')
-        self.forgot_password_label.place(x = 90, y = 30)
+        self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="Reset Password", font=('Courier', 20, 'bold'), fg='white', bg='#7B6079')
+        self.forgot_password_label.place(x = 40, y = 30)
 
         # New Password
-        self.verification_label = tk.Label(self.forgot_password_label_bg, text="Enter New Password", font=('Courier', 15), fg='white', bg='#3C3633')
-        self.verification_label.place(x = 90, y= 130)
+        self.verification_label = tk.Label(self.forgot_password_label_bg, text="Enter New Password", font=('Courier', 15), fg='white', bg='#7B6079')
+        self.verification_label.place(x = 100, y= 110)
         
-        self.verification_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), fg='white', bg='#59504b', show='*')
-        self.verification_entry.place(x= 100, y= 165)
-
-        self.toggle_password_button = tk.Button(self, text="Show", font=('Courier', 10), bd=1, bg='white',fg='black', command=self.toggle_password)
-        self.toggle_password_button.place(x=180, y=230)
+        self.verification_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12))
+        self.verification_entry.place(x= 100, y= 145)
 
         # Confirm Password
-        self.verification_label_2 = tk.Label(self.forgot_password_label_bg, text="Confirm New Password", font=('Courier', 15), fg='white', bg='#3C3633')
-        self.verification_label_2.place(x = 85, y= 290)
+        self.verification_label = tk.Label(self.forgot_password_label_bg, text="Confirm New Password", font=('Courier', 15), fg='white', bg='#7B6079')
+        self.verification_label.place(x = 100, y= 310)
         
-        self.verification_entry_2 = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), fg='white', bg='#59504b', show='*')
-        self.verification_entry_2.place(x= 100, y= 325)
+        self.verification_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12))
+        self.verification_entry.place(x= 100, y= 345)
 
         #cont button
-        self.continue_button = CTkButton(self.forgot_password_label_bg, text="Continue", width=200, height=40, corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',command=self.validate_password_and_confirm_password_entry)
-        self.continue_button.place( x =100, y = 440)
+        self.continue_button = tk.Button(self.forgot_password_label_bg, text="CONTINUE", font=('Courier', 12), fg='white', bg='#7B6079', 
+                                         command=self.go_to_login)
+        self.continue_button.place( x =150, y = 440)
 
         #back button
         self.back_button = tk.Button(self.forgot_password_label_bg, text="←", width=4, height=1, font=('Courier', 12, 'bold'), bg='#FFE9D6', 
                                      command=self.go_to_otp)
         self.back_button.place(x= 5, y= 10)
-
-        self.password_hidden = True
-
-    def validate_password_and_confirm_password_entry(self):
-        passsword_and_confirm_password = self.verification_entry and self.verification_entry_2.get()
-        
-        if passsword_and_confirm_password == "":
-            messagebox.showerror("Error", "Please enter your New Password and Confirm New Password.")
-        else:
-            self.reset_fields()
-            self.reset_fields_2()
-            self.go_to_login()
-
-    def toggle_password(self):
-        if self.password_hidden:
-            self.verification_entry.config(show='')
-            self.verification_entry_2.config(show='')
-            self.toggle_password_button.config(text="Hide", bg='#3C3633', fg='white')
-            self.password_hidden = False
-        else:
-            self.verification_entry.config(show='*')
-            self.verification_entry_2.config(show='*')
-            self.toggle_password_button.config(text="Show", bg='white', fg='#3C3633')
-            self.password_hidden = True
-
-    def reset_fields(self):
-        self.verification_entry.delete(0, tk.END)
-
-    def reset_fields_2(self):
-        self.verification_entry_2.delete(0, tk.END)
 
     def go_to_otp(self):
         self.parent.change_window('OTP')
