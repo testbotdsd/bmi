@@ -148,7 +148,6 @@ class Signup(tk.Frame):
             messagebox.showerror('Error', 'Birth Date is beyond the current date, Please put your real birthday')
             return False
         
-        self.parent.frames['Photo'].update_username_label(username)
         self.go_to_Photo_page()
 
         
@@ -208,12 +207,6 @@ class Photo (tk.Frame):
         self.captcha.place(x=130, y=390)
         self.captcha_input = tk.Entry(self, text="Enter Captcha here", width=20, bg='#59504b')
         self.captcha_input.place(x=135, y=425)
-        
-        self.user_name = tk.Label(self, text='Hello,', font=('Courier', 15, 'bold'))
-        self.user_name.place(x=130, y=10)
-        
-    def update_username_label(self, username):
-        self.user_name.config(text=f'Hello, {username}')
 
     def generate_captcha(self):
         captcha = ''.join(random.choices(string.ascii_letters + string.digits, k=6,))
