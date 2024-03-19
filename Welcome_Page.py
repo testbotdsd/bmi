@@ -6,9 +6,6 @@ class Welcome(tk.Frame):
         tk.Frame.__init__(self, master)
         self.parent = master
         self.config(width=350, height=400)
-        # self.customtkinter = CustomTkinter()
-        # self.customtkinter.set_default_color_theme("dark")
-        # self.customtkinter.set_appearance_mode("dark")
 
         self.login_bg = tk.Frame(self, bg='#3C3633', height=400, width=350)
         self.login_bg.place(x=0, y=0)
@@ -29,25 +26,8 @@ class Welcome(tk.Frame):
                                      font=font_style, corner_radius=30, text_color='black',command=self.go_to_Sign_up_Page)
         self.sign_up_btn.place(x=125, y=270)
         
-        # self.dark_light_btn = CTkButton(self, text='light/dark mode', command=self.change)
-        # self.dark_light_btn.place(x=1, y=1)
-        
-    #     self.mode = "dark"
-
-    # def change(self):
-    #     if self.mode == "dark":
-    #         self.customtkinter.set_appearance_mode("light")
-    #         self.mode = "light"
-    #     else:
-    #         self.customtkinter.set_appearance_mode("dark")
-    #         self.mode = "dark"
-        # self.login_btn = tk.Button(self, text="Login", font="Garamond 15 bold", width=13, bg="#E0CCBE", command=self.go_to_login_page)
-        # self.login_btn.place(x=95, y=185)
-
-        # self.sign_up_btn = tk.Button(self, text="Signup", font="Garamond 15 bold", width=13, bg="#B09079", command=self.go_to_Sign_up_Page)
-        # self.sign_up_btn.place(x=95, y=245)
-        
     def go_to_Sign_up_Page(self):
+        self.parent.frames['Signup'].Bday_calendar_entry.delete(0, tk.END)
         self.parent.change_window('Signup')
 
     def go_to_login_page(self):

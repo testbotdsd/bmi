@@ -30,7 +30,7 @@ class MainWindow(tk.Tk):
 
         #Sign Up
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
-        self.frames ['Photo'] = SIgnup_Page.Photo(self)
+        self.frames ['Photo'] = SIgnup_Page.Photo(self, self.frames['Signup'])
         
         #Profile Page
         self.frames ['Profile'] = Profile_Page.Profile(self)

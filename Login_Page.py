@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 from customtkinter import *
+import SIgnup_Page
+import Data_base_Handler
 
 class Login(tk.Frame):
     def __init__(self, master):
@@ -64,17 +66,21 @@ class Login(tk.Frame):
         self.parent.change_window('BMI')
     
     def go_to_signup(self):
+        self.parent.frames['Signup'].Bday_calendar_entry.delete(0, tk.END)
         self.parent.change_window('Signup')
 
     def validate_login(self):
         username = self.username_entry.get()
         password = self.pass_entry.get()
-        
-        if username == "" or password == "":
-            messagebox.showerror("Error", "Please fill in both username and password fields.")
-        else:
+
+        dbconn = Data_base_Handler.database()
+        if dbconn.check_credentials(username, password):
             self.reset_fields()
             self.go_to_BMI_Page()
+        else:
+            messagebox.showerror("Error", "Incorrect username or password.")
+
+        dbconn.conn.close() 
 
     def reset_fields(self):
         self.username_entry.delete(0, tk.END)
