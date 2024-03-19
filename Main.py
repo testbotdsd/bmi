@@ -53,8 +53,5 @@ class MainWindow(tk.Tk):
     #     print(f"Window size updated: {window_width} x {window_height}")
 
 root = MainWindow()
-root.resizable(True, True)
-
-# Bind the window resize event to the update_content method
-root.bind("<Configure>", lambda event: root.update_content())
+root.resizable(False, False)
 root.mainloop()
