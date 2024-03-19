@@ -6,4 +6,4 @@ class User:
         self.gmail = ''
         self.username = ''
         self.password = ''
-        self.confirmpass = ''
+        self.birthday = ''

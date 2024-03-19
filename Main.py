@@ -29,7 +29,7 @@ class MainWindow(tk.Tk):
 
         #Sign Up
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
-        self.frames ['Photo'] = SIgnup_Page.Photo(self)
+        self.frames ['Photo'] = SIgnup_Page.Photo(self, self.frames['Signup'])
         
         #Profile Page
         self.frames ['Profile'] = Profile_Page.Profile(self)
@@ -44,6 +44,7 @@ class MainWindow(tk.Tk):
         
         self.frames[name].grid()
 
+<<<<<<< HEAD
     def update_content(self):
         # Get the updated window size
         window_width = self.winfo_width()
@@ -52,9 +53,8 @@ class MainWindow(tk.Tk):
         # Print the updated window size (you can replace this with your content update logic)
         print(f"Window size updated: {window_width} x {window_height}")
 
+=======
+>>>>>>> f3d7a105f88d91ec3bf53513cd5436102c465670
 root = MainWindow()
-root.resizable(True, True)
-
-# Bind the window resize event to the update_content method
-root.bind("<Configure>", lambda event: root.update_content())
+root.resizable(False, False)
 root.mainloop()
