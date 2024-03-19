@@ -194,13 +194,10 @@ class Photo (tk.Frame):
         self.captcha_label = tk.Label(self, text='Captcha', font=('Courier', 12, 'bold'), fg='#EEEDEB', bg='#3C3633')
         self.captcha_label.place(x=160, y=255)
 
-<<<<<<< HEAD
         self.check_var = tk.IntVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.check_var, command=self.terms_conditios_var)
-=======
         self.terms_and_conditions_var = tk.BooleanVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self.Photo_bg, text="I accept the Terms and Conditions", variable=self.terms_and_conditions_var, bg='#3C3633', fg="white")
->>>>>>> f3d7a105f88d91ec3bf53513cd5436102c465670
         self.terms_and_conditions_check_button.place(x=95, y=484)
     
 

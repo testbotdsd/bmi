@@ -1,13 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
 from customtkinter import *
-<<<<<<< HEAD
 import random
 import string
-=======
 import SIgnup_Page
 import Data_base_Handler
->>>>>>> f3d7a105f88d91ec3bf53513cd5436102c465670
 
 class Login(tk.Frame):
     def __init__(self, master):
