@@ -168,13 +168,9 @@ class Forgot_Password (tk.Frame):
 
     def continue_clicked(self):
         if self.current_step == 1:
-            # Validate email, if valid, move to next step
-            # Here you should add validation code and condition to move to next step
             self.current_step = 2
             self.show_step(self.current_step)
         elif self.current_step == 2:
-            # Validate verification code, if valid, move to next step
-            # Here you should add validation code and condition to move to next step
             self.current_step = 3
             self.show_step(self.current_step)
 
