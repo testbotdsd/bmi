@@ -183,9 +183,14 @@ class Signup(tk.Frame):
         
     def on_return(self):
         pass
+<<<<<<< HEAD
 
 
 class Photo (tk.Frame):
+=======
+    
+class Photo(tk.Frame):
+>>>>>>> aa4db5c3faeea9a33c2000eb085edb1898bb6ea6
     def __init__(self, master, signup_frame):
         tk.Frame.__init__(self, master)
         self.parent = master
@@ -257,10 +262,12 @@ class Photo (tk.Frame):
         captcha_text = f'{self.generated}'
         img_data = captcha.generate(captcha_text)
         img = tk.PhotoImage(data=img_data.getvalue())
-        
-        
         return img
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> aa4db5c3faeea9a33c2000eb085edb1898bb6ea6
     def terms_conditios_var(self):
             result = messagebox.askokcancel("Terms and condition", "Do you accept the Terms and Conditions?")
             if result:
