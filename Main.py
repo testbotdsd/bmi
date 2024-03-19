@@ -4,6 +4,8 @@ import Login_Page
 import BMI_Page
 import SIgnup_Page
 import Profile_Page
+import ForgetPass_Page
+import OTP_Page
 
 
 class MainWindow(tk.Tk):
@@ -16,9 +18,15 @@ class MainWindow(tk.Tk):
 
         #login Page
         self.frames ['Login'] = Login_Page.Login(self)
-        self.frames ['Forgot_Password_Gmail'] = Login_Page.Forgot_Password_Gmail(self)
-        self.frames ['OTP'] = Login_Page.OTP(self)
-        self.frames ['Reset_Pass'] = Login_Page.Reset_Pass(self)
+        # self.frames ['Forgot_Password_Gmail'] = Login_Page.Forgot_Password_Gmail(self)
+        # self.frames ['OTP'] = Login_Page.OTP(self)
+        # self.frames ['Reset_Pass'] = Login_Page.Reset_Pass(self)
+
+        #Send OTP
+        self.frames ['Forgot_Password_Gmail'] = ForgetPass_Page.Forget(self)
+        
+        #Change Password
+        self.frames ['OTP'] = OTP_Page.OTP(self)
 
         #Sign Up
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
