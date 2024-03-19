@@ -34,32 +34,46 @@ class Login(tk.Frame):
         self.toggle_password_button = tk.Button(self.login_bg, text="Show", font=('Courier', 10), bd=1, bg='white',fg='black', command=self.toggle_password)
         self.toggle_password_button.place(x=322, y=249)
 
-        self.login_button = CTkButton(self.login_bg, text='LOGIN', width=300,height=40,corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', 
-                                        text_color='black',command=self.validate_login)
-        self.login_button.place(x=81, y=440)
 
         self.forgot_password_button = tk.Button(self.login_bg, text='Forgot your password?',  font=('Courier', 11), fg='#5e918e', 
                                                 bg='#3C3633', bd=0, command=self.go_to_forgot_password)
-        self.forgot_password_button.place (x=166, y=322)
+        self.forgot_password_button.place (x=166, y=280)
+
+        self.login_button = CTkButton(self.login_bg, text='LOGIN', width=300,height=40,corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', 
+                                        text_color='black',command=self.validate_login)
+        self.login_button.place(x=81, y=510)
 
         self.no_account_label = tk.Label(self.login_bg, text="Don't have an account?", bg='#3C3633', font="Courier 10", foreground='#EEEDEB')
-        self.no_account_label.place(x=82, y=488)
+        self.no_account_label.place(x=82, y=558)
 
         self.sign_up_btn = tk.Button(self.login_bg, text="Sign up now", bg='#3C3633', bd=0, font=('Courier', 10, 'bold'), 
                                         command=self.go_to_signup, foreground='#5e918e')
-        self.sign_up_btn.place(x=264, y=487)
+        self.sign_up_btn.place(x=264, y=557)
 
         self.password_hidden = True 
         self.generate_captcha_button = tk.Button(self, text="Generate Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.generate_captcha)
-        self.generate_captcha_button.place(x=110, y=290)
+        self.generate_captcha_button.place(x=110, y=365)
 
         self.captcha_label = tk.Label(self, text='', font=("Arial", 12), width=10, bg='#59504b')
-        self.captcha_label.place(x=150, y=335)
+        self.captcha_label.place(x=150, y=390)
             
         self.captcha = tk.Label(self, text="Enter Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3')
-        self.captcha.place(x=130, y=390)
+        self.captcha.place(x=130, y=430)
         self.captcha_input = tk.Entry(self, text="Enter Captcha here", width=20, bg='#59504b')
-        self.captcha_input.place(x=135, y=425)
+        self.captcha_input.place(x=135, y=475)
+
+        self.check_var = tk.IntVar()
+        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable=self.check_var, 
+                                                                command=self.terms_conditions_var)
+        self.terms_and_conditions_var = tk.BooleanVar()
+        self.terms_and_conditions_check_button.place(x=95, y=484)
+
+    def terms_conditions_var(self):
+        result = messagebox.askokcancel("Terms and condition", "Do you accept the Terms and Conditions?")
+        if result:
+            self.check_var.set(1)
+        else:
+            self.check_var.set(0)
 
     def generate_captcha(self):
         captcha = ''.join(random.choices(string.ascii_letters + string.digits, k=6,))

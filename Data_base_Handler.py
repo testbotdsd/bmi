@@ -23,9 +23,9 @@ class database:
         self.conn.commit()
         
         
-    def create_sign_up_table (self, User:Model.User):
+    def create_sign_up_table (self, user:Model.User):
         query = f"INSERT INTO {self.Sign_up_table} (firstname, lastname, gmail,username , password, birthday) VALUES (?,?,?,?,?,?)" 
-        values = (User.firstname, User.lastname, User.gmail, User.username, User.password, User.birthday)
+        values = (user.firstname, user.lastname, user.gmail, user.username, user.password, user.birthday)
         self.cursor.execute(query, values) 
         self.conn.commit()
 
