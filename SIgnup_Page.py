@@ -6,7 +6,6 @@ import Model
 import Data_base_Handler
 import random
 import string
-import os
 from captcha.image import ImageCaptcha
 import random
 from tkcalendar import DateEntry
@@ -164,7 +163,6 @@ class Signup(tk.Frame):
         
         self.go_to_Photo_page()
 
-        
     def clear_input(self):
         self.first_name_entry.delete(0, tk.END)
         self.last_name_entry.delete(0, tk.END)
@@ -185,17 +183,9 @@ class Signup(tk.Frame):
         
     def on_return(self):
         pass
-<<<<<<< HEAD
-    
-class Photo(tk.Frame):
-=======
 
-
-from PIL import Image, ImageTk
-from tkinter import filedialog
 
 class Photo (tk.Frame):
->>>>>>> 4aae96f09c04c8293411cf7acd8f68f29b0689d4
     def __init__(self, master, signup_frame):
         tk.Frame.__init__(self, master)
         self.parent = master
@@ -249,22 +239,17 @@ class Photo (tk.Frame):
             self.image_label = tk.Label(self.pic_frame, image=self.selected_image)
             self.image_label.place(x=0, y=0)
 
-
-
     def remove_image(self):
         if self.selected_image is not None:
             self.selected_image = None
             for widget in self.pic_frame.winfo_children():
                 widget.destroy()
 
-
-
     def generate_captcha(self):
         print("Reload button clickd")
         img = self.generate_captha()
         self.pic_frame.configure(image=img)
         self.pic_frame.image = img
-
 
     def generate_captha(self):
         self.generated = "".join(random.choices(string.ascii_lowercase, k=4))
@@ -275,8 +260,6 @@ class Photo (tk.Frame):
         
         
         return img
-    
-   
 
     def terms_conditios_var(self):
             result = messagebox.askokcancel("Terms and condition", "Do you accept the Terms and Conditions?")
@@ -319,4 +302,3 @@ class Photo (tk.Frame):
         if final:
             self.parent.frames['Signup'].clear_input()
             self.parent.change_window('Login')
-
