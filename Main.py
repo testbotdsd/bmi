@@ -4,8 +4,8 @@ import Login_Page
 import BMI_Page
 import SIgnup_Page
 import Profile_Page
-import ForgetPass_Page
 import OTP_Page
+import New_Password_Page
 
 
 class MainWindow(tk.Tk):
@@ -18,15 +18,14 @@ class MainWindow(tk.Tk):
 
         #login Page
         self.frames ['Login'] = Login_Page.Login(self)
-        # self.frames ['Forgot_Password_Gmail'] = Login_Page.Forgot_Password_Gmail(self)
         # self.frames ['OTP'] = Login_Page.OTP(self)
         # self.frames ['Reset_Pass'] = Login_Page.Reset_Pass(self)
 
         #Send OTP
-        self.frames ['Forgot_Password_Gmail'] = ForgetPass_Page.Forget(self)
+        self.frames ['Forget'] = OTP_Page.Forget(self)
         
         #Change Password
-        self.frames ['OTP'] = OTP_Page.OTP(self)
+        self.frames ['Reset_Password'] = New_Password_Page.Reset_Password(self)
 
         #Sign Up
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
@@ -45,13 +44,13 @@ class MainWindow(tk.Tk):
         
         self.frames[name].grid()
 
-    def update_content(self):
-        # Get the updated window size
-        window_width = self.winfo_width()
-        window_height = self.winfo_height()
+    # def update_content(self):
+    #     # Get the updated window size
+    #     window_width = self.winfo_width()
+    #     window_height = self.winfo_height()
 
-        # Print the updated window size (you can replace this with your content update logic)
-        print(f"Window size updated: {window_width} x {window_height}")
+    #     # Print the updated window size (you can replace this with your content update logic)
+    #     print(f"Window size updated: {window_width} x {window_height}")
 
 root = MainWindow()
 root.resizable(True, True)
