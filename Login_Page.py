@@ -159,6 +159,8 @@ class Forgot_Password (tk.Frame):
             if hasattr(self, 'verification_label_bg'):
                 self.verification_label_bg.place_forget()
             self.reset_password_label_bg.place(x=0, y=0)
+            
+    
 
     def return_to_step(self, step):
         self.current_step = step
