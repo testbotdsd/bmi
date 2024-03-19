@@ -52,7 +52,7 @@ class Signup(tk.Frame):
 
         self.password_label = tk.Label(self, text='Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
         self.password_label.place(x=100, y=360)
-
+        
         self.password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
         self.password_entry.place(x=100, y=384)
 
@@ -173,9 +173,10 @@ class Signup(tk.Frame):
         pass
     
 class Photo (tk.Frame):
-    def __init__(self, master):
+    def __init__(self, master, signup_frame):
         tk.Frame.__init__ (self, master)
         self.parent = master
+        self.signup_frame = signup_frame
         self.config(width=400, height=600)
         
         self.Photo_bg = tk.Frame(self, bg='#3C3633', height=600, width=450)
@@ -224,6 +225,32 @@ class Photo (tk.Frame):
         self.parent.change_window('Signup')
         
     def go_to_Login_Page(self):
+        FName = self.signup_frame.first_name_entry.get().strip()
+        LName = self.signup_frame.last_name_entry.get().strip()
+        Uname = self.signup_frame.username_entry.get().strip()
+        Bday = self.signup_frame.Bday_calendar_entry.get().strip()
+        Gmail = self.signup_frame.gmail_entry.get().strip()
+        Pass = self.signup_frame.password_entry.get().strip()
+        Confirm_Pass = self.signup_frame.confirm_password_entry.get().strip()
+
+        user = Model.User()
+        user.firstname = FName
+        user.lastname = LName
+        user.username = Uname
+        user.birthday = Bday
+        user.gmail = Gmail
+        user.password = Pass
+        
+        if Pass == Confirm_Pass:
+            
+            dbconn = Data_base_Handler.database()
+            dbconn.create_sign_up_table(user)
+            dbconn.conn.close()
+            
+        else:
+            messagebox.showerror("Error", "Incorrect Password.")
+            return
+        
         final = messagebox.askokcancel('Signup', 'Finish signing up?')
         if final:
             self.parent.frames['Signup'].clear_input()

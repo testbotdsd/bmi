@@ -4,19 +4,38 @@ import Model
 class database:
     def __init__(self):
         self.conn = sqlite3.connect('Database.db')
+        self.Sign_up_table = 'sign_up_table'
         self.cursor = self.conn.cursor()
 
-        self.cursor.execute('''CREATE TABLE IF NOT EXISTS Files (
+
+        create_sign_up_table = f'''CREATE TABLE IF NOT EXISTS {self.Sign_up_table} (
                             ID INTEGER PRIMARY KEY,
                             firstname TEXT,
                             lastname TEXT,
-                            gmail TEXT
+                            gmail TEXT,
+                            username TEXT,
                             password TEXT,
-                            confirmpassword TEXT,
-                            day INTEGER,
-                            month INTEGER,
-                            year INTEGER
-                        )''')
+                            birthday TEXT
+                        )'''
+        
+        self.conn.execute(create_sign_up_table)
+
         self.conn.commit()
+        
+        
+    def create_sign_up_table (self, User:Model.User):
+        query = f"INSERT INTO {self.Sign_up_table} (firstname, lastname, gmail,username , password, birthday) VALUES (?,?,?,?,?,?)" 
+        values = (User.firstname, User.lastname, User.gmail, User.username, User.password, User.birthday)
+        self.cursor.execute(query, values) 
+        self.conn.commit()
+
+    def check_credentials(self, username, password):
+        query = f"SELECT * FROM {self.Sign_up_table} WHERE username=? AND password=?"
+        self.cursor.execute(query, (username, password))
+        user = self.cursor.fetchone()
+        return user is not None
+            
+        
+        
 
     
