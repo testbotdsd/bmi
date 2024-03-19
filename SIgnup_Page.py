@@ -6,6 +6,9 @@ import Model
 import Data_base_Handler
 import random
 import string
+from tkcalendar import DateEntry
+from datetime import date
+
 class Signup(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__ (self, master)
@@ -36,63 +39,40 @@ class Signup(tk.Frame):
         self.last_name_entry.place(x=237, y=144)
 
         self.gmail_label = tk.Label(self, text='Gmail', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.gmail_label.place(x=100, y=189)
+        self.gmail_label.place(x=100, y=246)
 
         self.gmail_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
-        self.gmail_entry.place(x=100, y=213)
+        self.gmail_entry.place(x=100, y=270)
 
         self.username_label = tk.Label(self, text='Username', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.username_label.place(x=100, y=246)
+        self.username_label.place(x=100, y=303)
 
         self.username_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
-        self.username_entry.place(x=100, y=270)
+        self.username_entry.place(x=100, y=327)
 
         self.password_label = tk.Label(self, text='Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.password_label.place(x=100, y=303)
+        self.password_label.place(x=100, y=360)
 
         self.password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
-        self.password_entry.place(x=100, y=327)
+        self.password_entry.place(x=100, y=384)
 
         self.confirm_password_label = tk.Label(self, text='Confirm Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.confirm_password_label.place(x=100, y=360)
+        self.confirm_password_label.place(x=90, y=420)
 
         self.confirm_password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
-        self.confirm_password_entry.place(x=100, y=384)
-        
+        self.confirm_password_entry.place(x=100, y = 444)
+
         self.birthday_label = tk.Label(self, text = 'Birthday', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.birthday_label.place(x=90, y=420) 
+        self.birthday_label.place(x=100, y=189) 
+    
+        self.Bday_calendar_entry = DateEntry(self,width=35,background='Grey', foreground='white', borderwidth=2)
+        self.Bday_calendar_entry.place (x=100, y=213)
         
         self.clear_button = tk.Button(self, text='Clear', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.clear_input)
         self.clear_button.place(x=90, y=500)
 
         self.toggle_password_button = tk.Button(self, text="Show", font=('Courier', 10), bd=1, bg='white',fg='black', command=self.toggle_password)
         self.toggle_password_button.place(x=370, y=355)
-
-        # Adding a Birthday Picker using a Combobox
-        self.day_var = tk.StringVar()
-        self.month_var = tk.StringVar()
-        self.year_var = tk.StringVar()
-
-        self.day_label = tk.Label(self, text="Day", font=('Courier', 10),  fg='#EEEDEB', bg='#3C3633')
-        self.day_label.place(x=81, y=444)
-        self.day_combo = ttk.Combobox(self, textvariable=self.day_var, state='readonly', font=('Courier', 13), width=3)
-        self.day_combo['values'] = [str(i) for i in range(1, 32)]
-        self.day_combo.place(x=111, y=444)
-        self.day_combo.current(0)
-
-        self.month_label = tk.Label(self, text="Month", font=('Courier', 10),  fg='#EEEDEB', bg='#3C3633')
-        self.month_label.place(x=170, y=444)
-        self.month_combo = ttk.Combobox(self, textvariable=self.month_var, state='readonly', font=('Courier', 13), width=3)
-        self.month_combo['values'] = [str(i) for i in range(1, 13)]
-        self.month_combo.place(x=220, y=444)
-        self.month_combo.current(0)
-
-        self.year_label = tk.Label(self, text="Year", font=('Courier', 10),  fg='#EEEDEB', bg='#3C3633')
-        self.year_label.place(x=280, y=444)
-        self.year_combo = ttk.Combobox(self, textvariable=self.year_var, state='readonly', font=('Courier', 13), width=4)
-        self.year_combo['values'] = [str(i) for i in range(1900, 2025)]
-        self.year_combo.place(x=317, y=444)
-        self.year_combo.current(0)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
         self.have_an_account_login_label.place(x=100, y=560)
@@ -124,10 +104,8 @@ class Signup(tk.Frame):
         self.username_entry.delete(0, tk.END)
         self.password_entry.delete(0, tk.END)
         self.confirm_password_entry.delete(0, tk.END)
-        self.day_combo.set('')
-        self.month_combo.set('')
-        self.year_combo.set('')
-
+        self.Bday_calendar_entry.delete (0, tk.END)
+        
     def validate_sign_up(self):
         first_name = self.first_name_entry.get()
         last_name = self.last_name_entry.get()
@@ -135,6 +113,8 @@ class Signup(tk.Frame):
         username = self.username_entry.get()
         password = self.password_entry.get()
         confirm_password = self.confirm_password_entry.get()
+        birthday = self.Bday_calendar_entry.get()
+        chosen_date = date.today()
         
         if first_name == '':
             messagebox.showerror('Error', 'First name field is empty, please fill it out.')
@@ -160,6 +140,14 @@ class Signup(tk.Frame):
             messagebox.showerror('Error', 'Confirm password field is empty, please fill it out.')
             return False
         
+        if birthday == '':
+            messagebox.showerror('Error', 'Birthday password field is empty, please fill it out.')
+            return False
+        
+        if chosen_date > date.today():
+            messagebox.showerror('Error', 'Birth Date is beyond the current date, Please put your real birthday')
+            return False
+        
         self.parent.frames['Photo'].update_username_label(username)
         self.go_to_Photo_page()
 
@@ -171,9 +159,7 @@ class Signup(tk.Frame):
         self.username_entry.delete(0, tk.END)
         self.password_entry.delete(0, tk.END)
         self.confirm_password_entry.delete(0, tk.END)
-        self.day_combo.current(0)
-        self.month_combo.current(0)
-        self.year_combo.current(0)
+        self.Bday_calendar_entry.delete(0, tk.END)
         
     def go_to_welcome_page(self):
         self.parent.change_window('Welcome_Page')
