@@ -27,7 +27,12 @@ class BMI(tk.Frame):
         self.frame_bottom_left.place(x=45, y=190)
         self.frame_bottom_right.place(x=215, y=190)
         self.frame_result.place(x=45, y=332)
-
+        
+        # Age Label and Entry
+        self.age_label = tk.Label(self.main_frame, text="Age", bg='#747264', font=("Perpetua", 10, 'bold'), foreground='#E0CCBE')
+        self.age_label.place(x=45, y=70)
+        self.age_entry = tk.Entry(self.main_frame, width=39, font=("Perpetua", 10), bg='#E0CCBE',)
+        self.age_entry.place(x=78, y=70)
 
         # self.create_account_bg = tk.Frame(self, bg='#DE8971', height=600, width=450)
         # self.create_account_bg.place(x=0, y=0)
@@ -42,6 +47,7 @@ class BMI(tk.Frame):
         self.welcome_label = tk.Label(self, text="BMI Calculator", bg='#3C3633', font=('Courier', 17, 'bold'), 
                                       foreground='#E0CCBE')
         self.welcome_label.place(x=100, y=10)
+        
 
         # WEIGHT LABEL AND ENTRY
         self.weight_kg_label = tk.Label(self.frame_top_left, text="Weight (kg)", bg='#747264', font=("Perpetua", 13, 'bold'), 
