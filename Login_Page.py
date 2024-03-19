@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 from customtkinter import *
+import random
+import smtplib
 
 class Login(tk.Frame):
     def __init__(self, master):
@@ -101,7 +103,7 @@ class Forgot_Password_Gmail (tk.Frame):
 
         #cont button
         self.continue_button = tk.Button(self.forgot_password_label_bg, text="CONTINUE", font=('Courier', 12), fg='white', bg='#7B6079', 
-                                         command=self.validate_gmail_entry)
+                                         command=self.validate_login)
         self.continue_button.place( x =150, y = 440)
 
         #back button
@@ -115,12 +117,28 @@ class Forgot_Password_Gmail (tk.Frame):
     def go_to_login(self):
         self.parent.change_window('Login')   
 
-    def validate_gmail_entry(self):
-        gmail = self.gmail_entry.get()
+    def validate_login(self):
+        email = self.gmail_entry.get()
         
-        if gmail == "":
+        if email == "":
             messagebox.showerror("Error", "Please enter your Gmail Account.")
         else:
+            # Generate a 4-digit OTP
+            otp = ''.join([str(random.randint(0, 9)) for _ in range(4)])
+
+            email_sender = 'gelcabsam@gmail.com'
+            password = 'wnet spkm cjak ofiw'
+
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.starttls()
+
+            server.login(email_sender, password)
+
+            msg = 'Subject: Your OTP\n\nHello, your OTP is ' + otp
+
+            server.sendmail(email_sender, email, msg)
+            server.quit()
+
             self.reset_fields()
             self.go_to_otp()
 
