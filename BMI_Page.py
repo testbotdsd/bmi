@@ -33,6 +33,9 @@ class BMI(tk.Frame):
         self.age_label.place(x=45, y=70)
         self.age_entry = tk.Entry(self.main_frame, width=39, font=("Perpetua", 10), bg='#E0CCBE',)
         self.age_entry.place(x=78, y=70)
+        
+        self.age_entry.bind('<KeyRelease>', self.update_age)
+
 
         # self.create_account_bg = tk.Frame(self, bg='#DE8971', height=600, width=450)
         # self.create_account_bg.place(x=0, y=0)
@@ -154,6 +157,22 @@ class BMI(tk.Frame):
         except ValueError:
             self.height_cm_entry.delete(0, tk.END)
             self.height_cm_entry.insert(0, "Invalid Input")
+            
+    def update_age(self, event):
+        try:
+            new_age = self.age_entry.get()
+            new_age = ''.join(filter(str.isdigit, new_age))
+            new_age = new_age[:2]
+
+            self.age_entry.delete(0, tk.END) 
+            self.age_entry.insert(0, new_age)  
+
+        except ValueError:
+            self.age_entry.delete(0, tk.END)
+            self.age_entry.insert(0, "Invalid Input")
+
+
+
     
     def clear_button(self):
         self.height_cm_entry.delete(0, tk.END)
@@ -161,6 +180,7 @@ class BMI(tk.Frame):
         self.weight_kg_entry.delete(0, tk.END)
         self.weight_lb_entry.delete(0, tk.END)
         self.result_entry.delete(0, tk.END)
+        self.age_entry.delete(0,tk.END)
         
         if self.evaluation_result_label:
             self.evaluation_result_label.destroy()
@@ -168,6 +188,13 @@ class BMI(tk.Frame):
             
     def calculate_BMI(self):
         try:
+            age = self.age_entry.get()
+
+            # Check if age field is empty
+            if not age:
+                messagebox.showerror("Error", "Please enter your age.")
+                return  # Exit the method if age is not entered
+
             kg_value = float(self.weight_kg_entry.get())
             m_value = float(self.height_m_entry.get())
             bmi_result = kg_value / (m_value ** 2)  
@@ -179,6 +206,7 @@ class BMI(tk.Frame):
         except ValueError:
             self.result_entry.delete(0, tk.END)
             self.result_entry.insert(0, "Invalid Input")
+
             
     def Evaluation_result(self, bmi_result):
         if bmi_result < 18.5:
