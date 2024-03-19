@@ -237,7 +237,10 @@ class Reset_Pass (tk.Frame):
         self.verification_entry_2.place(x= 100, y= 325)
 
         #cont button
-        self.continue_button = CTkButton(self.forgot_password_label_bg, text="Continue", width=200, height=40, corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',command=self.validate_password_and_confirm_password_entry)
+        self.continue_button = CTkButton(self.forgot_password_label_bg, text="Continue", width=200, height=40, 
+                                         corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', 
+                                         fg_color='#E0CCBE', text_color='black',
+                                         command=self.validate_entries)
         self.continue_button.place( x =100, y = 440)
 
         #back button
@@ -247,7 +250,7 @@ class Reset_Pass (tk.Frame):
 
         self.password_hidden = True
 
-    def validate_password_and_confirm_password_entry(self):
+    def validate_entries(self):
         passsword_and_confirm_password = self.verification_entry and self.verification_entry_2.get()
         
         if passsword_and_confirm_password == "":

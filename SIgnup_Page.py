@@ -57,7 +57,7 @@ class Signup(tk.Frame):
         self.password_entry.place(x=100, y=384)
 
         self.confirm_password_label = tk.Label(self, text='Confirm Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.confirm_password_label.place(x=90, y=420)
+        self.confirm_password_label.place(x=100, y=420)
 
         self.confirm_password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
         self.confirm_password_entry.place(x=100, y = 444)
@@ -72,7 +72,7 @@ class Signup(tk.Frame):
         self.clear_button.place(x=90, y=500)
 
         self.toggle_password_button = tk.Button(self, text="Show", font=('Courier', 10), bd=1, bg='white',fg='black', command=self.toggle_password)
-        self.toggle_password_button.place(x=370, y=355)
+        self.toggle_password_button.place(x=350, y=415)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
         self.have_an_account_login_label.place(x=100, y=560)
