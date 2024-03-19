@@ -82,48 +82,99 @@ class Login(tk.Frame):
 
 class Forgot_Password (tk.Frame):
     def __init__(self, master):
-        tk.Frame.__init__ (self, master)
+        tk.Frame.__init__(self, master)
         self.parent = master
         self.config(width=400, height=600)
 
-        self.forgot_password_label_bg = tk.Frame(self, bg='#3C3633', height=600, width=400)
-        self.forgot_password_label_bg.place(x=0, y=0)
-
-        self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="Forgot Password", font=('Courier', 20, 'bold'), fg='white', bg='#3C3633')
-        self.forgot_password_label.place(x = 80, y = 40)
-
-        # gmail num
-        self.gmail_num_label = tk.Label(self.forgot_password_label_bg, text="Gmail Account", font=('Courier', 15), fg='white', bg='#3C3633')
-        self.gmail_num_label.place(x = 100, y= 110)
+        self.current_step = 1
         
-        self.gmail_num_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12),bg='#59504b')
-        self.gmail_num_entry.place(x= 100, y= 145)
+        self.email_label_bg = tk.Frame(self, bg='#3C3633', height=600, width=400)
+        self.email_label_bg.place(x=0, y=0)
+        
+        self.forgot_label = tk.Label(self.email_label_bg, text="Forgot Password", font=('Courier', 15), fg='white', bg='#3C3633')
+        self.forgot_label.place(x=100, y=50)
+        
+        self.email_label = tk.Label(self.email_label_bg, text="Email", font=('Courier', 15), fg='white', bg='#3C3633')
+        self.email_label.place(x=100, y=110)
 
-        #new pass
-        self.new_password_label = tk.Label(self.forgot_password_label_bg, text="New Password", font=('Courier', 15), fg='white', bg='#3C3633')
-        self.new_password_label.place( x = 100, y= 190)
+        self.email_entry = tk.Entry(self.email_label_bg, font=('Courier', 12), bg='#59504b')
+        self.email_entry.place(x=100, y=145)
         
-        self.new_password_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), show='*', bg='#59504b')
-        self.new_password_entry.place(x = 100, y= 225)
+        self.continue_btn_email = CTkButton(self.email_label_bg, text="Continue", width=200, height=40, corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',command=self.continue_clicked)
+        self.continue_btn_email.place(x=100, y=490)
 
-        #conf pass
-        self.confirm_password_label = tk.Label(self.forgot_password_label_bg, text="Confirm Password", font=('Courier', 15), fg='white', bg='#3C3633')
-        self.confirm_password_label.place(x= 100, y= 270)
-        
-        self.confirm_password_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), show='*,' , bg='#59504b')
-        self.confirm_password_entry.place(x = 100, y = 305)
-        
-        #verification
-        self.verification_label = tk.Label(self.forgot_password_label_bg, text="Verification", font=('Courier', 15), fg='white', bg='#3C3633')
-        self.verification_label.place(x= 100, y= 350)
-        
-        self.verification_entry = tk.Entry(self.forgot_password_label_bg, font=('Courier', 12), bg='#59504b')
-        self.verification_entry.place(x = 100, y = 385)
+        self.verification_label_bg = tk.Frame(self, bg='#3C3633', height=600, width=400)
 
-        #cont button
-        self.continue_button = CTkButton(self, text='Continue', width=200, height=40,corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', 
-                                            text_color='black', command=self.go_to_login)
-        self.continue_button.place( x =100, y = 490)
+        self.verification_code_label = tk.Label(self.verification_label_bg, text="Enter Verification Code", font=('Courier', 15), fg='white', bg='#3C3633')
+        self.verification_code_label.place(x=100, y=110)
+
+        self.verification_code_entry = tk.Entry(self.verification_label_bg, font=('Courier', 12), bg='#59504b')
+        self.verification_code_entry.place(x=100, y=145)
+
+        self.return_btn_2 = tk.Button(self.verification_label_bg, text="Return", font=('Courier', 12), bg='#59504b', command=lambda: self.return_to_step(1))
+        self.return_btn_2.place(x=10, y=10)
+
+        self.continue_btn_verification = CTkButton(self.verification_label_bg, text="Continue", width=200, height=40, corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',command=self.continue_clicked)
+        self.continue_btn_verification.place(x=100, y=490)
+        
+
+        self.reset_password_label_bg = tk.Frame(self, bg='#3C3633', height=600, width=400)
+        
+        self.new_password_label = tk.Label(self.reset_password_label_bg, text="New Password", font=('Courier', 15), fg='white', bg='#3C3633')
+        self.new_password_label.place(x=100, y=110)
+
+        self.new_password_entry = tk.Entry(self.reset_password_label_bg, font=('Courier', 12), show='*', bg='#59504b')
+        self.new_password_entry.place(x=100, y=145)
+
+        self.confirm_password_label = tk.Label(self.reset_password_label_bg, text="Confirm Password", font=('Courier', 15), fg='white', bg='#3C3633')
+        self.confirm_password_label.place(x=100, y=190)
+
+        self.confirm_password_entry = tk.Entry(self.reset_password_label_bg, font=('Courier', 12), show='*', bg='#59504b')
+        self.confirm_password_entry.place(x=100, y=225)
+
+        self.return_btn_3 = tk.Button(self.reset_password_label_bg, text="Return", font=('Courier', 12), bg='#59504b', command=lambda: self.return_to_step(2))
+        self.return_btn_3.place(x=10, y=10)
+
+        self.reset_btn = CTkButton(self.reset_password_label_bg, text="Reset Password", width=200, height=40, corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',command=self.continue_clicked)
+        self.reset_btn.place(x=100, y=490)
+
+        self.show_step(1)
+
+    def show_step(self, step):
+        if step == 1:
+            self.email_label_bg.place(x=0, y=0)
+            if hasattr(self, 'verification_label_bg'):
+                self.verification_label_bg.place_forget()
+            if hasattr(self, 'reset_password_label_bg'):
+                self.reset_password_label_bg.place_forget()
+        elif step == 2:
+            if hasattr(self, 'email_label_bg'):
+                self.email_label_bg.place_forget()
+            self.verification_label_bg.place(x=0, y=0)
+            if hasattr(self, 'reset_password_label_bg'):
+                self.reset_password_label_bg.place_forget()
+        elif step == 3:
+            if hasattr(self, 'email_label_bg'):
+                self.email_label_bg.place_forget()
+            if hasattr(self, 'verification_label_bg'):
+                self.verification_label_bg.place_forget()
+            self.reset_password_label_bg.place(x=0, y=0)
+
+    def return_to_step(self, step):
+        self.current_step = step
+        self.show_step(self.current_step)
+
+    def continue_clicked(self):
+        if self.current_step == 1:
+            # Validate email, if valid, move to next step
+            # Here you should add validation code and condition to move to next step
+            self.current_step = 2
+            self.show_step(self.current_step)
+        elif self.current_step == 2:
+            # Validate verification code, if valid, move to next step
+            # Here you should add validation code and condition to move to next step
+            self.current_step = 3
+            self.show_step(self.current_step)
 
         #back button
         self.back_button = tk.Button(self.forgot_password_label_bg, text="Return", width=4, height=1, font=('Courier', 12, 'bold'), bg='#FFE9D6', command=self.go_to_login)
