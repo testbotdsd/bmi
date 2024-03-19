@@ -58,7 +58,7 @@ class Login(tk.Frame):
             self.password_hidden = True
 
     def go_to_forgot_password(self):
-        self.parent.change_window('Forgot_Password_Gmail')
+        self.parent.change_window('Forget')
 
     def go_to_BMI_Page(self):
         self.parent.change_window('BMI')
