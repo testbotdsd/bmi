@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox
 from customtkinter import *
+import random
+import smtplib
+import re
 
 class Login(tk.Frame):
     def __init__(self, master):
@@ -89,7 +92,8 @@ class Forgot_Password_Gmail (tk.Frame):
         self.forgot_password_label_bg = tk.Frame(self, bg='#3C3633', height=600, width=400)
         self.forgot_password_label_bg.place(x=0, y=0)
 
-        self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="Forgot Password", font=('Courier', 20, 'bold'), fg='white', bg='#3C3633')
+        self.forgot_password_label = tk.Label(self.forgot_password_label_bg, text="Forgot Password", font=('Courier', 20, 'bold'), fg='white', 
+                                              bg='#3C3633')
         self.forgot_password_label.place(x = 70, y = 40)
 
         # gmail
@@ -100,7 +104,9 @@ class Forgot_Password_Gmail (tk.Frame):
         self.gmail_entry.place(x= 100, y= 145)
 
         #cont button
-        self.continue_button = CTkButton(self.forgot_password_label_bg, text="CONTINUE", width=200, height=40, corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',command=self.validate_gmail_entry)
+        self.continue_button = CTkButton(self.forgot_password_label_bg, text="CONTINUE", width=200, height=40, corner_radius=30, 
+                                         font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',
+                                         command=self.validate_login)
         self.continue_button.place( x =100, y = 440)
 
         #back button
@@ -108,23 +114,52 @@ class Forgot_Password_Gmail (tk.Frame):
                                      command=self.go_to_login)
         self.back_button.place(x= 5, y= 10)
 
+    def validate_login(self):
+        email = self.gmail_entry.get()
+        
+        if email == "":
+            messagebox.showerror("Error", "Please enter your Gmail Account.")
+        elif not self.is_valid_gmail(email):
+            messagebox.showerror("Error", "Please enter a valid Gmail Account.")
+        else:
+            # Generate a 4-digit OTP
+            otp = ''.join([str(random.randint(0, 9)) for _ in range(4)])
+
+            email_sender = 'gelcabsam@gmail.com'
+            password = 'wnet spkm cjak ofiw'
+
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.starttls()
+            server.login(email_sender, password)
+
+            msg = 'Subject: Your OTP\n\nHello, your OTP is ' + otp
+
+            server.sendmail(email_sender, email, msg)
+            server.quit()
+
+            self.sent_otp = otp  # Store the OTP
+            self.reset_fields()
+            self.go_to_otp()
+    
+    def reset_fields(self):
+        self.gmail_entry.delete(0, tk.END)
+
+    def is_valid_gmail(self, email):
+        # Check if the email follows a valid format
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            return False
+        
+        # Check if the domain is gmail.com
+        if email.endswith('@gmail.com'):
+            return True
+        
+        return False
+    
     def go_to_otp(self):
         self.parent.change_window('OTP')
 
     def go_to_login(self):
-        self.parent.change_window('Login')   
-
-    def validate_gmail_entry(self):
-        gmail = self.gmail_entry.get()
-        
-        if gmail == "":
-            messagebox.showerror("Error", "Please enter your Gmail Account.")
-        else:
-            self.reset_fields()
-            self.go_to_otp()
-
-    def reset_fields(self):
-        self.gmail_entry.delete(0, tk.END)
+        self.parent.change_window('Login')
     
 class OTP (tk.Frame):
     def __init__(self, master):
