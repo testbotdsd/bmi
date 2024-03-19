@@ -195,7 +195,7 @@ class Photo (tk.Frame):
         self.captcha_label.place(x=160, y=255)
 
         self.terms_and_conditions_var = tk.BooleanVar()
-        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.terms_and_conditions_var, command=self.terms_conditios_var, bg='#3C3633' , fg= "white")
+        self.terms_and_conditions_check_button = tk.Checkbutton(self.Photo_bg, text="I accept the Terms and Conditions", variable=self.terms_and_conditions_var, bg='#3C3633', fg="white")
         self.terms_and_conditions_check_button.place(x=95, y=484)
 
         self.generate_captcha_button = tk.Button(self, text="Generate Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.generate_captcha)
