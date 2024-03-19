@@ -183,14 +183,9 @@ class Signup(tk.Frame):
         
     def on_return(self):
         pass
-<<<<<<< HEAD
 
 
 class Photo (tk.Frame):
-=======
-    
-class Photo(tk.Frame):
->>>>>>> aa4db5c3faeea9a33c2000eb085edb1898bb6ea6
     def __init__(self, master, signup_frame):
         tk.Frame.__init__(self, master)
         self.parent = master
@@ -209,11 +204,12 @@ class Photo(tk.Frame):
         self.select_image_button.place(x=120, y=230)
 
         self.selected_image = None
-           
+
         self.remove_image_button = tk.Button(self, text="Remove", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.remove_image)
         self.remove_image_button.place(x=210, y=230)
         
-        self.Back_button = tk.Button(self, text="Return", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_create_acc)
+        self.Back_button = tk.Button(self, text="Return", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', 
+                                     command=self.go_to_create_acc)
         self.Back_button.place(x=5, y=5)
         
         self.Finish_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'), bg='#d3d3d3', command=self.go_to_Login_Page)
@@ -222,14 +218,16 @@ class Photo(tk.Frame):
         self.captcha_label = tk.Label(self, text='Captcha', font=('Courier', 12, 'bold'), fg='#EEEDEB', bg='#3C3633')
         self.captcha_label.place(x=160, y=255)
 
-        self.generate_captcha_button = tk.Button(self, text="Generate Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.generate_captcha)
+        self.generate_captcha_button = tk.Button(self, text="Generate Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3', 
+                                                 command=self.generate_captcha)
         self.generate_captcha_button.place(x=110, y=290)
 
         self.check_var = tk.IntVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.check_var, 
                                                                 command=self.terms_conditios_var)
         self.terms_and_conditions_var = tk.BooleanVar()
-        self.terms_and_conditions_check_button = tk.Checkbutton(self.Photo_bg, text="I accept the Terms and Conditions", variable=self.terms_and_conditions_var, bg='#3C3633', fg="white")
+        self.terms_and_conditions_check_button = tk.Checkbutton(self.Photo_bg, text="I accept the Terms and Conditions", 
+                                                                variable=self.terms_and_conditions_var, bg='#3C3633', fg="white")
         self.terms_and_conditions_check_button.place(x=95, y=484)
 
     def select_image(self):
@@ -262,12 +260,9 @@ class Photo(tk.Frame):
         captcha_text = f'{self.generated}'
         img_data = captcha.generate(captcha_text)
         img = tk.PhotoImage(data=img_data.getvalue())
+        
         return img
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> aa4db5c3faeea9a33c2000eb085edb1898bb6ea6
     def terms_conditios_var(self):
             result = messagebox.askokcancel("Terms and condition", "Do you accept the Terms and Conditions?")
             if result:
