@@ -6,8 +6,12 @@ import Model
 import Data_base_Handler
 import random
 import string
+from captcha.image import ImageCaptcha
+import random
 from tkcalendar import DateEntry
 from datetime import date
+from PIL import Image, ImageTk
+
 
 class Signup(tk.Frame):
     def __init__(self, master):
@@ -52,7 +56,7 @@ class Signup(tk.Frame):
 
         self.password_label = tk.Label(self, text='Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
         self.password_label.place(x=100, y=360)
-        
+
         self.password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
         self.password_entry.place(x=100, y=384)
 
@@ -71,8 +75,17 @@ class Signup(tk.Frame):
         self.clear_button = tk.Button(self, text='Clear', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.clear_input)
         self.clear_button.place(x=90, y=500)
 
-        self.toggle_password_button = tk.Button(self, text="Show", font=('Courier', 10), bd=1, bg='white',fg='black', command=self.toggle_password)
-        self.toggle_password_button.place(x=350, y=415)
+        self.eye_hide = Image.open("hide.jpg")
+        self.eye_hide = self.eye_hide.resize((30, 30))  
+        self.eye_hide = ImageTk.PhotoImage(self.eye_hide) 
+
+        self.eye_show = Image.open("show.jpg")
+        self.eye_show = self.eye_show.resize((30, 30))  
+        self.eye_show = ImageTk.PhotoImage(self.eye_show) 
+
+        # Create the button with the loaded image
+        self.toggle_password_button = tk.Button(self, font=('Courier', 10), bd=1, bg='white', fg='black', command=self.toggle_password, image=self.eye_show)
+        self.toggle_password_button.place(x=350, y=410)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
         self.have_an_account_login_label.place(x=100, y=560)
@@ -89,12 +102,12 @@ class Signup(tk.Frame):
         if self.password_hidden:
             self.password_entry.config(show='')
             self.confirm_password_entry.config(show='')
-            self.toggle_password_button.config(text="Hide", bg='#3C3633', fg='white')
+            self.toggle_password_button.config(bg='#3C3633', fg='white', image=self.eye_hide)
             self.password_hidden = False
         else:
             self.password_entry.config(show='*')
             self.confirm_password_entry.config(show='*')
-            self.toggle_password_button.config(text="Show", bg='white', fg='#3C3633')
+            self.toggle_password_button.config(bg='white', fg='#3C3633', image=self.eye_show)
             self.password_hidden = True
 
     def clear_input(self):
@@ -150,7 +163,6 @@ class Signup(tk.Frame):
         
         self.go_to_Photo_page()
 
-        
     def clear_input(self):
         self.first_name_entry.delete(0, tk.END)
         self.last_name_entry.delete(0, tk.END)
@@ -171,10 +183,11 @@ class Signup(tk.Frame):
         
     def on_return(self):
         pass
-    
+
+
 class Photo (tk.Frame):
     def __init__(self, master, signup_frame):
-        tk.Frame.__init__ (self, master)
+        tk.Frame.__init__(self, master)
         self.parent = master
         self.signup_frame = signup_frame
         self.config(width=400, height=600)
@@ -182,10 +195,21 @@ class Photo (tk.Frame):
         self.Photo_bg = tk.Frame(self, bg='#3C3633', height=600, width=450)
         self.Photo_bg.place(x=0, y=0)
         
-        self.pic_frame = tk.Frame(self, bd=10, width=150, height=150, bg='white', relief='flat')
+        img=self.generate_captha()
+        self.pic_frame = tk.Label(self, image=img)
+        self.pic_frame.image = img  
         self.pic_frame.place(x=125, y=70)
         
-        self.Back_button = tk.Button(self, text="Return", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_create_acc)
+        self.select_image_button = tk.Button(self, text="Select", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.select_image)
+        self.select_image_button.place(x=120, y=230)
+
+        self.selected_image = None
+
+        self.remove_image_button = tk.Button(self, text="Remove", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.remove_image)
+        self.remove_image_button.place(x=210, y=230)
+        
+        self.Back_button = tk.Button(self, text="Return", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', 
+                                     command=self.go_to_create_acc)
         self.Back_button.place(x=5, y=5)
         
         self.Finish_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'), bg='#d3d3d3', command=self.go_to_Login_Page)
@@ -194,33 +218,58 @@ class Photo (tk.Frame):
         self.captcha_label = tk.Label(self, text='Captcha', font=('Courier', 12, 'bold'), fg='#EEEDEB', bg='#3C3633')
         self.captcha_label.place(x=160, y=255)
 
-        self.terms_and_conditions_var = tk.BooleanVar()
-        self.terms_and_conditions_check_button = tk.Checkbutton(self.Photo_bg, text="I accept the Terms and Conditions", variable=self.terms_and_conditions_var, bg='#3C3633', fg="white")
-        self.terms_and_conditions_check_button.place(x=95, y=484)
-
-        self.generate_captcha_button = tk.Button(self, text="Generate Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.generate_captcha)
+        self.generate_captcha_button = tk.Button(self, text="Generate Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3', 
+                                                 command=self.generate_captcha)
         self.generate_captcha_button.place(x=110, y=290)
 
-        self.captcha_label = tk.Label(self, text='', font=("Arial", 12), width=10, bg='#59504b')
-        self.captcha_label.place(x=150, y=335)
-            
-        self.captcha = tk.Label(self, text="Enter Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3')
-        self.captcha.place(x=130, y=390)
-        self.captcha_input = tk.Entry(self, text="Enter Captcha here", width=20, bg='#59504b')
-        self.captcha_input.place(x=135, y=425)
+        self.check_var = tk.IntVar()
+        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.check_var, 
+                                                                command=self.terms_conditios_var)
+        self.terms_and_conditions_var = tk.BooleanVar()
+        self.terms_and_conditions_check_button = tk.Checkbutton(self.Photo_bg, text="I accept the Terms and Conditions", 
+                                                                variable=self.terms_and_conditions_var, bg='#3C3633', fg="white")
+        self.terms_and_conditions_check_button.place(x=95, y=484)
+
+    def select_image(self):
+        file_path = filedialog.askopenfilename(title="Select Image", filetypes=[("Image Files", "*.jpg *.jpeg *.png *.gif")])
+        if file_path:
+            if self.selected_image is not None:
+                self.image_label.destroy() 
+
+            image = Image.open(file_path)
+            image.thumbnail((150, 150)) 
+            self.selected_image = ImageTk.PhotoImage(image)
+            self.image_label = tk.Label(self.pic_frame, image=self.selected_image)
+            self.image_label.place(x=0, y=0)
+
+    def remove_image(self):
+        if self.selected_image is not None:
+            self.selected_image = None
+            for widget in self.pic_frame.winfo_children():
+                widget.destroy()
 
     def generate_captcha(self):
-        captcha = ''.join(random.choices(string.ascii_letters + string.digits, k=6,))
-        self.captcha_label.config(text=captcha)
+        print("Reload button clickd")
+        img = self.generate_captha()
+        self.pic_frame.configure(image=img)
+        self.pic_frame.image = img
+
+    def generate_captha(self):
+        self.generated = "".join(random.choices(string.ascii_lowercase, k=4))
+        captcha = ImageCaptcha(width=300, height=200)
+        captcha_text = f'{self.generated}'
+        img_data = captcha.generate(captcha_text)
+        img = tk.PhotoImage(data=img_data.getvalue())
+        
+        return img
 
     def terms_conditios_var(self):
-        if self.terms_and_conditions_var.get():
             result = messagebox.askokcancel("Terms and condition", "Do you accept the Terms and Conditions?")
             if result:
-                 pass
+                self.check_var.set(1)
             else:
-                self.terms_and_conditions_var.set(False)
-        
+                self.check_var.set(0)
+
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
         

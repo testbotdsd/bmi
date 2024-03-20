@@ -51,6 +51,7 @@ class MainWindow(tk.Tk):
         
         self.frames[name].grid()
 
+<<<<<<< HEAD
     def change_window(self, name, **kwargs):
         for frame in self.frames.values():
             frame.grid_forget()
@@ -60,6 +61,19 @@ class MainWindow(tk.Tk):
     def on_return(self, **kwargs):
         pass
     
+=======
+    def update_content(self):
+        # Get the updated window size
+        window_width = self.winfo_width()
+        window_height = self.winfo_height()
+
+        # Print the updated window size (you can replace this with your content update logic)
+        print(f"Window size updated: {window_width} x {window_height}")
+
+>>>>>>> fdabfb0a6f4324411e891e0863cef9a68b72fbfd
 root = MainWindow()
-root.resizable(False, False)
+root.resizable(True, True)
+
+# Bind the window resize event to the update_content method
+root.bind("<Configure>", lambda event: root.update_content())
 root.mainloop()
