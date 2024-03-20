@@ -8,6 +8,8 @@ import random
 import string
 from tkcalendar import DateEntry
 from datetime import date
+from PIL import Image, ImageTk
+
 
 class Signup(tk.Frame):
     def __init__(self, master):
@@ -52,7 +54,7 @@ class Signup(tk.Frame):
 
         self.password_label = tk.Label(self, text='Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
         self.password_label.place(x=100, y=360)
-        
+
         self.password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
         self.password_entry.place(x=100, y=384)
 
@@ -71,8 +73,17 @@ class Signup(tk.Frame):
         self.clear_button = tk.Button(self, text='Clear', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.clear_input)
         self.clear_button.place(x=90, y=500)
 
-        self.toggle_password_button = tk.Button(self, text="Show", font=('Courier', 10), bd=1, bg='white',fg='black', command=self.toggle_password)
-        self.toggle_password_button.place(x=350, y=415)
+        self.eye_hide = Image.open("hide.jpg")
+        self.eye_hide = self.eye_hide.resize((30, 30))  
+        self.eye_hide = ImageTk.PhotoImage(self.eye_hide) 
+
+        self.eye_show = Image.open("show.jpg")
+        self.eye_show = self.eye_show.resize((30, 30))  
+        self.eye_show = ImageTk.PhotoImage(self.eye_show) 
+
+        # Create the button with the loaded image
+        self.toggle_password_button = tk.Button(self, font=('Courier', 10), bd=1, bg='white', fg='black', command=self.toggle_password, image=self.eye_show)
+        self.toggle_password_button.place(x=350, y=410)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
         self.have_an_account_login_label.place(x=100, y=560)
@@ -89,12 +100,12 @@ class Signup(tk.Frame):
         if self.password_hidden:
             self.password_entry.config(show='')
             self.confirm_password_entry.config(show='')
-            self.toggle_password_button.config(text="Hide", bg='#3C3633', fg='white')
+            self.toggle_password_button.config(bg='#3C3633', fg='white', image=self.eye_hide)
             self.password_hidden = False
         else:
             self.password_entry.config(show='*')
             self.confirm_password_entry.config(show='*')
-            self.toggle_password_button.config(text="Show", bg='white', fg='#3C3633')
+            self.toggle_password_button.config(bg='white', fg='#3C3633', image=self.eye_show)
             self.password_hidden = True
 
     def clear_input(self):
@@ -171,7 +182,11 @@ class Signup(tk.Frame):
         
     def on_return(self):
         pass
-    
+
+
+from PIL import Image, ImageTk
+from tkinter import filedialog
+
 class Photo (tk.Frame):
     def __init__(self, master, signup_frame):
         tk.Frame.__init__ (self, master)
@@ -184,6 +199,14 @@ class Photo (tk.Frame):
         
         self.pic_frame = tk.Frame(self, bd=10, width=150, height=150, bg='white', relief='flat')
         self.pic_frame.place(x=125, y=70)
+        
+        self.select_image_button = tk.Button(self, text="Select", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.select_image)
+        self.select_image_button.place(x=120, y=230)
+
+        self.selected_image = None
+           
+        self.remove_image_button = tk.Button(self, text="Remove", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.remove_image)
+        self.remove_image_button.place(x=210, y=230)
         
         self.Back_button = tk.Button(self, text="Return", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_create_acc)
         self.Back_button.place(x=5, y=5)
@@ -212,6 +235,28 @@ class Photo (tk.Frame):
         self.captcha.place(x=130, y=390)
         self.captcha_input = tk.Entry(self, text="Enter Captcha here", width=20, bg='#59504b')
         self.captcha_input.place(x=135, y=425)
+
+    def select_image(self):
+        file_path = filedialog.askopenfilename(title="Select Image", filetypes=[("Image Files", "*.jpg *.jpeg *.png *.gif")])
+        if file_path:
+            if self.selected_image is not None:
+                self.image_label.destroy() 
+
+            image = Image.open(file_path)
+            image.thumbnail((150, 150)) 
+            self.selected_image = ImageTk.PhotoImage(image)
+            self.image_label = tk.Label(self.pic_frame, image=self.selected_image)
+            self.image_label.place(x=0, y=0)
+
+
+
+    def remove_image(self):
+        if self.selected_image is not None:
+            self.selected_image = None
+            for widget in self.pic_frame.winfo_children():
+                widget.destroy()
+
+
 
     def generate_captcha(self):
         captcha = ''.join(random.choices(string.ascii_letters + string.digits, k=6,))
