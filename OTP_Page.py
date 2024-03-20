@@ -77,8 +77,6 @@ class Forget(tk.Frame):
         otp_frame.email = email
         
         self.reset_fields()
-        
-
 
     def verify_otp(self):
         entered_otp = self.otp_verify_entry.get()
