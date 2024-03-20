@@ -19,8 +19,6 @@ class MainWindow(tk.Tk):
 
         #login Page
         self.frames ['Login'] = Login_Page.Login(self)
-        # self.frames ['OTP'] = Login_Page.OTP(self)
-        # self.frames ['Reset_Pass'] = Login_Page.Reset_Pass(self)
 
         #Send OTP
         self.frames ['Forget'] = OTP_Page.Forget(self)
