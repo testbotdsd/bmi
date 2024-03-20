@@ -123,4 +123,7 @@ class Forget(tk.Frame):
     def reset_fields(self):
         self.otp_verify_entry.delete(0, tk.END)
 
+    def on_return(self, **kwargs):
+        pass
+
 

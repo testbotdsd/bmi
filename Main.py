@@ -6,12 +6,13 @@ import SIgnup_Page
 import Profile_Page
 import OTP_Page
 import New_Password_Page
-
+import Data_base_Handler
 
 class MainWindow(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
         self.wm_title("BMI CALCULATOR")
+        self.logged_in_user_id = None
 
         self.frames = {}
         self.frames ['Welcome_Page'] = Welcome_Page.Welcome(self)
@@ -38,12 +39,27 @@ class MainWindow(tk.Tk):
 
         self.change_window('Welcome_Page')
 
+    def set_logged_in_user_id(self, user_id):
+        self.logged_in_user_id = user_id
+
+    def get_logged_in_user_id(self):
+        return self.logged_in_user_id
+
     def change_window(self, name):
         for frame in self.frames.values():
             frame.grid_forget()
         
         self.frames[name].grid()
 
+    def change_window(self, name, **kwargs):
+        for frame in self.frames.values():
+            frame.grid_forget()
+        self.frames[name].on_return(**kwargs)
+        self.frames[name].grid()
+
+    def on_return(self, **kwargs):
+        pass
+    
 root = MainWindow()
 root.resizable(False, False)
 root.mainloop()

@@ -255,3 +255,6 @@ class Photo (tk.Frame):
         if final:
             self.parent.frames['Signup'].clear_input()
             self.parent.change_window('Login')
+    
+    def on_return(self, **kwargs):
+        pass

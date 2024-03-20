@@ -70,17 +70,20 @@ class Login(tk.Frame):
         self.parent.change_window('Signup')
 
     def validate_login(self):
+
         username = self.username_entry.get()
         password = self.pass_entry.get()
 
         dbconn = Data_base_Handler.database()
-        if dbconn.check_credentials(username, password):
+        user_id = dbconn.check_credentials(username, password)
+        if user_id:
+            self.parent.set_logged_in_user_id(user_id)
             self.reset_fields()
             self.go_to_BMI_Page()
         else:
             messagebox.showerror("Error", "Incorrect username or password.")
 
-        dbconn.conn.close() 
+        dbconn.conn.close()
 
     def reset_fields(self):
         self.username_entry.delete(0, tk.END)

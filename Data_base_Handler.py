@@ -5,8 +5,8 @@ class database:
     def __init__(self):
         self.conn = sqlite3.connect('Database.db')
         self.Sign_up_table = 'sign_up_table'
+        self.Save_info_table = 'save_info_table'
         self.cursor = self.conn.cursor()
-
 
         create_sign_up_table = f'''CREATE TABLE IF NOT EXISTS {self.Sign_up_table} (
                             ID INTEGER PRIMARY KEY,
@@ -21,9 +21,28 @@ class database:
         self.conn.execute(create_sign_up_table)
 
         self.conn.commit()
+
+        create_save_info_table = f'''CREATE TABLE IF NOT EXISTS {self.Save_info_table} (
+                                    ID INTEGER PRIMARY KEY,
+                                    age INTEGER,
+                                    kilogram INTEGER,
+                                    pounds INTEGER,
+                                    centimeter INTEGER,
+                                    meter INTEGER,
+                                    user_id INTEGER,
+                                    FOREIGN KEY (user_id) REFERENCES {self.Sign_up_table}(ID)
+                                )'''
+
+        self.conn.execute(create_save_info_table)
+        self.conn.commit()
+
+    def create_save_info_table(self, Input: Model.Save_info, user_id):
+        query = f"INSERT INTO {self.Save_info_table} (age, kilogram, pounds, centimeter, meter, user_id) VALUES (?, ?, ?, ?, ?, ?)"
+        values = (Input.age, Input.kilogram, Input.pounds, Input.centimeter, Input.meter, user_id)
+        self.cursor.execute(query, values)
+        self.conn.commit()
         
-        
-    def create_sign_up_table (self, User:Model.User):
+    def create_sign_up_table(self, User: Model.User):
         query = f"INSERT INTO {self.Sign_up_table} (firstname, lastname, gmail,username , password, birthday) VALUES (?,?,?,?,?,?)" 
         values = (User.firstname, User.lastname, User.gmail, User.username, User.password, User.birthday)
         self.cursor.execute(query, values) 
@@ -33,8 +52,12 @@ class database:
         query = f"SELECT * FROM {self.Sign_up_table} WHERE username=? AND password=?"
         self.cursor.execute(query, (username, password))
         user = self.cursor.fetchone()
-        return user is not None
-            
+        if user:
+            return user[0] 
+        else:
+            return None
+        
+    
         
         
 

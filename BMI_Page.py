@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
+import Data_base_Handler
+import Model
 
 class BMI(tk.Frame):
     def __init__ (self, master):
@@ -88,11 +90,11 @@ class BMI(tk.Frame):
         self.clear_button.place(x=45, y=285)
 
         self.history_button = tk.Button (self.main_frame, text = 'View History', bg='#E0CCBE', foreground='#3C3633', font=("Perpetua"), 
-                                        relief="raised", height=1, width=16)
+                                        relief="raised", height=1, width=16, command=self.history_info)
         self.history_button.place(x=45, y=480)
 
         self.save_button = tk.Button(self.main_frame, text = 'Save', bg='#E0CCBE', foreground='#3C3633', font=("Perpetua"), 
-                                        relief="raised", width=16)
+                                        relief="raised", width=16, command=self.save_info)
         self.save_button.place(x=215, y=480)
         
         # RESULT
@@ -198,8 +200,6 @@ class BMI(tk.Frame):
         self.evaluation_result_label = tk.Label(self.main_frame, text=f'You are {category}', foreground='grey', font=("Poor Richard", 19, 'bold'))
         self.evaluation_result_label.place(x=50, y=500)
         
-    def on_return(self):
-        pass
 
     def go_to_welcome_page(self):
         choice = messagebox.askyesno("Logout Confirmation", "Are you sure you want to logout?")
@@ -210,6 +210,35 @@ class BMI(tk.Frame):
 
     def got_to_profile_page(self):
         self.parent.change_window('Profile')
+        
+    def save_info(self):
+
+        age = self.age_entry.get().strip()
+        kg = self.weight_kg_entry.get().strip()
+        lb = self.weight_lb_entry.get().strip()
+        cm = self.height_cm_entry.get().strip()
+        m = self.height_m_entry.get().strip()
+
+        user_id = self.parent.get_logged_in_user_id()
+
+        save = Model.Save_info()
+        save.age = age
+        save.kilogram = kg
+        save.pounds = lb
+        save.centimeter = cm
+        save.meter = m
+
+
+        dbconn = Data_base_Handler.database()
+        dbconn.create_save_info_table(save, user_id)
+        dbconn.conn.close()
+            
+
+    def history_info(self):
+        pass
+        
+    def on_return(self):
+        pass
             
 
 
