@@ -227,10 +227,7 @@ class BMI(tk.Frame):
 
         self.evaluation_result_label = tk.Label(self.main_frame, text=f'You are {category}', foreground='grey', font=("Poor Richard", 19, 'bold'))
         self.evaluation_result_label.place(x=50, y=500)
-<<<<<<< HEAD
         
-=======
->>>>>>> fdabfb0a6f4324411e891e0863cef9a68b72fbfd
 
     def go_to_welcome_page(self):
         choice = messagebox.askyesno("Logout Confirmation", "Are you sure you want to logout?")
@@ -241,7 +238,6 @@ class BMI(tk.Frame):
 
     def got_to_profile_page(self):
         self.parent.change_window('Profile')
-<<<<<<< HEAD
         
     def save_info(self):
 
@@ -272,10 +268,5 @@ class BMI(tk.Frame):
     def on_return(self):
         pass
             
-=======
-                
-    def on_return(self):
-        pass
->>>>>>> fdabfb0a6f4324411e891e0863cef9a68b72fbfd
 
 

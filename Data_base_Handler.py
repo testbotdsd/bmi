@@ -42,14 +42,9 @@ class database:
         self.cursor.execute(query, values)
         self.conn.commit()
         
-<<<<<<< HEAD
     def create_sign_up_table(self, User: Model.User):
-=======
-        
-    def create_sign_up_table (self, user:Model.User):
->>>>>>> fdabfb0a6f4324411e891e0863cef9a68b72fbfd
         query = f"INSERT INTO {self.Sign_up_table} (firstname, lastname, gmail,username , password, birthday) VALUES (?,?,?,?,?,?)" 
-        values = (user.firstname, user.lastname, user.gmail, user.username, user.password, user.birthday)
+        values = (User.firstname, User.lastname, User.gmail, User.username, User.password, User.birthday)
         self.cursor.execute(query, values) 
         self.conn.commit()
 
