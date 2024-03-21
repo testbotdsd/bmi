@@ -121,12 +121,10 @@ class Login(tk.Frame):
     
     def validate_captcha(self):
         captcha = self.captcha_entry.get()
-
         if captcha == '':
             messagebox.showerror("Error", "Please input the CAPTCHA.")
             return False
         if captcha == self.generated:
-            messagebox.showinfo("Success", "CAPTCHA verified.")
             return True
         else:
             messagebox.showerror("Error", "Incorrect CAPTCHA.")
@@ -181,6 +179,7 @@ class Login(tk.Frame):
     def reset_fields(self):
         self.username_entry.delete(0, tk.END)
         self.pass_entry.delete(0, tk.END)
+        self.captcha_entry.delete(0, tk.END)
     
     def on_return(self):
         pass

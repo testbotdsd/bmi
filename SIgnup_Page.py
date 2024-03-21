@@ -212,7 +212,7 @@ class Photo (tk.Frame):
         img=self.generate_captha()
         self.pic_frame = tk.Label(self, image=img)
         self.pic_frame.image = img  
-        self.pic_frame.place(x=95, y=370)
+        self.pic_frame.place(x=95, y=170)
         
         self.create_refresh_button()
         self.disable_retry_button()
@@ -288,7 +288,6 @@ class Photo (tk.Frame):
             messagebox.showerror("Error", "Please input the CAPTCHA.")
             return False
         if captcha == self.generated:
-            messagebox.showinfo("Success", "CAPTCHA verified.")
             return True
         else:
             messagebox.showerror("Error", "Incorrect CAPTCHA.")

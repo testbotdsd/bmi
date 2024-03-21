@@ -225,7 +225,6 @@ class BMI(tk.Frame):
         self.evaluation_result_label = tk.Label(self.main_frame, text=f'You are {category}', foreground='grey', font=("Poor Richard", 19, 'bold'))
         self.evaluation_result_label.place(x=50, y=420)
 
-
     def Evaluation_result_for_adults(self, bmi_result):
         # BMI categories for adults
         if bmi_result < 18.5:
@@ -242,13 +241,14 @@ class BMI(tk.Frame):
 
         self.evaluation_result_label = tk.Label(self.main_frame, text=f'You are {category}', foreground='grey', font=("Poor Richard", 19, 'bold'))
         self.evaluation_result_label.place(x=50, y=420)
-      
+
     def go_to_welcome_page(self):
         choice = messagebox.askyesno("Logout Confirmation", "Are you sure you want to logout?")
         if choice:
             self.master.change_window('Welcome_Page')
         else:
             pass
+
 
     def got_to_profile_page(self):
         self.parent.change_window('Profile')
