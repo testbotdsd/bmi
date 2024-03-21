@@ -60,3 +60,10 @@ class MainWindow(tk.Tk):
 root = MainWindow()
 root.resizable(False, False)
 root.mainloop()
+
+# Profile (display, sign_up)
+# Picture (Photo, view, crop, rotate, mirror)
+# UI for captcha (validation, not changing when log in, not clearing entry)
+# Login (top level)
+# Bmi (history)
+
