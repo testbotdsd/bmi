@@ -277,20 +277,29 @@ class BMI(tk.Frame):
     def Show_history(self):    
         self.show_history = tk.Toplevel(self)  
         self.show_history.title("HISTORY") 
-        self.show_history.geometry('1000x400')
+        self.show_history.geometry('950x600')
         
         title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"), bg="orange")
-        title_label.place(x=50, y=10)
+        title_label.place(x=430, y=5)
 
         columns = ("id", "age", "kilogram", "pounds", "centimeter", "meter")
 
         style = ttk.Style()
         style.theme_use("clam")
-        style.configure("Treeview", background='#e5e5e5', foreground='black', fieldbackground='#e5e5e5')
-        style.configure("Treeview.Heading", background='#e5e5e5', foreground='black')
-        style.map("Treeview", background=[('selected', "#14213d")])
+        style.configure("Treeview", background="#2a2d2e",
+                            foreground="white",
+                            rowheight=25,
+                            fieldbackground="#343638",
+                            bordercolor="#343638",
+                            borderwidth=0)
+        style.map('Treeview', background=[('selected', '#22559b')])
+        style.configure("Treeview.Heading",
+                            background="#565b5e",
+                            foreground="white",
+                            relief="flat")
+        style.map("Treeview.Heading", background=[('active', '#3484F0')])
         
-        self.table = ttk.Treeview(self.show_history, columns=columns, show='headings', height=25)
+        self.table = ttk.Treeview(self.show_history, columns=columns, show='headings', height=18)
         self.table.heading("id", text="ID")
         self.table.column("id", width=50)
         self.table.heading("age", text="Age")
@@ -309,8 +318,8 @@ class BMI(tk.Frame):
         self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat", command=self.delete_history)
         self.return_button = tk.Button(self.show_history, text="Back", height=2, width=10, fg='black', bg='white', relief="solid", command=self.destroy_top_level)
 
-        self.delete_button.place(x=100, y=350)
-        self.return_button.place(x=150, y=350)
+        self.delete_button.place(x=820, y=530)
+        self.return_button.place(x=10, y=530)
         
         self.table.place(x=10, y=40)
         self.updatetable()  
