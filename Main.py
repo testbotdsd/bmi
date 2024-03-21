@@ -6,7 +6,6 @@ import SIgnup_Page
 import Profile_Page
 import OTP_Page
 import New_Password_Page
-import Data_base_Handler
 
 class MainWindow(tk.Tk):
     def __init__(self):
