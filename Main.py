@@ -6,7 +6,6 @@ import Welcome_Page
 import Login_Page
 import BMI_Page
 import SIgnup_Page
-import Profile_Page
 import OTP_Page
 import New_Password_Page
 
@@ -34,8 +33,6 @@ class MainWindow(tk.Tk):
         
         #BMI
         self.frames ['BMI'] = BMI_Page.BMI(self)
-        #Profile Page
-        self.frames ['Profile'] = Profile_Page.Profile(self)
 
         self.change_window('Welcome_Page')
 
