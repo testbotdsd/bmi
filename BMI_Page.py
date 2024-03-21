@@ -279,65 +279,55 @@ class BMI(tk.Frame):
     def on_return(self):
         pass
             
-    def Show_history(self):
-        # def __init__(self, master):
-        #     tk.Frame.__init__(self, master)
-        #     self.parent = master
-        #     self.config(width=400, height=600)
-        #     self.main_frame = tk.Frame(self, bg='#3C3633', height=600, width=450)
-        #     self.main_frame.pack(fill=tk.BOTH, expand=True)  # Adjust this based on your layout
-            
-            self.show_history = tk.Toplevel(self)  
-            self.show_history.title("HISTORY") 
-            self.show_history.geometry('400x600')
-            
-            title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"), bg="orange")
-            title_label.place(x=50, y=10)
+    def Show_history(self):    
+        self.show_history = tk.Toplevel(self)  
+        self.show_history.title("HISTORY") 
+        self.show_history.geometry('1000x400')
+        
+        title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"), bg="orange")
+        title_label.place(x=50, y=10)
 
-            columns = ("id", "age", "kilogram", "pounds", "centimeter", "meter")
+        columns = ("id", "age", "kilogram", "pounds", "centimeter", "meter")
 
-            style = ttk.Style()
-            style.theme_use("clam")
-            style.configure("Treeview", background='#e5e5e5', foreground='black', fieldbackground='#e5e5e5')
-            style.configure("Treeview.Heading", background='#e5e5e5', foreground='black')
-            style.map("Treeview", background=[('selected', "#14213d")])
-            
-            self.table = ttk.Treeview(self.show_history, columns=columns, show='headings', height=25)
-            self.table.heading("id", text="ID")
-            self.table.column("id", width=50)
-            self.table.heading("age", text="Age")
-            self.table.column("age", width=50)
-            self.table.heading("kilogram", text="Kilogram")
-            self.table.column("kilogram", width=200)
-            self.table.heading("pounds", text="Pounds")
-            self.table.column("pounds", width=200)
-            self.table.heading("centimeter", text="Centimeter")
-            self.table.column("centimeter", width=200)
-            self.table.heading("meter", text="Meter")
-            self.table.column("meter", width=200)
-            
-            self.table.pack(side=tk.TOP, fill=tk.BOTH, expand=True)  # Adjust this based on your layout
-            
-            self.add_button = tk.Button(self.show_history, text="Add", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat")
-            self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat")
-            self.update_button = tk.Button(self.show_history, text="Update", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat")
-            self.return_button = tk.Button(self.show_history, text="🢀", height=2, width=10, fg='black', bg='white', relief="solid", command=self.destroy_top_level)
+        style = ttk.Style()
+        style.theme_use("clam")
+        style.configure("Treeview", background='#e5e5e5', foreground='black', fieldbackground='#e5e5e5')
+        style.configure("Treeview.Heading", background='#e5e5e5', foreground='black')
+        style.map("Treeview", background=[('selected', "#14213d")])
+        
+        self.table = ttk.Treeview(self.show_history, columns=columns, show='headings', height=25)
+        self.table.heading("id", text="ID")
+        self.table.column("id", width=50)
+        self.table.heading("age", text="Age")
+        self.table.column("age", width=50)
+        self.table.heading("kilogram", text="Kilogram")
+        self.table.column("kilogram", width=200)
+        self.table.heading("pounds", text="Pounds")
+        self.table.column("pounds", width=200)
+        self.table.heading("centimeter", text="Centimeter")
+        self.table.column("centimeter", width=200)
+        self.table.heading("meter", text="Meter")
+        self.table.column("meter", width=200)
+        
+        self.table.pack(side=tk.TOP, fill=tk.BOTH, expand=True)  # Adjust this based on your layout
+        
+        self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat", command=self.delete_history)
+        self.return_button = tk.Button(self.show_history, text="Back", height=2, width=10, fg='black', bg='white', relief="solid", command=self.destroy_top_level)
 
-            self.add_button.place(x=5, y=350)
-            self.delete_button.place(x=100, y=350)
-            self.update_button.place(x=150, y=350)
-            self.return_button.place(x=5, y=5)
-            
-            self.table.place(x=10, y=40)
-            self.updatetable()
-    
+        self.delete_button.place(x=100, y=350)
+        self.return_button.place(x=150, y=350)
+        
+        self.table.place(x=10, y=40)
+        self.updatetable()  
+
     def updatetable(self):
         self.get_bmi_list()
         self.table.delete(*self.table.get_children())
 
         for BMI in self.bmi_list:
-           row = (BMI.Id,BMI.age,BMI.kilogram,BMI.pounds,BMI.centimeter,BMI.meter)
-           self.table.insert('', tk.END, values=row) 
+            row = (BMI.Id, BMI.age, BMI.kilogram, BMI.pounds, BMI.centimeter, BMI.meter)
+            self.table.insert('', tk.END, values=row) 
+
            
     def destroy_top_level(self):
         self.show_history.destroy()
@@ -346,6 +336,26 @@ class BMI(tk.Frame):
         dbconn=Data_base_Handler.database()
         self.bmi_list=dbconn.get_Bmilist()
         dbconn.conn.close()
+    
+    def delete_history(self): 
+        selections= self.table.selection()
+
+        if len(selections)==0:
+            messagebox.showwarning("Warning","select in the table")
+            return
+        
+        proceed=messagebox.askyesno("ask","are you sure you want to delete this user?")
+
+        if not proceed:
+            return
+        
+        for selected_item in selections:
+            bmi=self.table.item(selected_item)['values'][0]
+            dbconn=Data_base_Handler.database()
+            dbconn.delete_Bmi_history(bmi)
+            dbconn.conn.close()
+            
+            self.updatetable()
     
     def on_return(self):
         pass
