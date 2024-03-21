@@ -34,73 +34,73 @@ class Signup(tk.Frame):
 
         #INFORMATIONS
         self.first_name_label = tk.Label(self, text='First Name', font=('Courier', 13),  fg='#EEEDEB', bg='#3C3633')
-        self.first_name_label.place(x=100, y=90)
+        self.first_name_label.place(x=70, y=90)
 
-        self.first_name_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
-        self.first_name_entry.place(x=100, y=114)
+        self.first_name_entry = tk.Entry(self, border=1, font=('Courier', 13), width=30, bg='#59504b')
+        self.first_name_entry.place(x=70, y=114)
 
         self.last_name_label = tk.Label(self, text='Last Name', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.last_name_label.place(x=100, y=147)
+        self.last_name_label.place(x=70, y=147)
 
-        self.last_name_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
-        self.last_name_entry.place(x=100, y=171)
+        self.last_name_entry = tk.Entry(self, border=1, font=('Courier', 13), width=30, bg='#59504b')
+        self.last_name_entry.place(x=70, y=171)
 
         self.gmail_label = tk.Label(self, text='Gmail', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.gmail_label.place(x=100, y=266)
+        self.gmail_label.place(x=70, y=266)
 
-        self.gmail_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
-        self.gmail_entry.place(x=100, y=290)
+        self.gmail_entry = tk.Entry(self, border=1, font=('Courier', 13), width=30, bg='#59504b')
+        self.gmail_entry.place(x=70, y=290)
 
         self.username_label = tk.Label(self, text='Username', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.username_label.place(x=100, y=323)
+        self.username_label.place(x=70, y=323)
 
-        self.username_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
-        self.username_entry.place(x=100, y=347)
+        self.username_entry = tk.Entry(self, border=1, font=('Courier', 13), width=30, bg='#59504b')
+        self.username_entry.place(x=70, y=347)
 
         self.password_label = tk.Label(self, text='Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.password_label.place(x=100, y=380)
+        self.password_label.place(x=70, y=380)
 
-        self.password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
-        self.password_entry.place(x=100, y=404)
+        self.password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=27, bg='#59504b', show="*")
+        self.password_entry.place(x=70, y=404)
 
         self.confirm_password_label = tk.Label(self, text='Confirm Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.confirm_password_label.place(x=100, y=440)
+        self.confirm_password_label.place(x=70, y=440)
 
-        self.confirm_password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
-        self.confirm_password_entry.place(x=100, y = 464)
+        self.confirm_password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=27, bg='#59504b', show="*")
+        self.confirm_password_entry.place(x=70, y=464)
 
         self.birthday_label = tk.Label(self, text = 'Birthday', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.birthday_label.place(x=100, y=205) 
+        self.birthday_label.place(x=70, y=205) 
     
-        self.Bday_calendar_entry = DateEntry(self,width=35,background='Grey', foreground='white', borderwidth=2)
-        self.Bday_calendar_entry.place (x=100, y=233)
+        self.Bday_calendar_entry = DateEntry(self, width=47, background='Grey', foreground='white', borderwidth=2)
+        self.Bday_calendar_entry.place (x=70, y=233)
 
         self.eye_hide = Image.open("hide.jpg")
-        self.eye_hide = self.eye_hide.resize((30, 30))  
+        self.eye_hide = self.eye_hide.resize((21, 21))  
         self.eye_hide = ImageTk.PhotoImage(self.eye_hide) 
 
         self.eye_show = Image.open("show.jpg")
-        self.eye_show = self.eye_show.resize((30, 30))  
+        self.eye_show = self.eye_show.resize((21, 21))  
         self.eye_show = ImageTk.PhotoImage(self.eye_show) 
 
         # Create the button with the loaded image
         self.show_pass = tk.Button(self, font=('Courier', 10), bd=1, bg='white', fg='black', command=self.show_password, image=self.eye_show)
-        self.show_pass.place(x=350, y=410)
+        self.show_pass.place(x=350, y=404)
 
         self.show_confirm_pass = tk.Button(self, font=('Courier', 10), bd=1, bg='white', fg='black', command=self.confirm_password_show, image=self.eye_show)
-        self.show_confirm_pass.place(x=200, y=440)
+        self.show_confirm_pass.place(x=350, y=464)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
-        self.have_an_account_login_label.place(x=100, y=570)
+        self.have_an_account_login_label.place(x=70, y=560)
+
+        self.login_clickable = tk.Button(self, text="Log in", fg='#EEEDEB', bg='#3C3633' , bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
+        self.login_clickable.place(x=295, y=559)
 
         self.clear_button = tk.Button(self, text='Clear', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.clear_input)
-        self.clear_button.place(x=90, y=520)
+        self.clear_button.place(x=70, y=510)
 
         self.sign_up_button = tk.Button(self, text='Continue', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.validate_sign_up)
-        self.sign_up_button.place(x=225, y=520)
-        
-        self.login_clickable = tk.Button(self, text="Log in", fg='#EEEDEB', bg='#3C3633' , bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
-        self.login_clickable.place(x=295, y=569)
+        self.sign_up_button.place(x=240, y=510)
 
         self.password_hidden = True 
 
