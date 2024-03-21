@@ -1,6 +1,5 @@
 # Profile (display, sign_up)
 # Picture (Photo, view, crop, rotate, mirror)
-# UI for captcha (not changing when log in, not clearing entry)
 
 import tkinter as tk
 import Welcome_Page
