@@ -90,7 +90,7 @@ class BMI(tk.Frame):
         self.clear_button.place(x=45, y=285)
 
         self.history_button = tk.Button (self.main_frame, text = 'View History', bg='#E0CCBE', foreground='#3C3633', font=("Perpetua"), 
-                                        relief="raised", height=1, width=16, command=self.go_to_history_info)
+                                        relief="raised", height=1, width=16, command=self.Show_history)
         self.history_button.place(x=45, y=480)
 
         self.save_button = tk.Button(self.main_frame, text = 'Save', bg='#E0CCBE', foreground='#3C3633', font=("Perpetua"), 
@@ -274,61 +274,62 @@ class BMI(tk.Frame):
         dbconn = Data_base_Handler.database()
         dbconn.create_save_info_table(save, user_id)
         dbconn.conn.close()
-            
-    def go_to_history_info(self):
-        self.parent.change_window('History')
 
         
     def on_return(self):
         pass
             
-class Show_history(tk.Frame):
-    def __init__(self, master):
-        tk.Frame.__init__(self, master)
-        self.parent = master
-        self.config(width=400, height=600)
-        self.main_frame = tk.Frame(self, bg='#3C3633', height=600, width=450)
-        self.main_frame.pack(fill=tk.BOTH, expand=True)  # Adjust this based on your layout
-        
-        title_label = tk.Label(self.main_frame, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"), bg="orange")
-        title_label.place(x=50, y=10)
+    def Show_history(self):
+        # def __init__(self, master):
+        #     tk.Frame.__init__(self, master)
+        #     self.parent = master
+        #     self.config(width=400, height=600)
+        #     self.main_frame = tk.Frame(self, bg='#3C3633', height=600, width=450)
+        #     self.main_frame.pack(fill=tk.BOTH, expand=True)  # Adjust this based on your layout
+            
+            self.show_history = tk.Toplevel(self)  
+            self.show_history.title("HISTORY") 
+            self.show_history.geometry('400x600')
+            
+            title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"), bg="orange")
+            title_label.place(x=50, y=10)
 
-        columns = ("id", "age", "kilogram", "pounds", "centimeter", "meter")
+            columns = ("id", "age", "kilogram", "pounds", "centimeter", "meter")
 
-        style = ttk.Style()
-        style.theme_use("clam")
-        style.configure("Treeview", background='#e5e5e5', foreground='black', fieldbackground='#e5e5e5')
-        style.configure("Treeview.Heading", background='#e5e5e5', foreground='black')
-        style.map("Treeview", background=[('selected', "#14213d")])
-        
-        self.table = ttk.Treeview(self.main_frame, columns=columns, show='headings', height=25)
-        self.table.heading("id", text="ID")
-        self.table.column("id", width=50)
-        self.table.heading("age", text="Age")
-        self.table.column("age", width=50)
-        self.table.heading("kilogram", text="Kilogram")
-        self.table.column("kilogram", width=200)
-        self.table.heading("pounds", text="Pounds")
-        self.table.column("pounds", width=200)
-        self.table.heading("centimeter", text="Centimeter")
-        self.table.column("centimeter", width=200)
-        self.table.heading("meter", text="Meter")
-        self.table.column("meter", width=200)
-        
-        self.table.pack(side=tk.TOP, fill=tk.BOTH, expand=True)  # Adjust this based on your layout
-        
-        self.add_button = tk.Button(self.main_frame, text="Add", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat")
-        self.delete_button = tk.Button(self.main_frame, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat")
-        self.update_button = tk.Button(self.main_frame, text="Update", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat")
-        self.return_button = tk.Button(self.main_frame, text="🢀", height=2, width=10, fg='black', bg='white', relief="solid", command=self.go_to_Bmi_page)
+            style = ttk.Style()
+            style.theme_use("clam")
+            style.configure("Treeview", background='#e5e5e5', foreground='black', fieldbackground='#e5e5e5')
+            style.configure("Treeview.Heading", background='#e5e5e5', foreground='black')
+            style.map("Treeview", background=[('selected', "#14213d")])
+            
+            self.table = ttk.Treeview(self.show_history, columns=columns, show='headings', height=25)
+            self.table.heading("id", text="ID")
+            self.table.column("id", width=50)
+            self.table.heading("age", text="Age")
+            self.table.column("age", width=50)
+            self.table.heading("kilogram", text="Kilogram")
+            self.table.column("kilogram", width=200)
+            self.table.heading("pounds", text="Pounds")
+            self.table.column("pounds", width=200)
+            self.table.heading("centimeter", text="Centimeter")
+            self.table.column("centimeter", width=200)
+            self.table.heading("meter", text="Meter")
+            self.table.column("meter", width=200)
+            
+            self.table.pack(side=tk.TOP, fill=tk.BOTH, expand=True)  # Adjust this based on your layout
+            
+            self.add_button = tk.Button(self.show_history, text="Add", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat")
+            self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat")
+            self.update_button = tk.Button(self.show_history, text="Update", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat")
+            self.return_button = tk.Button(self.show_history, text="🢀", height=2, width=10, fg='black', bg='white', relief="solid", command=self.destroy_top_level)
 
-        self.add_button.place(x=5, y=350)
-        self.delete_button.place(x=100, y=350)
-        self.update_button.place(x=150, y=350)
-        self.return_button.place(x=5, y=5)
-        
-        self.table.place(x=10, y=40)
-        self.updatetable()
+            self.add_button.place(x=5, y=350)
+            self.delete_button.place(x=100, y=350)
+            self.update_button.place(x=150, y=350)
+            self.return_button.place(x=5, y=5)
+            
+            self.table.place(x=10, y=40)
+            self.updatetable()
     
     def updatetable(self):
         self.get_bmi_list()
@@ -338,8 +339,8 @@ class Show_history(tk.Frame):
            row = (BMI.Id,BMI.age,BMI.kilogram,BMI.pounds,BMI.centimeter,BMI.meter)
            self.table.insert('', tk.END, values=row) 
            
-    def go_to_Bmi_page(self):
-        self.parent.change_window('BMI')
+    def destroy_top_level(self):
+        self.show_history.destroy()
            
     def get_bmi_list(self):
         dbconn=Data_base_Handler.database()
