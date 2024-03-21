@@ -1,9 +1,7 @@
 # Profile (display, sign_up)
 # Picture (Photo, view, crop, rotate, mirror)
 # UI for captcha (not changing when log in, not clearing entry)
-# Bmi (history)
 # do u want to proceed msgbox
-# change email address and pass in the otp
 
 import tkinter as tk
 import Welcome_Page

@@ -11,6 +11,7 @@ import random
 from tkcalendar import DateEntry
 from datetime import date
 from PIL import Image, ImageTk
+import re
 
 INITIAL_DELAY = 10000
 SUBSEQUENT_DELAY = 10000
@@ -104,6 +105,17 @@ class Signup(tk.Frame):
 
         self.password_hidden = True 
 
+    def is_valid_gmail(self, email):
+        # Check if the email follows a valid format
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            return False
+        
+        # Check if the domain is gmail.com
+        if email.endswith('@gmail.com'):
+            return True
+        
+        return False
+
     def show_password(self):
         if self.password_hidden:
             self.password_entry.config(show='')
@@ -152,8 +164,13 @@ class Signup(tk.Frame):
             return False
         
         if gmail == '':
-            messagebox.showerror('Error', 'Gmail field is empty, please fill it out.')
-            return False
+            messagebox.showerror("Error", "Please enter your Gmail Account.")
+            return None
+        if not self.is_valid_gmail(gmail):
+            messagebox.showerror("Error", "Please enter a valid Gmail Account.")
+            return None
+            # messagebox.showerror('Error', 'Gmail field is empty, please fill it out.')
+            # return False
         
         if username == '':
             messagebox.showerror('Error', 'Username field is empty, please fill it out.')
@@ -231,13 +248,11 @@ class Photo (tk.Frame):
         self.Finish_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'), bg='#d3d3d3', command=self.signup_button_command)
         self.Finish_button.place(x=65, y=517)
 
-        self.check_var = tk.IntVar()
-        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.check_var, 
-                                                                command=self.terms_conditios_var)
+        self.terms_accepted = tk.IntVar()
+        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable=self.terms_accepted, 
+                                                                command=self.terms_conditions_var)
         self.terms_and_conditions_var = tk.BooleanVar()
-        self.terms_and_conditions_check_button = tk.Checkbutton(self.Photo_bg, text="I accept the Terms and Conditions", 
-                                                                variable=self.terms_and_conditions_var, bg='#3C3633', fg="white")
-        self.terms_and_conditions_check_button.place(x=95, y=484)
+        self.terms_and_conditions_check_button.place(x=115, y=470)
 
     def create_refresh_button(self):
         # Create the refresh button with appropriate callback
@@ -278,6 +293,10 @@ class Photo (tk.Frame):
         return img
     
     def signup_button_command(self):
+        if not self.terms_accepted.get():
+            messagebox.showerror("Error", "Please accept the Terms and Conditions.")
+            return
+
         if self.validate_captcha():
             self.go_to_Login_Page()
     
@@ -293,12 +312,12 @@ class Photo (tk.Frame):
             messagebox.showerror("Error", "Incorrect CAPTCHA.")
             return False
 
-    def terms_conditios_var(self):
+    def terms_conditions_var(self):
             result = messagebox.askokcancel("Terms and condition", "Do you accept the Terms and Conditions?")
             if result:
-                self.check_var.set(1)
+                self.terms_accepted.set(1)
             else:
-                self.check_var.set(0)
+                self.terms_accepted.set(0)
 
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
