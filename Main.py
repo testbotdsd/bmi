@@ -34,8 +34,6 @@ class MainWindow(tk.Tk):
         
         #BMI
         self.frames ['BMI'] = BMI_Page.BMI(self)
-        self.frames ['History'] = BMI_Page.Show_history(self)
-        
         #Profile Page
         self.frames ['Profile'] = Profile_Page.Profile(self)
 
