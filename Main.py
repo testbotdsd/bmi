@@ -36,10 +36,12 @@ class MainWindow(tk.Tk):
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
         self.frames ['Photo'] = SIgnup_Page.Photo(self, self.frames['Signup'])
         
+        #BMI
+        self.frames ['BMI'] = BMI_Page.BMI(self)
+        self.frames ['History'] = BMI_Page.Show_history(self)
+        
         #Profile Page
         self.frames ['Profile'] = Profile_Page.Profile(self)
-        
-        self.frames ['BMI'] = BMI_Page.BMI(self)
 
         self.change_window('Welcome_Page')
 
