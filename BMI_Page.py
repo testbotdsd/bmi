@@ -4,6 +4,7 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 import Data_base_Handler
 import Model
+from customtkinter import *
 
 class BMI(tk.Frame):
     def __init__ (self, master):
@@ -32,10 +33,11 @@ class BMI(tk.Frame):
         
         # Age Label and Entry
         self.age_label = tk.Label(self.main_frame, text="Age", bg='#747264', font=("Perpetua", 10, 'bold'), foreground='#E0CCBE')
-        self.age_label.place(x=45, y=70)
+        self.age_label.place(x=120, y=70)
         
-        self.age_entry = tk.Entry(self.main_frame, width=39, font=("Perpetua", 10), bg='#E0CCBE',)
-        self.age_entry.place(x=78, y=70)
+        self.age_entry = CTkEntry(self.main_frame, bg_color='#3C3633', corner_radius=15, width=100,
+                                  border_color='#3C3633', )
+        self.age_entry.place(x=150, y=65)
         
         self.age_entry.bind('<KeyRelease>', self.update_age)
 
@@ -43,14 +45,13 @@ class BMI(tk.Frame):
         self.menu_img = self.menu_img.resize((30, 30))
         self.menu_icon = ImageTk.PhotoImage(self.menu_img)
         self.menu_btn = tk.Button(self, image=self.menu_icon, highlightbackground='#DE8971', highlightcolor='#DE8971',
-                                  border=0, command=self.got_to_profile_page)
+                                  border=0, command=self.Profile)
         self.menu_btn.place(x=367, y=0)
 
         self.welcome_label = tk.Label(self, text="BMI Calculator", bg='#3C3633', font=('Courier', 17, 'bold'), 
                                       foreground='#E0CCBE')
         self.welcome_label.place(x=100, y=10)
         
-
         # WEIGHT LABEL AND ENTRY
         self.weight_kg_label = tk.Label(self.frame_top_left, text="Weight (kg)", bg='#747264', font=("Perpetua", 13, 'bold'), 
                                         foreground='#E0CCBE')
@@ -253,7 +254,6 @@ class BMI(tk.Frame):
         self.parent.change_window('Profile')
         
     def save_info(self):
-
         age = self.age_entry.get().strip()
         kg = self.weight_kg_entry.get().strip()
         lb = self.weight_lb_entry.get().strip()
@@ -273,9 +273,12 @@ class BMI(tk.Frame):
         dbconn = Data_base_Handler.database()
         dbconn.create_save_info_table(save, user_id)
         dbconn.conn.close()
+<<<<<<< HEAD
 
     def on_return(self):
         pass
+=======
+>>>>>>> 8cc2865f0769d584c6b0ea85ca45a4140f85d091
             
     def Show_history(self):    
         self.show_history = tk.Toplevel(self)  
@@ -334,7 +337,11 @@ class BMI(tk.Frame):
         for BMI in self.bmi_list:
             row = (BMI.Id, BMI.age, BMI.kilogram, BMI.pounds, BMI.centimeter, BMI.meter)
             self.table.insert('', tk.END, values=row) 
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 8cc2865f0769d584c6b0ea85ca45a4140f85d091
     def destroy_top_level(self):
         self.show_history.destroy()
 
@@ -366,4 +373,45 @@ class BMI(tk.Frame):
     def on_return(self):
         pass
 
+    def Profile(self):
+        self.profile = tk.Toplevel(self)  
+        self.profile.title("Profile") 
+        self.profile.geometry('400x600')
+        self.profile.config(bg='#3C3633')
+        
+        font_style = ("Garamond", 15, "bold")
+
+        self.profile_label = tk.Label(self.profile, text="PROFILE", bg='#3C3633', font=('Courier', 30, 'bold'), 
+                                        foreground='#E0CCBE')
+        self.profile_label.place(x=115, y=10)
+
+        self.pic_frame = tk.Frame(self.profile, bd=10, width=150, height=150, bg='#747264', relief='flat')
+        self.pic_frame.place(x=45, y=70)
+
+        self.name_label = tk.Label(self.profile, text="Name:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.name_label.place(x=40, y=240)
+
+        self.birthday_label = tk.Label(self.profile, text="Birthday:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.birthday_label.place(x=40, y=300)
+
+        self.gmail_label = tk.Label(self.profile, text="Gmail:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.gmail_label.place(x=40, y=360)
+
+        self.username_label = tk.Label(self.profile, text="Username:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.username_label.place(x=40, y=420)
+
+        self.logout_btn = CTkButton(self.profile, text="Logout", height=50, width=50, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
+                                   hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_main_page)
+        self.logout_btn.place(x=151, y=530)
+        
+        self.return_btn = CTkButton(self.profile, text="Return",width=30,height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
+                                   hover_color='#747264', corner_radius=30, text_color='black',command=self.close_top_level)
+        self.return_btn.place(x=10, y=10)
+        
+    def go_to_main_page(self):
+        self.profile.destroy()
+        self.parent.change_window('Welcome_Page')
+        
+    def close_top_level(self):
+        self.profile.destroy()
 

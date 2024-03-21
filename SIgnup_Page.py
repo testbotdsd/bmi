@@ -92,10 +92,10 @@ class Signup(tk.Frame):
         self.show_confirm_pass.place(x=350, y=464)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
-        self.have_an_account_login_label.place(x=70, y=560)
+        self.have_an_account_login_label.place(x=95, y=560)
 
         self.login_clickable = tk.Button(self, text="Log in", fg='#EEEDEB', bg='#3C3633' , bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
-        self.login_clickable.place(x=295, y=559)
+        self.login_clickable.place(x=290, y=559)
 
         self.clear_button = tk.Button(self, text='Clear', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.clear_input)
         self.clear_button.place(x=70, y=510)
