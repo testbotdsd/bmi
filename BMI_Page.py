@@ -172,9 +172,6 @@ class BMI(tk.Frame):
         except ValueError:
             self.age_entry.delete(0, tk.END)
             self.age_entry.insert(0, "Invalid Input")
-
-
-
     
     def clear_button(self):
         self.height_cm_entry.delete(0, tk.END)
@@ -190,24 +187,29 @@ class BMI(tk.Frame):
             
     def calculate_BMI(self):
         try:
-            age = self.age_entry.get()
-
-            # Check if age field is empty
+            age = self.age_entry.get().strip()
+            
             if not age:
                 messagebox.showerror("Error", "Please enter your age.")
-                return  # Exit the method if age is not entered
+                return 
 
-            kg_value = float(self.weight_kg_entry.get())
-            m_value = float(self.height_m_entry.get())
-            bmi_result = kg_value / (m_value ** 2)  
-            self.result_entry.delete(0, tk.END)  
-            self.result_entry.insert(0, f"{bmi_result:.2f}")
+            age = int(age)
             
-            self.Evaluation_result(bmi_result)
+            if age < 18:  
+                messagebox.showinfo("Information", "BMI calculation for children and teens requires further assessment.")
+                return
+            else:  # For adults
+                kg_value = float(self.weight_kg_entry.get())
+                m_value = float(self.height_m_entry.get())
+                bmi_result = kg_value / (m_value ** 2)  
+                self.result_entry.delete(0, tk.END)  
+                self.result_entry.insert(0, f"{bmi_result:.2f}")
+
+                self.Evaluation_result(bmi_result)
             
         except ValueError:
-            self.result_entry.delete(0, tk.END)
-            self.result_entry.insert(0, "Invalid Input")
+            messagebox.showerror("Error", "Invalid input for age, weight, or height.")
+
 
             
     def Evaluation_result(self, bmi_result):
