@@ -320,6 +320,8 @@ class Photo (tk.Frame):
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
         
+        self.generate_captcha()
+        
     def go_to_Login_Page(self):
         FName = self.signup_frame.first_name_entry.get().strip()
         LName = self.signup_frame.last_name_entry.get().strip()

@@ -150,12 +150,16 @@ class Login(tk.Frame):
     def go_to_forgot_password(self):
         self.parent.change_window('Forget')
 
+        self.generate_captcha()
+
     def go_to_BMI_Page(self):
         self.parent.change_window('BMI')
     
     def go_to_signup(self):
         self.parent.frames['Signup'].Bday_calendar_entry.delete(0, tk.END)
         self.parent.change_window('Signup')
+        
+        self.generate_captcha()
 
     def validate_login(self):
         username = self.username_entry.get()
