@@ -59,7 +59,7 @@ class Login(tk.Frame):
         self.terms_accepted = tk.IntVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable=self.terms_accepted, 
                                                                 command=self.terms_conditions_var)
-        self.terms_and_conditions_var = tk.BooleanVar()
+        self.terms_conditions_var = tk.BooleanVar()
         self.terms_and_conditions_check_button.place(x=115, y=470)
         
         img=self.generate_captha()
@@ -83,7 +83,7 @@ class Login(tk.Frame):
         self.refresh_img = self.refresh_img.resize((25, 25))
         self.refresh_icon = ImageTk.PhotoImage(self.refresh_img)
         self.rfrsh_btn = tk.Button(self, image=self.refresh_icon, highlightbackground='#DE8971', highlightcolor='#DE8971',
-                                  border=0, command=self.generate_captcha)
+                                    border=0, command=self.generate_captcha)
         self.rfrsh_btn.place(x=335, y=404)
 
     def enable_retry_button(self):
@@ -121,12 +121,10 @@ class Login(tk.Frame):
     
     def validate_captcha(self):
         captcha = self.captcha_entry.get()
-
         if captcha == '':
             messagebox.showerror("Error", "Please input the CAPTCHA.")
             return False
         if captcha == self.generated:
-            messagebox.showinfo("Success", "CAPTCHA verified.")
             return True
         else:
             messagebox.showerror("Error", "Incorrect CAPTCHA.")
@@ -172,7 +170,9 @@ class Login(tk.Frame):
         if user_id:
             self.parent.set_logged_in_user_id(user_id)
             self.reset_fields()
-            self.go_to_BMI_Page()
+            login = messagebox.askyesno("BMI Login", "Are you sure you want to login?")
+            if login == True:
+                self.parent.change_window('BMI')
         else:
             messagebox.showerror("Error", "Incorrect username or password.")
 
@@ -181,6 +181,7 @@ class Login(tk.Frame):
     def reset_fields(self):
         self.username_entry.delete(0, tk.END)
         self.pass_entry.delete(0, tk.END)
+        self.captcha_entry.delete(0, tk.END)
     
     def on_return(self):
         pass

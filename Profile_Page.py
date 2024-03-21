@@ -1,6 +1,6 @@
 import tkinter as tk
 from customtkinter import *
-from tkinter import messagebox
+
 
 class Profile(tk.Frame):
     def __init__(self, master):
@@ -33,22 +33,23 @@ class Profile(tk.Frame):
         self.username_label.place(x=40, y=420)
 
         self.logout_btn = CTkButton(self, text="Logout", height=50, width=50, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
-                                   hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_start)
+                                   hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_main_page)
         self.logout_btn.place(x=151, y=530)
         
         self.return_btn = CTkButton(self, text="Return", height=50, width=50, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
                                    hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_BMI_page)
         self.return_btn.place(x=5, y=5)
         
-    def go_to_start(self):
-        logout = messagebox.askyesno("BMI Logout", "Are you sure you want to logout?")
-        if logout == True:
-            self.parent.change_window('Welcome_Page')
-        else:
-            return False
+    def go_to_main_page(self):
+        self.parent.change_window('Welcome_Page')
         
     def go_to_BMI_page(self):
-        self.parent.change_window('BMI')
 
+        self.parent.change_window('BMI')
+        self.parent.img = self.parent.generate_captha()
+
+        self.parent.pic_frame.config(image=self.parent.img)
+        self.parent.pic_frame.image = self.parent.img
+        self.parent.pic_frame.place(x=81, y=335)
     def on_return(self):
         pass
