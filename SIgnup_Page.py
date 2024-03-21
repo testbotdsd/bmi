@@ -169,8 +169,6 @@ class Signup(tk.Frame):
         if not self.is_valid_gmail(gmail):
             messagebox.showerror("Error", "Please enter a valid Gmail Account.")
             return None
-            # messagebox.showerror('Error', 'Gmail field is empty, please fill it out.')
-            # return False
         
         if username == '':
             messagebox.showerror('Error', 'Username field is empty, please fill it out.')
