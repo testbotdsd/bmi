@@ -36,11 +36,14 @@ class Profile(tk.Frame):
         self.logout_btn.place(x=151, y=530)
         
         self.return_btn = CTkButton(self, text="Return", height=50, width=50, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
-                                   hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_main_page)
+                                   hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_BMI_page)
         self.return_btn.place(x=5, y=5)
         
     def go_to_main_page(self):
         self.parent.change_window('Welcome_Page')
+        
+    def go_to_BMI_page(self):
+        self.parent.change_window('BMI')
 
     def on_return(self):
         pass
