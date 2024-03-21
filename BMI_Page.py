@@ -33,14 +33,11 @@ class BMI(tk.Frame):
         # Age Label and Entry
         self.age_label = tk.Label(self.main_frame, text="Age", bg='#747264', font=("Perpetua", 10, 'bold'), foreground='#E0CCBE')
         self.age_label.place(x=45, y=70)
+        
         self.age_entry = tk.Entry(self.main_frame, width=39, font=("Perpetua", 10), bg='#E0CCBE',)
         self.age_entry.place(x=78, y=70)
         
         self.age_entry.bind('<KeyRelease>', self.update_age)
-
-
-        # self.create_account_bg = tk.Frame(self, bg='#DE8971', height=600, width=450)
-        # self.create_account_bg.place(x=0, y=0)
 
         self.menu_img = Image.open("menu_icon.png")
         self.menu_img = self.menu_img.resize((30, 30))
@@ -110,14 +107,7 @@ class BMI(tk.Frame):
         self.evaluation_result_label = None
         
         self.height_cm_entry.bind('<KeyRelease>', self.update_height_cm)
-        self.height_m_entry.bind('<KeyRelease>', self.update_height_m)
-
-        #Logout
-    #     self.Logout_Page = tk.Button (self.main_frame, text = 'Return', cursor='gumby', bg="grey", fg="white", font=("SimSun"), relief="raised", height=1, width=15, command=self.go_to_logout_page)
-    #     self.Logout_Page.place(x=5, y=5)
-        
-    # def go_to_logout_page(self):
-    #     self.master.change_window('Logout') 
+        self.height_m_entry.bind('<KeyRelease>', self.update_height_m) 
     
   
     def update_weight_lb(self, event):
@@ -188,16 +178,22 @@ class BMI(tk.Frame):
     def calculate_BMI(self):
         try:
             age = self.age_entry.get().strip()
-            
+
             if not age:
                 messagebox.showerror("Error", "Please enter your age.")
-                return 
+                return  
 
             age = int(age)
-            
-            if age < 18:  
-                messagebox.showinfo("Information", "BMI calculation for children and teens requires further assessment.")
-                return
+
+            if age < 20:  # For children and teens
+                kg_value = float(self.weight_kg_entry.get())
+                m_value = float(self.height_m_entry.get())
+                bmi_result = kg_value / (m_value ** 2)  
+                self.result_entry.delete(0, tk.END)  
+                self.result_entry.insert(0, f"{bmi_result:.2f}")
+
+                self.Evaluation_result_for_children_and_teens(bmi_result)
+
             else:  # For adults
                 kg_value = float(self.weight_kg_entry.get())
                 m_value = float(self.height_m_entry.get())
@@ -205,32 +201,48 @@ class BMI(tk.Frame):
                 self.result_entry.delete(0, tk.END)  
                 self.result_entry.insert(0, f"{bmi_result:.2f}")
 
-                self.Evaluation_result(bmi_result)
-            
+                self.Evaluation_result_for_adults(bmi_result)
+
         except ValueError:
             messagebox.showerror("Error", "Invalid input for age, weight, or height.")
 
-
-            
-    def Evaluation_result(self, bmi_result):
-        if bmi_result < 18.5:
-            category = 'Underweight'
-        elif bmi_result <= 24.9:
+    def Evaluation_result_for_children_and_teens(self, bmi_result):
+        # BMI categories for children and teens
+        if bmi_result < 5:  
+            category = 'Very Severely Underweight'
+        elif 5 <= bmi_result < 15:  
+            category = 'Severely Underweight'
+        elif 15 <= bmi_result < 85:  
             category = 'Healthy'
-        elif bmi_result <= 29.9:
+        elif 85 <= bmi_result < 95:  
             category = 'Overweight'
-        elif bmi_result <= 34.9:
+        else:  
             category = 'Obese'
-        else:
-            category = 'Extremely Obese'
 
         if self.evaluation_result_label:
             self.evaluation_result_label.destroy()
 
         self.evaluation_result_label = tk.Label(self.main_frame, text=f'You are {category}', foreground='grey', font=("Poor Richard", 19, 'bold'))
-        self.evaluation_result_label.place(x=50, y=500)
-        
+        self.evaluation_result_label.place(x=50, y=420)
 
+
+    def Evaluation_result_for_adults(self, bmi_result):
+        # BMI categories for adults
+        if bmi_result < 18.5:
+            category = 'Underweight'
+        elif bmi_result >= 18.5 and bmi_result < 25:
+            category = 'Healthy'
+        elif bmi_result >= 25 and bmi_result < 30:
+            category = 'Overweight'
+        else:
+            category = 'Obese'
+
+        if self.evaluation_result_label:
+            self.evaluation_result_label.destroy()
+
+        self.evaluation_result_label = tk.Label(self.main_frame, text=f'You are {category}', foreground='grey', font=("Poor Richard", 19, 'bold'))
+        self.evaluation_result_label.place(x=50, y=420)
+      
     def go_to_welcome_page(self):
         choice = messagebox.askyesno("Logout Confirmation", "Are you sure you want to logout?")
         if choice:
@@ -263,7 +275,6 @@ class BMI(tk.Frame):
         dbconn.create_save_info_table(save, user_id)
         dbconn.conn.close()
             
-
     def history_info(self):
         pass
         
