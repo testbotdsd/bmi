@@ -35,6 +35,24 @@ class database:
 
         self.conn.execute(create_save_info_table)
         self.conn.commit()
+        
+    def get_Bmilist(self):
+        query = f"SELECT id, age,kilogram, pounds, centimeter,meter FROM {self.Save_info_table}"
+        self.cursor.execute(query)
+        
+        BMI=[]
+
+        for row in self.cursor:
+            new_bmi_info=Model.Save_info() 
+            new_bmi_info.Id= row[0]
+            new_bmi_info.age=row[1]
+            new_bmi_info.kilogram=row[2]
+            new_bmi_info.pounds=row[3]
+            new_bmi_info.centimeter=row[4]
+            new_bmi_info.meter=row[5]
+            BMI.append(new_bmi_info)
+
+        return BMI
 
     def create_save_info_table(self, Input: Model.Save_info, user_id):
         query = f"INSERT INTO {self.Save_info_table} (age, kilogram, pounds, centimeter, meter, user_id) VALUES (?, ?, ?, ?, ?, ?)"
