@@ -123,5 +123,3 @@ class Forget(tk.Frame):
 
     def on_return(self, **kwargs):
         pass
-
-

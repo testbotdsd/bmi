@@ -249,7 +249,6 @@ class BMI(tk.Frame):
         else:
             pass
 
-
     def got_to_profile_page(self):
         self.parent.change_window('Profile')
         
@@ -275,7 +274,6 @@ class BMI(tk.Frame):
         dbconn.create_save_info_table(save, user_id)
         dbconn.conn.close()
 
-        
     def on_return(self):
         pass
             
@@ -284,8 +282,8 @@ class BMI(tk.Frame):
         self.show_history.title("HISTORY") 
         self.show_history.geometry('950x600')
         
-        title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"), bg="orange")
-        title_label.place(x=430, y=5)
+        title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"), bg="#343638", fg='white')
+        title_label.place(x=425, y=5)
 
         columns = ("id", "age", "kilogram", "pounds", "centimeter", "meter")
 
@@ -320,10 +318,10 @@ class BMI(tk.Frame):
         
         self.table.pack(side=tk.TOP, fill=tk.BOTH, expand=True)  # Adjust this based on your layout
         
-        self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat", command=self.delete_history)
-        self.return_button = tk.Button(self.show_history, text="Back", height=2, width=10, fg='black', bg='white', relief="solid", command=self.destroy_top_level)
+        self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='white', bg='#343638', relief="solid", command=self.delete_history)
+        self.return_button = tk.Button(self.show_history, text="Back", height=2, width=10, font="TimesNewRoman 10 bold", fg='white', bg='#343638', relief="solid", command=self.destroy_top_level)
 
-        self.delete_button.place(x=820, y=530)
+        self.delete_button.place(x=822, y=530)
         self.return_button.place(x=10, y=530)
         
         self.table.place(x=10, y=40)
@@ -337,10 +335,9 @@ class BMI(tk.Frame):
             row = (BMI.Id, BMI.age, BMI.kilogram, BMI.pounds, BMI.centimeter, BMI.meter)
             self.table.insert('', tk.END, values=row) 
 
-           
     def destroy_top_level(self):
         self.show_history.destroy()
-           
+
     def get_bmi_list(self):
         dbconn=Data_base_Handler.database()
         self.bmi_list=dbconn.get_Bmilist()
