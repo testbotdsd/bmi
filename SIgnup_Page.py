@@ -34,49 +34,46 @@ class Signup(tk.Frame):
 
         #INFORMATIONS
         self.first_name_label = tk.Label(self, text='First Name', font=('Courier', 13),  fg='#EEEDEB', bg='#3C3633')
-        self.first_name_label.place(x=45, y=120)
+        self.first_name_label.place(x=100, y=90)
 
-        self.first_name_entry = tk.Entry(self, border=1, font=('Courier', 13), width=17, bg='#59504b')
-        self.first_name_entry.place(x=42, y=144)
+        self.first_name_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
+        self.first_name_entry.place(x=100, y=114)
 
         self.last_name_label = tk.Label(self, text='Last Name', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.last_name_label.place(x=235, y=120)
+        self.last_name_label.place(x=100, y=147)
 
-        self.last_name_entry = tk.Entry(self, border=1, font=('Courier', 13),width=17, bg='#59504b')
-        self.last_name_entry.place(x=237, y=144)
+        self.last_name_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
+        self.last_name_entry.place(x=100, y=171)
 
         self.gmail_label = tk.Label(self, text='Gmail', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.gmail_label.place(x=100, y=246)
+        self.gmail_label.place(x=100, y=266)
 
         self.gmail_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
-        self.gmail_entry.place(x=100, y=270)
+        self.gmail_entry.place(x=100, y=290)
 
         self.username_label = tk.Label(self, text='Username', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.username_label.place(x=100, y=303)
+        self.username_label.place(x=100, y=323)
 
         self.username_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b')
-        self.username_entry.place(x=100, y=327)
+        self.username_entry.place(x=100, y=347)
 
         self.password_label = tk.Label(self, text='Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.password_label.place(x=100, y=360)
+        self.password_label.place(x=100, y=380)
 
         self.password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
-        self.password_entry.place(x=100, y=384)
+        self.password_entry.place(x=100, y=404)
 
         self.confirm_password_label = tk.Label(self, text='Confirm Password', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.confirm_password_label.place(x=100, y=420)
+        self.confirm_password_label.place(x=100, y=440)
 
         self.confirm_password_entry = tk.Entry(self, border=1, font=('Courier', 13), width=23, bg='#59504b', show="*")
-        self.confirm_password_entry.place(x=100, y = 444)
+        self.confirm_password_entry.place(x=100, y = 464)
 
         self.birthday_label = tk.Label(self, text = 'Birthday', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.birthday_label.place(x=100, y=189) 
+        self.birthday_label.place(x=100, y=205) 
     
         self.Bday_calendar_entry = DateEntry(self,width=35,background='Grey', foreground='white', borderwidth=2)
-        self.Bday_calendar_entry.place (x=100, y=213)
-        
-        self.clear_button = tk.Button(self, text='Clear', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.clear_input)
-        self.clear_button.place(x=90, y=500)
+        self.Bday_calendar_entry.place (x=100, y=233)
 
         self.eye_hide = Image.open("hide.jpg")
         self.eye_hide = self.eye_hide.resize((30, 30))  
@@ -87,30 +84,44 @@ class Signup(tk.Frame):
         self.eye_show = ImageTk.PhotoImage(self.eye_show) 
 
         # Create the button with the loaded image
-        self.toggle_password_button = tk.Button(self, font=('Courier', 10), bd=1, bg='white', fg='black', command=self.toggle_password, image=self.eye_show)
-        self.toggle_password_button.place(x=350, y=410)
+        self.show_pass = tk.Button(self, font=('Courier', 10), bd=1, bg='white', fg='black', command=self.show_password, image=self.eye_show)
+        self.show_pass.place(x=350, y=410)
+
+        self.show_confirm_pass = tk.Button(self, font=('Courier', 10), bd=1, bg='white', fg='black', command=self.confirm_password_show, image=self.eye_show)
+        self.show_confirm_pass.place(x=200, y=440)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
-        self.have_an_account_login_label.place(x=100, y=560)
+        self.have_an_account_login_label.place(x=100, y=570)
+
+        self.clear_button = tk.Button(self, text='Clear', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.clear_input)
+        self.clear_button.place(x=90, y=520)
 
         self.sign_up_button = tk.Button(self, text='Continue', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.validate_sign_up)
-        self.sign_up_button.place(x=225, y=500)
+        self.sign_up_button.place(x=225, y=520)
         
         self.login_clickable = tk.Button(self, text="Log in", fg='#EEEDEB', bg='#3C3633' , bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', command=self.go_to_Login_Page)
-        self.login_clickable.place(x=295, y=559)
+        self.login_clickable.place(x=295, y=569)
 
         self.password_hidden = True 
 
-    def toggle_password(self):
+    def show_password(self):
         if self.password_hidden:
             self.password_entry.config(show='')
-            self.confirm_password_entry.config(show='')
-            self.toggle_password_button.config(bg='#3C3633', fg='white', image=self.eye_hide)
+            self.show_pass.config(bg='#3C3633', fg='white', image=self.eye_hide)
             self.password_hidden = False
         else:
             self.password_entry.config(show='*')
+            self.show_pass.config(bg='white', fg='#3C3633', image=self.eye_show)
+            self.password_hidden = True
+
+    def confirm_password_show(self):
+        if self.password_hidden:
+            self.confirm_password_entry.config(show='')
+            self.show_confirm_pass.config(bg='#3C3633', fg='white', image=self.eye_hide)
+            self.password_hidden = False
+        else:
             self.confirm_password_entry.config(show='*')
-            self.toggle_password_button.config(bg='white', fg='#3C3633', image=self.eye_show)
+            self.show_confirm_pass.config(bg='white', fg='#3C3633', image=self.eye_show)
             self.password_hidden = True
 
     def clear_input(self):
@@ -201,14 +212,14 @@ class Photo (tk.Frame):
         img=self.generate_captha()
         self.pic_frame = tk.Label(self, image=img)
         self.pic_frame.image = img  
-        self.pic_frame.place(x=125, y=70)
+        self.pic_frame.place(x=95, y=370)
         
         self.create_refresh_button()
         self.disable_retry_button()
         self.parent.after(INITIAL_DELAY, self.enable_retry_button)
 
         self.captcha_entry = tk.Entry(self.Photo_bg, border=1, width=20, font=('Courier', 15), fg='white', bg='#59504b')
-        self.captcha_entry.place(x=81, y=405)
+        self.captcha_entry.place(x=81, y=415)
 
         self.captcha_window = None
         self.captcha_label_in_window = None
@@ -235,7 +246,7 @@ class Photo (tk.Frame):
         self.refresh_icon = ImageTk.PhotoImage(self.refresh_img)
         self.rfrsh_btn = tk.Button(self, image=self.refresh_icon, highlightbackground='#DE8971', highlightcolor='#DE8971',
                                   border=0, command=self.generate_captcha)
-        self.rfrsh_btn.place(x=335, y=404)
+        self.rfrsh_btn.place(x=335, y=414)
 
     def enable_retry_button(self):
         # Enable the retry button
