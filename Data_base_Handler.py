@@ -75,7 +75,23 @@ class database:
         else:
             return None
         
-    
+    # def read_Bmi(self, id:int):
+    #     query = f"SELECT * FROM {self.Save_info_table} WHERE id=?"
+    #     values = (id,)
+    #     self.cursor.execute(query, values)
+
+    #     BMI = []
+
+    #     for row in self.cursor:
+    #         BMI = Model.Save_info()
+    #         BMI.id = row[0]
+    #         BMI.age = row[1]
+    #         BMI.kilogram=row[2]
+    #         BMI.pounds=row[3]
+    #         BMI.centimeter=row[4]
+    #         BMI.meter=row[5]
+
+    #     return BMI
         
         
 
