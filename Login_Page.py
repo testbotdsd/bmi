@@ -173,6 +173,7 @@ class Login(tk.Frame):
             login = messagebox.askyesno("BMI Login", "Are you sure you want to login?")
             if login == True:
                 self.parent.change_window('BMI')
+                self.generate_captcha()
         else:
             messagebox.showerror("Error", "Incorrect username or password.")
 
