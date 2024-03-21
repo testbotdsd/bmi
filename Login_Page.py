@@ -8,8 +8,8 @@ import Data_base_Handler
 from captcha.image import ImageCaptcha
 from PIL import Image, ImageTk
 
-INITIAL_DELAY = 60000
-SUBSEQUENT_DELAY = 60000
+INITIAL_DELAY = 10000
+SUBSEQUENT_DELAY = 10000
 
 class Login(tk.Frame):
     def __init__(self, master):
@@ -56,8 +56,8 @@ class Login(tk.Frame):
 
         self.password_hidden = True 
 
-        self.check_var = tk.IntVar()
-        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable=self.check_var, 
+        self.terms_accepted = tk.IntVar()
+        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable=self.terms_accepted, 
                                                                 command=self.terms_conditions_var)
         self.terms_and_conditions_var = tk.BooleanVar()
         self.terms_and_conditions_check_button.place(x=115, y=470)
@@ -132,13 +132,12 @@ class Login(tk.Frame):
             messagebox.showerror("Error", "Incorrect CAPTCHA.")
             return False
         
-
     def terms_conditions_var(self):
         result = messagebox.askokcancel("Terms and condition", "Do you accept the Terms and Conditions?")
         if result:
-            self.check_var.set(1)
+            self.terms_accepted.set(1)
         else:
-            self.check_var.set(0)
+            self.terms_accepted.set(0)
 
     def toggle_password(self):
         if self.password_hidden:
@@ -163,6 +162,10 @@ class Login(tk.Frame):
     def validate_login(self):
         username = self.username_entry.get()
         password = self.pass_entry.get()
+
+        if not self.terms_accepted.get():
+            messagebox.showerror("Error", "Please accept the Terms and Conditions.")
+            return
 
         dbconn = Data_base_Handler.database()
         user_id = dbconn.check_credentials(username, password)

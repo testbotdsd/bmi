@@ -12,6 +12,9 @@ from tkcalendar import DateEntry
 from datetime import date
 from PIL import Image, ImageTk
 
+INITIAL_DELAY = 10000
+SUBSEQUENT_DELAY = 10000
+
 
 class Signup(tk.Frame):
     def __init__(self, master):
@@ -200,27 +203,22 @@ class Photo (tk.Frame):
         self.pic_frame.image = img  
         self.pic_frame.place(x=125, y=70)
         
-        self.select_image_button = tk.Button(self, text="Select", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.select_image)
-        self.select_image_button.place(x=120, y=230)
+        self.create_refresh_button()
+        self.disable_retry_button()
+        self.parent.after(INITIAL_DELAY, self.enable_retry_button)
 
-        self.selected_image = None
+        self.captcha_entry = tk.Entry(self.Photo_bg, border=1, width=20, font=('Courier', 15), fg='white', bg='#59504b')
+        self.captcha_entry.place(x=81, y=405)
 
-        self.remove_image_button = tk.Button(self, text="Remove", font=('Courier', 12, 'bold'), bg='#d3d3d3', command=self.remove_image)
-        self.remove_image_button.place(x=210, y=230)
+        self.captcha_window = None
+        self.captcha_label_in_window = None
         
         self.Back_button = tk.Button(self, text="Return", bg='#7B6079', bd=0, font=('Courier', 10, 'bold'), foreground='#88f2ea', 
                                      command=self.go_to_create_acc)
         self.Back_button.place(x=5, y=5)
         
-        self.Finish_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'), bg='#d3d3d3', command=self.go_to_Login_Page)
+        self.Finish_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'), bg='#d3d3d3', command=self.signup_button_command)
         self.Finish_button.place(x=65, y=517)
-        
-        self.captcha_label = tk.Label(self, text='Captcha', font=('Courier', 12, 'bold'), fg='#EEEDEB', bg='#3C3633')
-        self.captcha_label.place(x=160, y=255)
-
-        self.generate_captcha_button = tk.Button(self, text="Generate Captcha", font=('Courier', 12, 'bold'), bg='#d3d3d3', 
-                                                 command=self.generate_captcha)
-        self.generate_captcha_button.place(x=110, y=290)
 
         self.check_var = tk.IntVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable= self.check_var, 
@@ -230,38 +228,60 @@ class Photo (tk.Frame):
                                                                 variable=self.terms_and_conditions_var, bg='#3C3633', fg="white")
         self.terms_and_conditions_check_button.place(x=95, y=484)
 
-    def select_image(self):
-        file_path = filedialog.askopenfilename(title="Select Image", filetypes=[("Image Files", "*.jpg *.jpeg *.png *.gif")])
-        if file_path:
-            if self.selected_image is not None:
-                self.image_label.destroy() 
+    def create_refresh_button(self):
+        # Create the refresh button with appropriate callback
+        self.refresh_img = Image.open("retry_icon.jpg")
+        self.refresh_img = self.refresh_img.resize((25, 25))
+        self.refresh_icon = ImageTk.PhotoImage(self.refresh_img)
+        self.rfrsh_btn = tk.Button(self, image=self.refresh_icon, highlightbackground='#DE8971', highlightcolor='#DE8971',
+                                  border=0, command=self.generate_captcha)
+        self.rfrsh_btn.place(x=335, y=404)
 
-            image = Image.open(file_path)
-            image.thumbnail((150, 150)) 
-            self.selected_image = ImageTk.PhotoImage(image)
-            self.image_label = tk.Label(self.pic_frame, image=self.selected_image)
-            self.image_label.place(x=0, y=0)
+    def enable_retry_button(self):
+        # Enable the retry button
+        self.rfrsh_btn.config(state='normal')
 
-    def remove_image(self):
-        if self.selected_image is not None:
-            self.selected_image = None
-            for widget in self.pic_frame.winfo_children():
-                widget.destroy()
+    def disable_retry_button(self):
+        # Disable the refresh button
+        self.rfrsh_btn.config(state='disabled')
 
     def generate_captcha(self):
-        print("Reload button clickd")
+        self.disable_retry_button()
+
         img = self.generate_captha()
-        self.pic_frame.configure(image=img)
+
+        self.pic_frame.config(image=img)
         self.pic_frame.image = img
+        self.parent.after(SUBSEQUENT_DELAY, self.enable_retry_button)
 
     def generate_captha(self):
-        self.generated = "".join(random.choices(string.ascii_lowercase, k=4))
-        captcha = ImageCaptcha(width=300, height=200)
+        self.generated = "".join(random.choices(string.ascii_uppercase + string.digits, k=6))
+        captcha = ImageCaptcha(width=280, height=55)
         captcha_text = f'{self.generated}'
         img_data = captcha.generate(captcha_text)
-        img = tk.PhotoImage(data=img_data.getvalue())
-        
+        pil_image = Image.open(img_data)
+        pil_image = pil_image.resize((280, 55))
+
+        img = ImageTk.PhotoImage(pil_image)
+
         return img
+    
+    def signup_button_command(self):
+        if self.validate_captcha():
+            self.go_to_Login_Page()
+    
+    def validate_captcha(self):
+        captcha = self.captcha_entry.get()
+
+        if captcha == '':
+            messagebox.showerror("Error", "Please input the CAPTCHA.")
+            return False
+        if captcha == self.generated:
+            messagebox.showinfo("Success", "CAPTCHA verified.")
+            return True
+        else:
+            messagebox.showerror("Error", "Incorrect CAPTCHA.")
+            return False
 
     def terms_conditios_var(self):
             result = messagebox.askokcancel("Terms and condition", "Do you accept the Terms and Conditions?")
