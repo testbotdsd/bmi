@@ -249,6 +249,7 @@ class BMI(tk.Frame):
             pass
 
     def got_to_profile_page(self):
+        self.show_history.destroy()
         self.parent.change_window('Profile')
         
     def save_info(self):
@@ -272,17 +273,21 @@ class BMI(tk.Frame):
         dbconn = Data_base_Handler.database()
         dbconn.create_save_info_table(save, user_id)
         dbconn.conn.close()
+<<<<<<< HEAD
 
     def on_return(self):
         pass
+=======
+>>>>>>> bb7bd6e2b2a6a76b547c1ca060b895308ba772c6
             
     def Show_history(self):    
         self.show_history = tk.Toplevel(self)  
         self.show_history.title("HISTORY") 
-        self.show_history.geometry('950x600')
+        self.show_history.geometry('940x600')
+
         
-        title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"), bg="#343638", fg='white')
-        title_label.place(x=425, y=5)
+        title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"))
+        title_label.place(x=430, y=5)
 
         columns = ("id", "age", "kilogram", "pounds", "centimeter", "meter")
 
@@ -306,21 +311,21 @@ class BMI(tk.Frame):
         self.table.column("id", width=50)
         self.table.heading("age", text="Age")
         self.table.column("age", width=50)
-        self.table.heading("kilogram", text="Kilogram")
+        self.table.heading("kilogram", text="Weight in Kilogram")
         self.table.column("kilogram", width=200)
-        self.table.heading("pounds", text="Pounds")
+        self.table.heading("pounds", text="Weight in Pounds")
         self.table.column("pounds", width=200)
-        self.table.heading("centimeter", text="Centimeter")
+        self.table.heading("centimeter", text="Height in Centimeter")
         self.table.column("centimeter", width=200)
-        self.table.heading("meter", text="Meter")
+        self.table.heading("meter", text="Height in Meter")
         self.table.column("meter", width=200)
         
         self.table.pack(side=tk.TOP, fill=tk.BOTH, expand=True)  # Adjust this based on your layout
         
-        self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='white', bg='#343638', relief="solid", command=self.delete_history)
-        self.return_button = tk.Button(self.show_history, text="Back", height=2, width=10, font="TimesNewRoman 10 bold", fg='white', bg='#343638', relief="solid", command=self.destroy_top_level)
+        self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat", command=self.delete_history)
+        self.return_button = tk.Button(self.show_history, text="Back", height=2, width=10, fg='black', bg='white', relief="solid", command=self.destroy_top_level)
 
-        self.delete_button.place(x=822, y=530)
+        self.delete_button.place(x=820, y=530)
         self.return_button.place(x=10, y=530)
         
         self.table.place(x=10, y=40)
@@ -333,10 +338,14 @@ class BMI(tk.Frame):
         for BMI in self.bmi_list:
             row = (BMI.Id, BMI.age, BMI.kilogram, BMI.pounds, BMI.centimeter, BMI.meter)
             self.table.insert('', tk.END, values=row) 
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> bb7bd6e2b2a6a76b547c1ca060b895308ba772c6
     def destroy_top_level(self):
         self.show_history.destroy()
-
+           
     def get_bmi_list(self):
         dbconn=Data_base_Handler.database()
         self.bmi_list=dbconn.get_Bmilist()
@@ -361,8 +370,53 @@ class BMI(tk.Frame):
             dbconn.conn.close()
             
             self.updatetable()
-    
+
+<<<<<<< HEAD
+=======
+    def Profile(self):
+        self.profile = tk.Toplevel(self)  
+        self.profile.title("Profile") 
+        self.profile.geometry('400x600')
+        self.profile.config(bg='#3C3633')
+        self.profile.attributes('-topmost', True)
+        
+        font_style = ("Garamond", 15, "bold")
+
+        self.profile_label = tk.Label(self.profile, text="PROFILE", bg='#3C3633', font=('Courier', 30, 'bold'), 
+                                        foreground='#E0CCBE')
+        self.profile_label.place(x=115, y=10)
+
+        self.pic_frame = tk.Frame(self.profile, bd=10, width=150, height=150, bg='#747264', relief='flat')
+        self.pic_frame.place(x=45, y=70)
+
+        self.name_label = tk.Label(self.profile, text="Name:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.name_label.place(x=40, y=240)
+
+        self.birthday_label = tk.Label(self.profile, text="Birthday:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.birthday_label.place(x=40, y=300)
+
+        self.gmail_label = tk.Label(self.profile, text="Gmail:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.gmail_label.place(x=40, y=360)
+
+        self.username_label = tk.Label(self.profile, text="Username:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.username_label.place(x=40, y=420)
+
+        self.logout_btn = CTkButton(self.profile, text="Logout", height=50, width=50, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
+                                   hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_main_page)
+        self.logout_btn.place(x=151, y=530)
+        
+        self.return_btn = CTkButton(self.profile, text="Return",width=30,height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
+                                   hover_color='#747264', corner_radius=30, text_color='black',command=self.close_top_level)
+        self.return_btn.place(x=10, y=10)
+        
+    def go_to_main_page(self):
+        self.profile.destroy()
+        self.parent.change_window('Welcome_Page')
+        
+    def close_top_level(self):
+        self.profile.destroy()
+        
     def on_return(self):
         pass
-
+>>>>>>> bb7bd6e2b2a6a76b547c1ca060b895308ba772c6
 
