@@ -15,7 +15,8 @@ class database:
                             gmail TEXT UNIQUE,
                             username TEXT,
                             password TEXT,
-                            birthday TEXT
+                            birthday TEXT,
+                            image BLOB
                         )'''
         
         self.conn.execute(create_sign_up_table)
@@ -60,8 +61,8 @@ class database:
         self.conn.commit()
         
     def create_sign_up_table(self, User: Model.User):
-        query = f"INSERT INTO {self.Sign_up_table} (firstname, lastname, gmail,username , password, birthday) VALUES (?,?,?,?,?,?)" 
-        values = (User.firstname, User.lastname, User.gmail, User.username, User.password, User.birthday)
+        query = f"INSERT INTO {self.Sign_up_table} (firstname, lastname, gmail,username , password, birthday, image) VALUES (?,?,?,?,?,?,?)" 
+        values = (User.firstname, User.lastname, User.gmail, User.username, User.password, User.birthday, User.image)
         self.cursor.execute(query, values) 
         self.conn.commit()
 

@@ -12,6 +12,7 @@ from tkcalendar import DateEntry
 from datetime import date
 from PIL import Image, ImageTk
 import re
+from io import BytesIO
 
 INITIAL_DELAY = 10000
 SUBSEQUENT_DELAY = 10000
@@ -280,6 +281,9 @@ class Photo (tk.Frame):
         self.profile_canvas.pack(fill=tk.BOTH, expand=1)
         self.profile_label = tk.Label(self.profile_frame, text="Profile Image")
         self.profile_label.pack()
+        
+        self.image = None 
+        self.image_data = None 
 
     def open_image_window(self):
         self.image_window = tk.Toplevel(self)
@@ -419,6 +423,9 @@ class Photo (tk.Frame):
 
             self.profile_canvas.create_image(x_offset, y_offset, anchor=tk.NW, image=self.profile_photo)
 
+            # Convert image to binary data
+            self.image_data = self.image_to_binary(profile_image)
+
 
     def create_refresh_button(self):
         # Create the refresh button with appropriate callback
@@ -485,6 +492,11 @@ class Photo (tk.Frame):
             else:
                 self.terms_accepted.set(0)
 
+    def image_to_binary(self, image):
+        with BytesIO() as buffer:
+            image.save(buffer, format="PNG")
+            return buffer.getvalue()
+
     def go_to_create_acc(self):
         self.parent.change_window('Signup')
         
@@ -508,11 +520,15 @@ class Photo (tk.Frame):
         user.password = Pass
         
         if Pass == Confirm_Pass:
-            
             dbconn = Data_base_Handler.database()
             dbconn.create_sign_up_table(user)
+
+            # Save image data to database
+            if self.image_data:
+                user.image(self.image_data)
+                dbconn.update_user_image(user)
+
             dbconn.conn.close()
-            
         else:
             messagebox.showerror("Error", "Incorrect Password.")
             return

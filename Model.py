@@ -7,6 +7,7 @@ class User:
         self.username = ''
         self.password = ''
         self.birthday = ''
+        self.image = ''
         
 class Save_info:
     def __init__(self):
