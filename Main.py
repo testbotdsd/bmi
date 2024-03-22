@@ -1,6 +1,3 @@
-# Profile (display, sign_up)
-# Picture (Photo, view, crop, rotate, mirror)
-
 import tkinter as tk
 import Welcome_Page
 import Login_Page
@@ -34,7 +31,7 @@ class MainWindow(tk.Tk):
         #BMI
         self.frames ['BMI'] = BMI_Page.BMI(self)
 
-        self.change_window('Welcome_Page')
+        self.change_window('Photo')
 
     def set_logged_in_user_id(self, user_id):
         self.logged_in_user_id = user_id

@@ -16,7 +16,6 @@ import re
 INITIAL_DELAY = 10000
 SUBSEQUENT_DELAY = 10000
 
-
 class Signup(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__ (self, master)
@@ -85,10 +84,10 @@ class Signup(tk.Frame):
         self.eye_show = ImageTk.PhotoImage(self.eye_show) 
 
         # Create the button with the loaded image
-        self.show_pass = tk.Button(self, font=('Courier', 10), bd=1, bg='white', fg='black', command=self.show_password, image=self.eye_show)
+        self.show_pass = tk.Button(self, bd=1, bg='white', command=self.show_password, image=self.eye_show)
         self.show_pass.place(x=350, y=404)
 
-        self.show_confirm_pass = tk.Button(self, font=('Courier', 10), bd=1, bg='white', fg='black', command=self.confirm_password_show, image=self.eye_show)
+        self.show_confirm_pass = tk.Button(self, bd=1, bg='white', command=self.confirm_password_show, image=self.eye_show)
         self.show_confirm_pass.place(x=350, y=464)
 
         self.have_an_account_login_label = tk.Label(self, text='Already have an account?', bg='#3C3633', font="Courier 10", foreground='white')
@@ -182,6 +181,10 @@ class Signup(tk.Frame):
             messagebox.showerror('Error', 'Confirm password field is empty, please fill it out.')
             return False
         
+        if password != confirm_password:
+            messagebox.showerror('Error', 'Password and Confirm Password fields do not match.')
+            return False
+        
         if birthday == '':
             messagebox.showerror('Error', 'Birthday password field is empty, please fill it out.')
             return False
@@ -224,17 +227,18 @@ class Photo (tk.Frame):
         self.Photo_bg = tk.Frame(self, bg='#3C3633', height=600, width=450)
         self.Photo_bg.place(x=0, y=0)
         
+        #CAPTCHA
         img=self.generate_captha()
         self.pic_frame = tk.Label(self, image=img)
         self.pic_frame.image = img  
-        self.pic_frame.place(x=95, y=170)
+        self.pic_frame.place(x=55, y=340)
         
         self.create_refresh_button()
         self.disable_retry_button()
         self.parent.after(INITIAL_DELAY, self.enable_retry_button)
 
         self.captcha_entry = tk.Entry(self.Photo_bg, border=1, width=20, font=('Courier', 15), fg='white', bg='#59504b')
-        self.captcha_entry.place(x=81, y=415)
+        self.captcha_entry.place(x=55, y=415)
 
         self.captcha_window = None
         self.captcha_label_in_window = None
@@ -243,14 +247,158 @@ class Photo (tk.Frame):
                                      command=self.go_to_create_acc)
         self.Back_button.place(x=5, y=5)
         
-        self.Finish_button = tk.Button(self, text='Sign Up', width=21, font=('Courier', 15, 'bold'), bg='#d3d3d3', command=self.signup_button_command)
-        self.Finish_button.place(x=65, y=517)
+        self.Finish_button = CTkButton(self, text='Sign Up', width=300,height=40,corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', 
+                                        text_color='black', command=self.signup_button_command)
+        self.Finish_button.place(x=60, y=517)
 
         self.terms_accepted = tk.IntVar()
         self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable=self.terms_accepted, 
                                                                 command=self.terms_conditions_var)
         self.terms_and_conditions_var = tk.BooleanVar()
-        self.terms_and_conditions_check_button.place(x=115, y=470)
+        self.terms_and_conditions_check_button.place(x=105, y=480)
+
+        self.image_frame = tk.Frame(self, width=400, height=400, relief=tk.SOLID, bd=2)
+        self.image_frame.place(x=10, y=5, anchor=tk.NW)  # Place the image frame
+        
+        self.canvas = tk.Canvas(self.image_frame)  # Use Canvas instead of Label
+        self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)  # Center the canvas
+        
+        self.upload_button = tk.Button(self, text="Upload Image", command=self.upload_image)
+        self.upload_button.place(x=450, y=20)  # Place the upload button
+        
+        self.crop_button = tk.Button(self, text="Crop Image", command=self.start_crop)
+        self.crop_button.place(x=450, y=60)  # Place the crop button
+        
+        self.undo_button = tk.Button(self, text="Undo", command=self.undo_crop)
+        self.undo_button.place(x=450, y=100)  # Place the undo button
+        
+        self.redo_button = tk.Button(self, text="Redo", command=self.redo_crop)
+        self.redo_button.place(x=450, y=140)  # Place the redo button
+        
+        self.rotate_button = tk.Button(self, text="Rotate Image", command=self.rotate_image)
+        self.rotate_button.place(x=450, y=180)  # Place the rotate button
+        
+        self.done_button = tk.Button(self, text="Done", command=self.show_profile_image)
+        self.done_button.place(x=450, y=220)  # Place the done button
+        
+        self.profile_frame = tk.Frame(self, width=400, height=400, bd=2, relief=tk.SOLID)
+        self.profile_frame.place(x=50, y=50)  # Place the profile frame
+        self.profile_canvas = tk.Canvas(self.profile_frame, width=200, height=200)
+        self.profile_canvas.pack(fill=tk.BOTH, expand=1)
+        self.profile_label = tk.Label(self.profile_frame, text="Profile Image")
+        self.profile_label.pack()
+
+        self.start_x = None
+        self.start_y = None
+        self.end_x = None
+        self.end_y = None
+        self.rect = None
+        self.crop_history = []
+
+    def upload_image(self):
+        file_path = filedialog.askopenfilename()
+        if file_path:
+            self.image = Image.open(file_path)
+            self.resize_image()
+            self.display_image()
+            self.crop_history = []
+
+    def resize_image(self):
+        if self.image:
+            width_ratio = 400 / self.image.width
+            height_ratio = 300 / self.image.height
+            scale_factor = min(width_ratio, height_ratio)
+            self.image = self.image.resize((int(self.image.width * scale_factor), int(self.image.height * scale_factor)))
+
+    def display_image(self):
+        if self.image:
+            self.photo = ImageTk.PhotoImage(self.image)
+            self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo)
+            self.canvas.config(width=self.image.width, height=self.image.height)
+
+
+    def start_crop(self):
+        if self.image:
+            self.canvas.bind("<Button-1>", self.on_press)
+            self.canvas.bind("<B1-Motion>", self.on_drag)
+            self.canvas.bind("<ButtonRelease-1>", self.on_release)
+
+    def on_press(self, event):
+        self.start_x = event.x
+        self.start_y = event.y
+
+    def on_drag(self, event):
+        self.end_x = event.x
+        self.end_y = event.y
+        self.draw_rectangle()
+
+    def on_release(self, event):
+        self.end_x = event.x
+        self.end_y = event.y
+        self.draw_rectangle()
+        self.crop_image()
+
+    def draw_rectangle(self):
+        if self.rect:
+            self.canvas.delete(self.rect)
+        self.rect = self.canvas.create_rectangle(self.start_x, self.start_y, self.end_x, self.end_y, outline="red")
+
+    def crop_image(self):
+        if self.image:
+            x1 = min(self.start_x, self.end_x)
+            y1 = min(self.start_y, self.end_y)
+            x2 = max(self.start_x, self.end_x)
+            y2 = max(self.start_y, self.end_y)
+            cropped_image = self.image.crop((x1, y1, x2, y2))
+            
+            width_ratio = self.image_frame.winfo_width() / cropped_image.width
+            height_ratio = self.image_frame.winfo_height() / cropped_image.height
+            scale_factor = min(width_ratio, height_ratio)
+            
+            cropped_image = cropped_image.resize((int(cropped_image.width * scale_factor), int(cropped_image.height * scale_factor)))
+            
+            self.crop_history.append(self.image.copy()) 
+            self.image = cropped_image
+            self.display_image()
+
+
+    def undo_crop(self):
+        if self.crop_history:
+            self.image = self.crop_history.pop()
+            self.display_image()
+
+    def redo_crop(self):
+        if self.crop_history:
+            self.image = self.crop_history.pop()
+            self.display_image()
+
+    def rotate_image(self):
+        if self.image:
+            rotated_image = self.image.rotate(90, expand=True)
+            self.image = rotated_image
+            self.display_image()
+
+    def show_profile_image(self):
+        if self.image:
+            profile_image = self.image.copy()
+            profile_image.thumbnail((200, 200)) 
+            
+            zoom_factor = min(self.profile_canvas.winfo_width() / profile_image.width,
+                            self.profile_canvas.winfo_height() / profile_image.height)
+
+            profile_image = profile_image.resize((int(profile_image.width * zoom_factor),
+                                                int(profile_image.height * zoom_factor)))
+            
+            self.profile_photo = ImageTk.PhotoImage(profile_image)
+            
+
+            self.profile_canvas.delete(tk.ALL)
+            
+            x_offset = (self.profile_canvas.winfo_width() - profile_image.width) // 2
+            y_offset = (self.profile_canvas.winfo_height() - profile_image.height) // 2
+            
+            self.profile_canvas.create_image(x_offset, y_offset, anchor=tk.NW, image=self.profile_photo)
+
 
     def create_refresh_button(self):
         # Create the refresh button with appropriate callback
@@ -259,7 +407,7 @@ class Photo (tk.Frame):
         self.refresh_icon = ImageTk.PhotoImage(self.refresh_img)
         self.rfrsh_btn = tk.Button(self, image=self.refresh_icon, highlightbackground='#DE8971', highlightcolor='#DE8971',
                                   border=0, command=self.generate_captcha)
-        self.rfrsh_btn.place(x=335, y=414)
+        self.rfrsh_btn.place(x=305, y=414)
 
     def enable_retry_button(self):
         # Enable the retry button
@@ -353,6 +501,8 @@ class Photo (tk.Frame):
         if final:
             self.parent.frames['Signup'].clear_input()
             self.parent.change_window('Login')
+    
+    
     
     def on_return(self, **kwargs):
         pass

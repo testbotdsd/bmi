@@ -35,8 +35,16 @@ class Login(tk.Frame):
         self.pass_entry = tk.Entry(self.login_bg, border=1, width=19, font=('Courier', 15), fg='white', bg='#59504b', show='*')
         self.pass_entry.place(x=81, y=245)
 
-        self.toggle_password_button = tk.Button(self.login_bg, text="Show", font=('Courier', 10), bd=1, bg='white',fg='black', command=self.toggle_password)
-        self.toggle_password_button.place(x=322, y=245)
+        self.eye_hide = Image.open("hide.jpg")
+        self.eye_hide = self.eye_hide.resize((22, 22))  
+        self.eye_hide = ImageTk.PhotoImage(self.eye_hide) 
+
+        self.eye_show = Image.open("show.jpg")
+        self.eye_show = self.eye_show.resize((22, 22))  
+        self.eye_show = ImageTk.PhotoImage(self.eye_show)
+
+        self.toggle_password_button = tk.Button(self.login_bg, bd=1, bg='white', image=self.eye_show, command=self.toggle_password)
+        self.toggle_password_button.place(x=322, y=246)
 
 
         self.forgot_password_button = tk.Button(self.login_bg, text='Forgot your password?',  font=('Courier', 11), fg='#5e918e', 
@@ -45,7 +53,7 @@ class Login(tk.Frame):
 
         self.login_button = CTkButton(self.login_bg, text='LOGIN', width=300,height=40,corner_radius=30, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', 
                                         text_color='black',command=self.login_button_command)
-        self.login_button.place(x=81, y=510)
+        self.login_button.place(x=80, y=510)
 
         self.no_account_label = tk.Label(self.login_bg, text="Don't have an account?", bg='#3C3633', font="Courier 10", foreground='#EEEDEB')
         self.no_account_label.place(x=82, y=558)
@@ -139,12 +147,12 @@ class Login(tk.Frame):
 
     def toggle_password(self):
         if self.password_hidden:
-            self.pass_entry.config(show='')
-            self.toggle_password_button.config(text="Hide", bg='#3C3633', fg='white')
+            self.password_entry.config(show='')
+            self.show_pass.config(bg='#3C3633', fg='white', image=self.eye_hide)
             self.password_hidden = False
         else:
-            self.pass_entry.config(show='*')
-            self.toggle_password_button.config(text="Show", bg='white', fg='#3C3633')
+            self.password_entry.config(show='*')
+            self.show_pass.config(bg='white', fg='#3C3633', image=self.eye_show)
             self.password_hidden = True
 
     def go_to_forgot_password(self):
