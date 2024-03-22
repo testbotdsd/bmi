@@ -9,7 +9,8 @@ import string
 from captcha.image import ImageCaptcha
 import random
 from tkcalendar import DateEntry
-from datetime import date
+from datetime import datetime, timedelta
+from tkcalendar import DateEntry
 from PIL import Image, ImageTk
 import re
 from io import BytesIO
@@ -144,7 +145,15 @@ class Signup(tk.Frame):
         self.password_entry.delete(0, tk.END)
         self.confirm_password_entry.delete(0, tk.END)
         self.Bday_calendar_entry.delete (0, tk.END)
-        
+    
+    def validate_date(self, selected_date):
+        if not selected_date:
+            return False
+        chosen_date = datetime.strptime(selected_date, '%m/%d/%y').date()
+        current_date = datetime.now().date()
+        tomorrow = current_date + timedelta(days=1)
+        return chosen_date < tomorrow
+
     def validate_sign_up(self):
         first_name = self.first_name_entry.get()
         last_name = self.last_name_entry.get()
@@ -152,11 +161,22 @@ class Signup(tk.Frame):
         username = self.username_entry.get()
         password = self.password_entry.get()
         confirm_password = self.confirm_password_entry.get()
-        birthday = self.Bday_calendar_entry.get()
-        chosen_date = date.today()
+        birthday_str = self.Bday_calendar_entry.get()
+
+        if not self.validate_date(birthday_str):  # Corrected the method call
+            messagebox.showerror('Error', 'Please select a date before tomorrow.')
+            return False
         
         if password != confirm_password:
             messagebox.showerror("Error", "Password and confirm password fields do not match")
+            return False
+        
+        if not first_name.isalpha():
+            messagebox.showerror('Error', 'First name should not contain numbers or special characters.')
+            return False
+        
+        if not last_name.isalpha():
+            messagebox.showerror('Error', 'Last name should not contain numbers or special characters.')
             return False
         
         if first_name == '':
@@ -190,12 +210,8 @@ class Signup(tk.Frame):
             messagebox.showerror('Error', 'Password and Confirm Password fields do not match.')
             return False
         
-        if birthday == '':
+        if birthday_str == '':
             messagebox.showerror('Error', 'Birthday password field is empty, please fill it out.')
-            return False
-        
-        if chosen_date > date.today():
-            messagebox.showerror('Error', 'Birth Date is beyond the current date, Please put your real birthday')
             return False
         
         self.go_to_Photo_page()
