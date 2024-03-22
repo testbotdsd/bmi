@@ -12,14 +12,13 @@ class database:
                             ID INTEGER PRIMARY KEY,
                             firstname TEXT,
                             lastname TEXT,
-                            gmail TEXT,
+                            gmail TEXT UNIQUE,
                             username TEXT,
                             password TEXT,
                             birthday TEXT
                         )'''
         
         self.conn.execute(create_sign_up_table)
-
         self.conn.commit()
 
         create_save_info_table = f'''CREATE TABLE IF NOT EXISTS {self.Save_info_table} (
@@ -99,4 +98,14 @@ class database:
         self.cursor.execute(query,values)
         self.conn.commit()  
 
-    
+    def checking_gmail_exist(self, gmail):
+        query = f"SELECT COUNT(*) FROM {self.Sign_up_table} WHERE gmail = ?"
+        self.cursor.execute(query, (gmail,)) 
+        result = self.cursor.fetchone()
+        return result[0] > 0
+
+    def update_password(self, gmail, password):
+        query = f"UPDATE {self.Sign_up_table} SET password=? WHERE gmail = ?"
+        values = (password, gmail)
+        self.cursor.execute(query, values)
+        self.conn.commit()

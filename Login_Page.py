@@ -87,7 +87,6 @@ class Login(tk.Frame):
         self.rfrsh_btn.place(x=335, y=404)
 
     def enable_retry_button(self):
-        # Enable the retry button
         self.rfrsh_btn.config(state='normal')
 
     def disable_retry_button(self):
@@ -149,7 +148,6 @@ class Login(tk.Frame):
 
     def go_to_forgot_password(self):
         self.parent.change_window('Forget')
-
         self.generate_captcha()
 
     def go_to_BMI_Page(self):

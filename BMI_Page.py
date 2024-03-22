@@ -251,6 +251,7 @@ class BMI(tk.Frame):
             pass
 
     def got_to_profile_page(self):
+        self.show_history.destroy()
         self.parent.change_window('Profile')
         
     def save_info(self):
@@ -277,9 +278,11 @@ class BMI(tk.Frame):
     def Show_history(self):    
         self.show_history = tk.Toplevel(self)  
         self.show_history.title("HISTORY") 
-        self.show_history.geometry('950x600')
+        self.show_history.geometry('940x600')
+        self.show_history.attributes('-topmost', True) 
+
         
-        title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"), bg="orange")
+        title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"))
         title_label.place(x=430, y=5)
 
         columns = ("id", "age", "kilogram", "pounds", "centimeter", "meter")
@@ -304,13 +307,13 @@ class BMI(tk.Frame):
         self.table.column("id", width=50)
         self.table.heading("age", text="Age")
         self.table.column("age", width=50)
-        self.table.heading("kilogram", text="Kilogram")
+        self.table.heading("kilogram", text="Weight in Kilogram")
         self.table.column("kilogram", width=200)
-        self.table.heading("pounds", text="Pounds")
+        self.table.heading("pounds", text="Weight in Pounds")
         self.table.column("pounds", width=200)
-        self.table.heading("centimeter", text="Centimeter")
+        self.table.heading("centimeter", text="Height in Centimeter")
         self.table.column("centimeter", width=200)
-        self.table.heading("meter", text="Meter")
+        self.table.heading("meter", text="Height in Meter")
         self.table.column("meter", width=200)
         
         self.table.pack(side=tk.TOP, fill=tk.BOTH, expand=True)  # Adjust this based on your layout
@@ -359,15 +362,13 @@ class BMI(tk.Frame):
             dbconn.conn.close()
             
             self.updatetable()
-    
-    def on_return(self):
-        pass
 
     def Profile(self):
         self.profile = tk.Toplevel(self)  
         self.profile.title("Profile") 
         self.profile.geometry('400x600')
         self.profile.config(bg='#3C3633')
+        self.profile.attributes('-topmost', True)
         
         font_style = ("Garamond", 15, "bold")
 
@@ -404,4 +405,7 @@ class BMI(tk.Frame):
         
     def close_top_level(self):
         self.profile.destroy()
+        
+    def on_return(self):
+        pass
 

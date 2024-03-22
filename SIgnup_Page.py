@@ -155,6 +155,10 @@ class Signup(tk.Frame):
         birthday = self.Bday_calendar_entry.get()
         chosen_date = date.today()
         
+        if password != confirm_password:
+            messagebox.showerror("Error", "Password and confirm password fields do not match")
+            return False
+        
         if first_name == '':
             messagebox.showerror('Error', 'First name field is empty, please fill it out.')
             return False

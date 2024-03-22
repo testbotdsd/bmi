@@ -4,6 +4,9 @@ from customtkinter import *
 import random
 import smtplib
 import re
+import Login_Page
+import Data_base_Handler
+import Model
 
 class Forget(tk.Frame):
     def __init__(self, master):
@@ -49,13 +52,23 @@ class Forget(tk.Frame):
                                      command=self.go_to_login)
         self.back_button.place(x= 5, y= 10)
 
+    def check_gmail(self, gmail):
+        data = Data_base_Handler.database()
+        return data.checking_gmail_exist(gmail)
+    
     def validate_login(self):
-        email = self.gmail_entry.get()
+        gmail = self.gmail_entry.get()
+        otp = self.otp_verify_entry.get()
         
-        if email == "":
+        if not self.check_gmail(gmail):
+            messagebox.showerror("Error", "Gmail does not exist. Please enter the gmail you used during sign up.")
+            return
+
+        if gmail == "":
             messagebox.showerror("Error", "Please enter your Gmail Account.")
             return None
-        if not self.is_valid_gmail(email):
+        
+        if not self.is_valid_gmail(gmail):
             messagebox.showerror("Error", "Please enter a valid Gmail Account.")
             return None
         
@@ -68,13 +81,13 @@ class Forget(tk.Frame):
         server.starttls()
         server.login(email_sender, password)
         msg = 'Subject: Your OTP\n\nHello, your OTP is ' + self.otp
-        server.sendmail(email_sender, email, msg)
+        server.sendmail(email_sender, gmail, msg)
         server.quit()
 
         # Set OTP and email for OTP frame
         otp_frame = self.parent.frames['Reset_Password']
         otp_frame.sent_otp = self.otp
-        otp_frame.email = email
+        otp_frame.email = gmail
         
         self.reset_fields()
 
