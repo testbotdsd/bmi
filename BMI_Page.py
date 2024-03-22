@@ -5,6 +5,9 @@ from PIL import Image, ImageTk
 import Data_base_Handler
 import Model
 from customtkinter import *
+from PIL import ImageTk, Image
+from io import BytesIO
+
 
 class BMI(tk.Frame):
     def __init__ (self, master):
@@ -203,7 +206,6 @@ class BMI(tk.Frame):
                 self.result_entry.insert(0, f"{bmi_result:.2f}")
 
                 self.Evaluation_result_for_adults(bmi_result)
-
         except ValueError:
             messagebox.showerror("Error", "Invalid input for age, weight, or height.")
 
@@ -359,7 +361,6 @@ class BMI(tk.Frame):
             dbconn=Data_base_Handler.database()
             dbconn.delete_Bmi_history(bmi)
             dbconn.conn.close()
-            
             self.updatetable()
 
     def Profile(self):
@@ -378,24 +379,72 @@ class BMI(tk.Frame):
         self.pic_frame = tk.Frame(self.profile, bd=10, width=150, height=150, bg='#747264', relief='flat')
         self.pic_frame.place(x=45, y=70)
 
-        self.name_label = tk.Label(self.profile, text="Name:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.name_label.place(x=40, y=240)
+        dbconn = Data_base_Handler.database()
+        user_id = self.parent.get_logged_in_user_id()
+        image_data = dbconn.get_profile_image(user_id)
+        dbconn.conn.close()
 
-        self.birthday_label = tk.Label(self.profile, text="Birthday:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.birthday_label.place(x=40, y=300)
+
+        if image_data:
+            image = Image.open(BytesIO(image_data))
+            image.thumbnail((150, 150))  
+            photo = ImageTk.PhotoImage(image)
+
+            canvas = tk.Canvas(self.pic_frame, width=150, height=150, bg='#747264', highlightthickness=0)
+            canvas.pack(fill='both', expand=True)
+            canvas.create_image(0, 0, anchor='nw', image=photo)
+
+            canvas.photo = photo
+
+        self.firstname_label = tk.Label(self.profile, text="First Name:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.firstname_label.place(x=40, y=250)
+
+        self.firstname_entry = tk.Entry(self.profile, font=('Courier', 13), bg='#EEEDEB')
+        self.firstname_entry.place(x=180, y=250)
+
+        self.lastname_label = tk.Label(self.profile, text="Last Name:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.lastname_label.place(x=40, y=300)
+
+        self.lastname_entry = tk.Entry(self.profile, font=('Courier', 13), bg='#EEEDEB')
+        self.lastname_entry.place(x=180, y=300)
 
         self.gmail_label = tk.Label(self.profile, text="Gmail:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.gmail_label.place(x=40, y=360)
+        self.gmail_label.place(x=40, y=350)
+
+        self.gmail_entry = tk.Entry(self.profile, font=('Courier', 13), bg='#EEEDEB')
+        self.gmail_entry.place(x=180, y=350)
 
         self.username_label = tk.Label(self.profile, text="Username:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.username_label.place(x=40, y=420)
+        self.username_label.place(x=40, y=400)
+
+        self.username_entry = tk.Entry(self.profile, font=('Courier', 13), bg='#EEEDEB')
+        self.username_entry.place(x=180, y=400)
+
+        self.birthday_label = tk.Label(self.profile, text="Birthday:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.birthday_label.place(x=40, y=450)
+
+        self.birthday_entry = tk.Entry(self.profile, font=('Courier', 13), bg='#EEEDEB')
+        self.birthday_entry.place(x=180, y=450)
+
+    
+        dbconn = Data_base_Handler.database()
+        user_id = self.parent.get_logged_in_user_id()
+        user_info = dbconn.get_user_info(user_id)
+        dbconn.conn.close()
+
+        if user_info:
+            self.firstname_entry.insert(0, user_info[0])
+            self.lastname_entry.insert(0, user_info[1])
+            self.gmail_entry.insert(0, user_info[2])
+            self.username_entry.insert(0, user_info[3])
+            self.birthday_entry.insert(0, user_info[4])
 
         self.logout_btn = CTkButton(self.profile, text="Logout", height=50, width=50, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
-                                   hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_main_page)
+                                hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_main_page)
         self.logout_btn.place(x=151, y=530)
         
         self.return_btn = CTkButton(self.profile, text="Return",width=30,height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
-                                   hover_color='#747264', corner_radius=30, text_color='black',command=self.close_top_level)
+                                hover_color='#747264', corner_radius=30, text_color='black',command=self.close_top_level)
         self.return_btn.place(x=10, y=10)
         
     def go_to_main_page(self):

@@ -42,7 +42,6 @@ class MainWindow(tk.Tk):
     def change_window(self, name):
         for frame in self.frames.values():
             frame.grid_forget()
-        
         self.frames[name].grid()
 
     def change_window(self, name, **kwargs):

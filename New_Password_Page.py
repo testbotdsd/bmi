@@ -62,13 +62,11 @@ class Reset_Password(tk.Frame):
         else:
             entered_otp = simpledialog.askstring("OTP Verification", "Enter the OTP sent to your email:")
             if entered_otp == self.sent_otp:
-                # Update password in the database
                 data = Data_base_Handler.database()
                 data.update_password(self.email, password)
 
                 messagebox.showinfo("Success", "Password updated successfully.")
 
-                # Reset fields and navigate to login screen
                 self.reset_fields()
                 self.reset_fields_2()
                 self.go_to_login()

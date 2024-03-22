@@ -110,3 +110,18 @@ class database:
         values = (password, gmail)
         self.cursor.execute(query, values)
         self.conn.commit()
+
+    def get_profile_image(self, user_id):
+        query = f"SELECT image FROM sign_up_table WHERE id = ?"
+        self.cursor.execute(query, (user_id,))
+        row = self.cursor.fetchone()
+        if row:
+            return row[0]
+        else:
+            return None
+
+    def get_user_info(self, user_id):
+        query = f"SELECT firstname, lastname, gmail, username, birthday FROM {self.Sign_up_table} WHERE ID = ?"
+        self.cursor.execute(query, (user_id,))
+        user_info = self.cursor.fetchone()
+        return user_info
