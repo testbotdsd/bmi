@@ -103,7 +103,8 @@ class Signup(tk.Frame):
         self.sign_up_button = tk.Button(self, text='Continue', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.validate_sign_up)
         self.sign_up_button.place(x=240, y=510)
 
-        self.password_hidden = True 
+        self.password_hidden = True
+        self.password_hidden_2 = True 
 
     def is_valid_gmail(self, email):
         # Check if the email follows a valid format
@@ -127,14 +128,14 @@ class Signup(tk.Frame):
             self.password_hidden = True
 
     def confirm_password_show(self):
-        if self.password_hidden:
+        if self.password_hidden_2:
             self.confirm_password_entry.config(show='')
             self.show_confirm_pass.config(bg='#3C3633', fg='white', image=self.eye_hide)
-            self.password_hidden = False
+            self.password_hidden_2 = False
         else:
             self.confirm_password_entry.config(show='*')
             self.show_confirm_pass.config(bg='white', fg='#3C3633', image=self.eye_show)
-            self.password_hidden = True
+            self.password_hidden_2 = True
 
     def clear_input(self):
         self.first_name_entry.delete(0, tk.END)
