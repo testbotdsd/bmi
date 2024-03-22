@@ -425,12 +425,10 @@ class Photo (tk.Frame):
 
             self.profile_canvas.create_image(x_offset, y_offset, anchor=tk.NW, image=self.profile_photo)
 
-            # Convert image to binary data
             self.image_data = self.image_to_binary(profile_image)
 
 
     def create_refresh_button(self):
-        # Create the refresh button with appropriate callback
         self.refresh_img = Image.open("retry_icon.jpg")
         self.refresh_img = self.refresh_img.resize((25, 25))
         self.refresh_icon = ImageTk.PhotoImage(self.refresh_img)
@@ -599,14 +597,10 @@ Thank you for using our BMI Calculator and complying with these terms and condit
         user.password = Pass
         
         if Pass == Confirm_Pass:
+            user.image = self.image_data
+
             dbconn = Data_base_Handler.database()
             dbconn.create_sign_up_table(user)
-
-            # Save image data to database
-            if self.image_data:
-                user.image(self.image_data)
-                dbconn.update_user_image(user)
-
             dbconn.conn.close()
         else:
             messagebox.showerror("Error", "Incorrect Password.")

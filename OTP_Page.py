@@ -84,7 +84,6 @@ class Forget(tk.Frame):
         server.sendmail(email_sender, gmail, msg)
         server.quit()
 
-        # Set OTP and email for OTP frame
         otp_frame = self.parent.frames['Reset_Password']
         otp_frame.sent_otp = self.otp
         otp_frame.email = gmail
@@ -99,12 +98,10 @@ class Forget(tk.Frame):
             return
         
         if entered_otp == self.otp:
-            # Correct OTP entered
             messagebox.showinfo("Success", "OTP verified. You can now reset your password.")
             self.go_to_reset_pass()
             self.parent.change_window('Reset_Password')
         else:
-            # Incorrect OTP entered
             messagebox.showerror("Error", "Incorrect OTP. Please try again.")
 
     
@@ -112,11 +109,9 @@ class Forget(tk.Frame):
         self.gmail_entry.delete(0, tk.END)
 
     def is_valid_gmail(self, email):
-        # Check if the email follows a valid format
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             return False
         
-        # Check if the domain is gmail.com
         if email.endswith('@gmail.com'):
             return True
         
