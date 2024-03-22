@@ -65,11 +65,13 @@ class Login(tk.Frame):
         self.password_hidden = True 
 
         self.terms_accepted = tk.IntVar()
-        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable=self.terms_accepted, 
+        self.terms_and_conditions_check_button = tk.Checkbutton(self, text="I accept the Terms and Conditions", variable=self.terms_accepted,  
                                                                 command=self.terms_conditions_var)
         self.terms_conditions_var = tk.BooleanVar()
         self.terms_and_conditions_check_button.place(x=115, y=470)
-        
+
+        self.terms_conditions_window = None 
+
         img=self.generate_captha()
         self.pic_frame = tk.Label(self, image=img)
         self.pic_frame.image = img  
@@ -193,6 +195,90 @@ class Login(tk.Frame):
         self.username_entry.delete(0, tk.END)
         self.pass_entry.delete(0, tk.END)
         self.captcha_entry.delete(0, tk.END)
+
+    def terms_conditions_var(self):
+        if self.terms_accepted.get() == 1:
+            if self.terms_conditions_window is None:
+                self.create_terms_conditions_window()
+            else:
+                self.terms_conditions_window.deiconify()  
+        else:
+            if self.terms_conditions_window is not None:
+                self.terms_conditions_window.destroy()  
+                self.terms_conditions_window = None  
+                self.terms_and_conditions_check_button.deselect()  
+
+    def create_terms_conditions_window(self):
+        self.terms_conditions_window = tk.Toplevel(self)
+        self.terms_conditions_window.title("TERMS AND CONDITIONS")
+        self.terms_conditions_window.geometry("450x600") 
+        self.terms_conditions_window.resizable(False, False)
+        self.terms_conditions_window.configure(bg='#3C3633')  
+
+        scroll_frame = tk.Frame(self.terms_conditions_window)
+        scroll_frame.pack(fill=tk.BOTH, expand=True)
+
+        scroll_bar = tk.Scrollbar(scroll_frame, orient=tk.VERTICAL)
+        scroll_bar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        canvas = tk.Canvas(scroll_frame, yscrollcommand=scroll_bar.set, bg='#3C3633')
+        canvas.pack(fill=tk.BOTH, expand=True)
+
+        scroll_bar.config(command=canvas.yview)
+        canvas.config(yscrollcommand=scroll_bar.set)
+
+        inner_frame = tk.Frame(canvas)
+        canvas.create_window((0, 0), window=inner_frame, anchor=tk.NW)
+
+        terms_text = """
+                                                                Terms and Conditions for BMI Calculator:
+
+
+1. Use of the BMI Calculator:
+By using the BMI Calculator provided in this application, you agree to abide by the following terms and conditions.
+
+2. Accuracy of Results:
+The BMI Calculator provides an estimate of your Body Mass Index (BMI) based on the information you input, including height, weight, age, and gender. It is important to note that BMI calculations are indicative and may not accurately reflect individual health conditions such as muscle mass, bone density, or specific medical conditions. Always consult with a healthcare professional for personalized health advice.
+
+3. Personal Data:
+The BMI Calculator may require you to input personal data such as height, weight and age. This information is used solely for the purpose of calculating BMI and is not stored or shared with third parties without your explicit consent. 
+
+4. Health Disclaimer:
+The BMI Calculator is intended for informational purposes only and should not be used as a substitute for professional medical advice, diagnosis, or treatment. It is not designed to diagnose, treat, cure, or prevent any disease or health condition. Any reliance you place on BMI calculations is at your own risk. Always seek the advice of your physician or other qualified healthcare provider with any questions you may have regarding a medical condition.
+
+5. Limitation of Liability:
+We make no warranties or representations about the accuracy, reliability, completeness, or timeliness of the BMI Calculator or any results obtained from its use. We shall not be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in connection with the use of the BMI Calculator, including but not limited to lost profits, business interruption, or loss of data.
+
+6. Acceptance of Terms:
+By using the BMI Calculator, you acknowledge that you have read, understood, and agreed to these terms and conditions. If you do not agree with any part of these terms, please refrain from using the BMI Calculator.
+
+7. Updates to Terms:
+We reserve the right to update or modify these terms and conditions at any time without prior notice. It is your responsibility to review these terms periodically for changes. Continued use of the BMI Calculator after such changes constitutes acceptance of the updated terms.
+
+
+Thank you for using our BMI Calculator and complying with these terms and conditions.
+        """
+
+        tk.Label(inner_frame, text=terms_text, justify=tk.LEFT, wraplength=400, bg='#3C3633', fg='white', font=('Courier', 10)).pack() 
+
+        inner_frame.update_idletasks()
+        canvas.config(scrollregion=canvas.bbox(tk.ALL))
+
+        canvas.bind_all("<MouseWheel>", lambda event: canvas.yview_scroll(int(-1 * (event.delta / 120)), "units"))
+
+        ok_button = tk.Button(self.terms_conditions_window, text="Okay", font=('Courier', 10, 'bold'),bg='#d3d3d3', command=self.ok_action)
+        ok_button.pack(side=tk.LEFT, padx=10, pady=10)
+        
+        cancel_button = tk.Button(self.terms_conditions_window, text="Cancel", font=('Courier', 10, 'bold'),bg='#d3d3d3', command=self.cancel_action)
+        cancel_button.pack(side=tk.RIGHT, padx=10, pady=10)
+
+    def ok_action(self):
+        self.terms_conditions_window.destroy() 
+
+    def cancel_action(self):
+        self.terms_conditions_window.destroy()  
+        self.terms_and_conditions_check_button.deselect()  
+        self.terms_conditions_window = None  
     
     def on_return(self):
         pass
