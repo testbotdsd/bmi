@@ -279,7 +279,6 @@ class BMI(tk.Frame):
         self.show_history = tk.Toplevel(self)  
         self.show_history.title("HISTORY") 
         self.show_history.geometry('940x600')
-        self.show_history.attributes('-topmost', True) 
 
         
         title_label = tk.Label(self.show_history, text="BMI HISTORY", font=("TimesNewRoman", 16, "bold"))
