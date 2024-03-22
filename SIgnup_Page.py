@@ -261,43 +261,62 @@ class Photo (tk.Frame):
         self.terms_and_conditions_var = tk.BooleanVar()
         self.terms_and_conditions_check_button.place(x=105, y=480)
 
-        self.image_frame = tk.Frame(self, width=400, height=400, relief=tk.SOLID, bd=2)
-        self.image_frame.place(x=10, y=5, anchor=tk.NW)  # Place the image frame
-        
-        self.canvas = tk.Canvas(self.image_frame)  # Use Canvas instead of Label
-        self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)  # Center the canvas
-        
-        self.upload_button = tk.Button(self, text="Upload Image", command=self.upload_image)
-        self.upload_button.place(x=450, y=20)  # Place the upload button
-        
-        self.crop_button = tk.Button(self, text="Crop Image", command=self.start_crop)
-        self.crop_button.place(x=450, y=60)  # Place the crop button
-        
-        self.undo_button = tk.Button(self, text="Undo", command=self.undo_crop)
-        self.undo_button.place(x=450, y=100)  # Place the undo button
-        
-        self.redo_button = tk.Button(self, text="Redo", command=self.redo_crop)
-        self.redo_button.place(x=450, y=140)  # Place the redo button
-        
-        self.rotate_button = tk.Button(self, text="Rotate Image", command=self.rotate_image)
-        self.rotate_button.place(x=450, y=180)  # Place the rotate button
-        
-        self.done_button = tk.Button(self, text="Done", command=self.show_profile_image)
-        self.done_button.place(x=450, y=220)  # Place the done button
-        
-        self.profile_frame = tk.Frame(self, width=400, height=400, bd=2, relief=tk.SOLID)
-        self.profile_frame.place(x=50, y=50)  # Place the profile frame
-        self.profile_canvas = tk.Canvas(self.profile_frame, width=200, height=200)
-        self.profile_canvas.pack(fill=tk.BOTH, expand=1)
-        self.profile_label = tk.Label(self.profile_frame, text="Profile Image")
-        self.profile_label.pack()
 
+        self.image = None
+        self.canvas = None
         self.start_x = None
         self.start_y = None
         self.end_x = None
         self.end_y = None
         self.rect = None
         self.crop_history = []
+
+        self.upload_button = tk.Button(self, text="Upload Image", command=self.open_image_window)
+        self.upload_button.place(x=150, y=300)
+
+        self.profile_frame = tk.Frame(self, width=200, height=200, bd=2, relief=tk.SOLID)
+        self.profile_frame.place(x=100, y=50)
+        self.profile_canvas = tk.Canvas(self.profile_frame, width=200, height=200)
+        self.profile_canvas.pack(fill=tk.BOTH, expand=1)
+        self.profile_label = tk.Label(self.profile_frame, text="Profile Image")
+        self.profile_label.pack()
+
+    def open_image_window(self):
+        self.image_window = tk.Toplevel(self)
+        self.image_window.title("Image Window")
+        self.image_window.geometry("600x500")
+        self.image_window.resizable(False, False)
+
+        self.image_frame = tk.Frame(self.image_window, width=400, height=400, relief=tk.SOLID, bd=2)
+        self.image_frame.place(x=10, y=10)
+
+        self.canvas = tk.Canvas(self.image_frame)
+        self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+        self.crop_button = tk.Button(self.image_window, text="Crop Image", command=self.start_crop)
+        self.crop_button.place(x=450, y=20)
+
+        self.undo_button = tk.Button(self.image_window, text="Undo", command=self.undo_crop)
+        self.undo_button.place(x=450, y=60)
+
+        self.redo_button = tk.Button(self.image_window, text="Redo", command=self.redo_crop)
+        self.redo_button.place(x=450, y=100)
+
+        self.rotate_button = tk.Button(self.image_window, text="Rotate Image", command=self.rotate_image)
+        self.rotate_button.place(x=450, y=140)
+
+        self.done_button = tk.Button(self.image_window, text="Done", command=self.show_profile_image)
+        self.done_button.place(x=450, y=180)
+
+        self.upload_button = tk.Button(self.image_window, text="Upload Image", command=self.upload_image)
+        self.upload_button.place(x=450, y=210)
+
+        self.exit_button = tk.Button(self.image_window, text="Exit", command=self.close_image_window)
+        self.exit_button.place(x=450, y=250)
+
+
+    def close_image_window(self):
+        self.image_window.destroy()
 
     def upload_image(self):
         file_path = filedialog.askopenfilename()
@@ -319,7 +338,6 @@ class Photo (tk.Frame):
             self.photo = ImageTk.PhotoImage(self.image)
             self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo)
             self.canvas.config(width=self.image.width, height=self.image.height)
-
 
     def start_crop(self):
         if self.image:
@@ -354,17 +372,16 @@ class Photo (tk.Frame):
             x2 = max(self.start_x, self.end_x)
             y2 = max(self.start_y, self.end_y)
             cropped_image = self.image.crop((x1, y1, x2, y2))
-            
+
             width_ratio = self.image_frame.winfo_width() / cropped_image.width
             height_ratio = self.image_frame.winfo_height() / cropped_image.height
             scale_factor = min(width_ratio, height_ratio)
-            
+
             cropped_image = cropped_image.resize((int(cropped_image.width * scale_factor), int(cropped_image.height * scale_factor)))
-            
-            self.crop_history.append(self.image.copy()) 
+
+            self.crop_history.append(self.image.copy())
             self.image = cropped_image
             self.display_image()
-
 
     def undo_crop(self):
         if self.crop_history:
@@ -385,22 +402,21 @@ class Photo (tk.Frame):
     def show_profile_image(self):
         if self.image:
             profile_image = self.image.copy()
-            profile_image.thumbnail((200, 200)) 
-            
+            profile_image.thumbnail((200, 200))
+
             zoom_factor = min(self.profile_canvas.winfo_width() / profile_image.width,
-                            self.profile_canvas.winfo_height() / profile_image.height)
+                              self.profile_canvas.winfo_height() / profile_image.height)
 
             profile_image = profile_image.resize((int(profile_image.width * zoom_factor),
-                                                int(profile_image.height * zoom_factor)))
-            
+                                                  int(profile_image.height * zoom_factor)))
+
             self.profile_photo = ImageTk.PhotoImage(profile_image)
-            
 
             self.profile_canvas.delete(tk.ALL)
-            
+
             x_offset = (self.profile_canvas.winfo_width() - profile_image.width) // 2
             y_offset = (self.profile_canvas.winfo_height() - profile_image.height) // 2
-            
+
             self.profile_canvas.create_image(x_offset, y_offset, anchor=tk.NW, image=self.profile_photo)
 
 
@@ -505,7 +521,6 @@ class Photo (tk.Frame):
         if final:
             self.parent.frames['Signup'].clear_input()
             self.parent.change_window('Login')
-    
     
     
     def on_return(self, **kwargs):
