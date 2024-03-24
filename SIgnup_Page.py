@@ -589,10 +589,10 @@ Thank you for using our BMI Calculator and complying with these terms and condit
         canvas.bind_all("<MouseWheel>", lambda event: canvas.yview_scroll(int(-1 * (event.delta / 120)), "units"))
 
         ok_button = tk.Button(self.terms_conditions_window, text="Okay", font=('Courier', 10, 'bold'),bg='#d3d3d3', command=self.ok_action)
-        ok_button.pack(side=tk.LEFT, padx=10, pady=10)
+        ok_button.pack(side=tk.RIGHT, padx=10, pady=10)
         
         cancel_button = tk.Button(self.terms_conditions_window, text="Cancel", font=('Courier', 10, 'bold'),bg='#d3d3d3', command=self.cancel_action)
-        cancel_button.pack(side=tk.RIGHT, padx=10, pady=10)
+        cancel_button.pack(side=tk.LEFT, padx=10, pady=10)
 
     def ok_action(self):
         self.terms_conditions_window.destroy() 
