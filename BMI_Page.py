@@ -113,7 +113,7 @@ class BMI(tk.Frame):
         self.height_cm_entry.bind('<KeyRelease>', self.update_height_cm)
         self.height_m_entry.bind('<KeyRelease>', self.update_height_m) 
     
-  
+
     def update_weight_lb(self, event):
         try:
             kg_value = float(self.weight_kg_entry.get())
@@ -188,6 +188,10 @@ class BMI(tk.Frame):
                 return  
 
             age = int(age)
+
+            if age < 2:  # Ensuring age is 2 years old or above
+                messagebox.showerror("Error", "Age must be 2 years or older.")
+                return
 
             if age < 20:  # For children and teens
                 kg_value = float(self.weight_kg_entry.get())

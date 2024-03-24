@@ -112,8 +112,11 @@ class Signup(tk.Frame):
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             return False
         
-        # Check if the domain is gmail.com
+        # Check if the domain is gmail.com and dhvsu account
         if email.endswith('@gmail.com'):
+            return True
+        
+        if email.endswith('@dhvsu.edu.ph'):
             return True
         
         return False
@@ -155,6 +158,12 @@ class Signup(tk.Frame):
         tomorrow = current_date + timedelta(days=1)
         return chosen_date < tomorrow
 
+    def validate_first_name(self, first_name):
+        for name_part in first_name.split():
+            if not name_part.isalpha():
+                return False
+        return True
+
     def validate_sign_up(self):
         first_name = self.first_name_entry.get()
         last_name = self.last_name_entry.get()
@@ -164,16 +173,21 @@ class Signup(tk.Frame):
         confirm_password = self.confirm_password_entry.get()
         birthday_str = self.Bday_calendar_entry.get()
 
+        first_name = self.first_name_entry.get().strip()
+        if not first_name:
+            messagebox.showerror('Error', 'Please enter your first name.')
+            return False
+        
+        if not self.validate_first_name(first_name):
+            messagebox.showerror('Error', 'First name should not contain numbers or special characters.')
+            return False
+
         if not self.validate_date(birthday_str):  # Corrected the method call
             messagebox.showerror('Error', 'Please select a date before tomorrow.')
             return False
         
         if password != confirm_password:
             messagebox.showerror("Error", "Password and confirm password fields do not match")
-            return False
-        
-        if not first_name.isalpha():
-            messagebox.showerror('Error', 'First name should not contain numbers or special characters.')
             return False
         
         if not last_name.isalpha():
