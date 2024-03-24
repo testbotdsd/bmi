@@ -37,6 +37,7 @@ class BMI(tk.Frame):
         # Age Label and Entry
         self.age_label = tk.Label(self.main_frame, text="Age", bg='#747264', font=("Perpetua", 10, 'bold'), foreground='#E0CCBE')
         self.age_label.place(x=120, y=70)
+
         
         self.age_entry = CTkEntry(self.main_frame, bg_color='#3C3633', corner_radius=15, width=100,
                                   border_color='#3C3633', )
@@ -339,7 +340,7 @@ class BMI(tk.Frame):
         for BMI in self.bmi_list:
             row = (BMI.Id, BMI.age, BMI.kilogram, BMI.pounds, BMI.centimeter, BMI.meter)
             self.table.insert('', tk.END, values=row) 
-  
+
     def destroy_top_level(self):
         self.show_history.destroy()
            
@@ -381,7 +382,7 @@ class BMI(tk.Frame):
         self.profile_label.place(x=115, y=10)
 
         self.pic_frame = tk.Frame(self.profile, bd=10, width=150, height=150, bg='#747264', relief='flat')
-        self.pic_frame.place(x=45, y=70)
+        self.pic_frame.place(x=120, y=70)
 
         dbconn = Data_base_Handler.database()
         user_id = self.parent.get_logged_in_user_id()
@@ -450,7 +451,32 @@ class BMI(tk.Frame):
         self.return_btn = CTkButton(self.profile, text="Return",width=30,height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
                                 hover_color='#747264', corner_radius=30, text_color='black',command=self.close_top_level)
         self.return_btn.place(x=10, y=10)
-        
+
+        self.save_changes_btn = CTkButton(self.profile, text="Save Changes", width=30, height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
+                                hover_color='#747264', corner_radius=30, text_color='black', command=self.save_profile_changes)
+        self.save_changes_btn.place(x=150, y=500)
+    
+
+    def save_profile_changes(self):
+
+        # Get the entered values from the entry widgets
+        first_name = self.firstname_entry.get()
+        last_name = self.lastname_entry.get()
+        gmail = self.gmail_entry.get()
+        username = self.username_entry.get()
+        birthday = self.birthday_entry.get()
+
+        # Update user info in the database
+        dbconn = Data_base_Handler.database()
+        user_id = self.parent.get_logged_in_user_id()
+        dbconn.get_user_data(user_id, first_name, last_name, gmail, username, birthday)
+
+        dbconn.conn.close()
+
+        # Notify the user that changes have been saved
+        messagebox.showinfo("Success", "Changes saved successfully!")
+
+            
     def go_to_main_page(self):
         self.profile.destroy()
         self.parent.change_window('Welcome_Page')

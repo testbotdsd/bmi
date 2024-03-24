@@ -125,3 +125,12 @@ class database:
         self.cursor.execute(query, (user_id,))
         user_info = self.cursor.fetchone()
         return user_info
+
+    def get_user_data(self, user_id, first_name, last_name, gmail, username, birthday):
+        """
+        Update user information in the database.
+        """
+        query = f"UPDATE {self.Sign_up_table} SET firstname=?, lastname=?, gmail=?, username=?, birthday=? WHERE ID = ?"
+        values = (first_name, last_name, gmail, username, birthday, user_id)
+        self.cursor.execute(query, values)
+        self.conn.commit()
