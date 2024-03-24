@@ -148,12 +148,12 @@ class Login(tk.Frame):
 
     def toggle_password(self):
         if self.password_hidden:
-            self.password_entry.config(show='')
-            self.show_pass.config(bg='#3C3633', fg='white', image=self.eye_hide)
+            self.pass_entry.config(show='')
+            self.toggle_password_button.config(bg='#3C3633', fg='white', image=self.eye_hide)
             self.password_hidden = False
         else:
-            self.password_entry.config(show='*')
-            self.show_pass.config(bg='white', fg='#3C3633', image=self.eye_show)
+            self.pass_entry.config(show='*')
+            self.toggle_password_button.config(bg='white', fg='#3C3633', image=self.eye_show)
             self.password_hidden = True
 
     def go_to_forgot_password(self):
