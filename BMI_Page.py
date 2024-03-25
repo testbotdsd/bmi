@@ -527,18 +527,12 @@ class BMI(tk.Frame):
         self.new_password_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23, show='*')
         self.new_password_entry.place(x=200, y=190)
 
-        # # Confirm New Pass
-        # self.cnfrm_new_pass_label = tk.Label(self.password_window, text="Confirm New Password:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        # self.cnfrm_new_pass_label.place(x=10, y=190)
-
-        # self.cnfrm_new_pass_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23, show='*')
-        # self.cnfrm_new_pass_entry.place(x=200, y=190)
-
-        # Save New Password Button (Initially Disabled)
         self.save_password_button = CTkButton(self.password_window, text="Save Password", width=150, height=30, corner_radius=30,
                                           font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',
                                           command=self.save_new_password, state='disabled')
         self.save_password_button.place(x=100, y=230)
+        
+        self.email = None
 
     def send_otp(self):
         gmail = self.gmail_entry.get()
@@ -623,21 +617,34 @@ class BMI(tk.Frame):
     def save_new_password(self):
         new_password = self.new_password_entry.get()
 
-        # Save the new password in the database
-        dbconn = Data_base_Handler.database()
-        dbconn.update_password(self.gmail_entry.get(), new_password)
-        dbconn.conn.close()
+        if len(new_password) < 8:
+            messagebox.showerror('Error', 'New Password field needs to be at least 8 characters, please fill it out.')
+            return False    
 
-        messagebox.showinfo("Success", "Password changed successfully!")
-        self.password_window.destroy()
+        elif not any(char.isupper() for char in new_password):
+            messagebox.showerror('Error', 'New Password must contain at least one capital letter.')
+            return False  
 
-        # Update the password entry field in the profile window
-        self.password_entry.config(state='normal')
-        self.password_entry.delete(0, tk.END)
-        self.password_entry.insert(0, new_password)
-        self.password_entry.config(state='readonly')
+        else:
+            # Save the new password in the database
+            dbconn = Data_base_Handler.database()
+            self.old_password = dbconn.get_password(self.email)  # Fetch old password
+            if new_password == self.old_password:
+                messagebox.showerror("Error", "New password should not be the same as the old one.")
+                return False  # Don't proceed further
+            
+            dbconn.update_password(self.gmail_entry.get(), new_password)
+            dbconn.conn.close()
 
-        
+            messagebox.showinfo("Success", "Password changed successfully!")
+            self.password_window.destroy()
+
+            # Update the password entry field in the profile window
+            self.password_entry.config(state='normal')
+            self.password_entry.delete(0, tk.END)
+            self.password_entry.insert(0, new_password)
+            self.password_entry.config(state='readonly')
+
     def toggle_password(self):
         if self.password_hidden:
             self.password_entry.config(show='')

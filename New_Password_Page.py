@@ -53,16 +53,32 @@ class Reset_Password(tk.Frame):
         password = self.verification_entry.get()
         confirm_password = self.verification_entry_2.get()
 
-        if not password or not confirm_password:
+        if len(password) < 8:
+            messagebox.showerror('Error', 'New Password fields need to be at least 8 characters, please fill them out.')
+            return False    
+        
+        elif not any(char.isupper() for char in password):
+            messagebox.showerror('Error', 'New Password must contain at least one capital letter.')
+            return False    
+        
+        elif not password or not confirm_password:
             messagebox.showerror("Error", "Please enter your New Password and Confirm New Password.")
+            
         elif password != confirm_password:
+            
             messagebox.showerror("Error", "Passwords do not match.")
         elif not self.sent_otp:
             messagebox.showerror("Error", "Please send OTP first.")
+            
         else:
             entered_otp = simpledialog.askstring("OTP Verification", "Enter the OTP sent to your email:")
             if entered_otp == self.sent_otp:
+                # Use self.email here for the Gmail value
                 data = Data_base_Handler.database()
+                self.old_password = data.get_password(self.email)  # Fetch old password
+                if password == self.old_password:
+                    messagebox.showerror("Error", "New password should not be the same as the old one.")
+                    return  # Don't proceed further
                 data.update_password(self.email, password)
 
                 messagebox.showinfo("Success", "Password updated successfully.")
