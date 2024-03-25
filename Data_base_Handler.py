@@ -61,10 +61,19 @@ class database:
         self.conn.commit()
         
     def create_sign_up_table(self, User: Model.User):
-        query = f"INSERT INTO {self.Sign_up_table} (firstname, lastname, gmail,username , password, birthday, image) VALUES (?,?,?,?,?,?,?)" 
+        """
+        Insert a new user into the sign-up table while ensuring the username is unique.
+        """
+        if self.check_username(User.username):
+            print("Username already exists. Please choose a different username.")
+            return  # Exit the method if the username already exists
+
+        # If the username is unique, proceed with inserting the new user
+        query = f"INSERT INTO {self.Sign_up_table} (firstname, lastname, gmail, username, password, birthday, image) VALUES (?,?,?,?,?,?,?)" 
         values = (User.firstname, User.lastname, User.gmail, User.username, User.password, User.birthday, User.image)
         self.cursor.execute(query, values) 
         self.conn.commit()
+
 
     def check_credentials(self, username, password):
         query = f"SELECT * FROM {self.Sign_up_table} WHERE username=? AND password=?"
@@ -121,16 +130,41 @@ class database:
             return None
 
     def get_user_info(self, user_id):
-        query = f"SELECT firstname, lastname, gmail, username, birthday FROM {self.Sign_up_table} WHERE ID = ?"
+        query = f"SELECT firstname, lastname, gmail, username, birthday, password FROM {self.Sign_up_table} WHERE ID = ?"
         self.cursor.execute(query, (user_id,))
         user_info = self.cursor.fetchone()
         return user_info
 
-    def get_user_data(self, user_id, first_name, last_name, gmail, username, birthday):
+    def get_user_data(self, user_id, first_name, last_name, gmail, username, birthday, password):
         """
-        Update user information in the database.
+        Update user information in the database, including the password.
         """
-        query = f"UPDATE {self.Sign_up_table} SET firstname=?, lastname=?, gmail=?, username=?, birthday=? WHERE ID = ?"
-        values = (first_name, last_name, gmail, username, birthday, user_id)
+        query = f"UPDATE {self.Sign_up_table} SET firstname=?, lastname=?, gmail=?, username=?, password=?, birthday=? WHERE ID = ?"
+        values = (first_name, last_name, gmail, username, password, birthday, user_id)
         self.cursor.execute(query, values)
         self.conn.commit()
+
+
+    def check_email(self, email):
+        """
+        Check if the provided email already exists in the database.
+        """
+        query = f"SELECT COUNT(*) FROM {self.Sign_up_table} WHERE gmail = ?"
+        self.cursor.execute(query, (email,))
+        result = self.cursor.fetchone()
+        return result[0] > 0
+    
+    def check_username(self, username):
+        """
+        Check if the provided username already exists in the database.
+        """
+        query = f"SELECT COUNT(*) FROM {self.Sign_up_table} WHERE username = ?"
+        self.cursor.execute(query, (username,))
+        result = self.cursor.fetchone()
+        return result[0] > 0
+
+    def close(self):
+            """
+            Close the database connection.
+            """
+            self.conn.close()

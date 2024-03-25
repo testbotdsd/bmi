@@ -1,3 +1,6 @@
+# validation if same email and username, show msg box error 
+# 
+
 import tkinter as tk
 import Welcome_Page
 import Login_Page

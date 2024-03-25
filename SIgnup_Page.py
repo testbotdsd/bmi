@@ -101,7 +101,7 @@ class Signup(tk.Frame):
         self.clear_button = tk.Button(self, text='Clear', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.clear_input)
         self.clear_button.place(x=70, y=510)
 
-        self.sign_up_button = tk.Button(self, text='Continue', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.validate_sign_up)
+        self.sign_up_button = tk.Button(self, text='Continue', width=10, font=('Courier', 15, 'bold'),bg='#d3d3d3', command=self.sign_up_button_clicked)
         self.sign_up_button.place(x=240, y=510)
 
         self.password_hidden = True
@@ -229,7 +229,27 @@ class Signup(tk.Frame):
             messagebox.showerror('Error', 'Birthday password field is empty, please fill it out.')
             return False
         
-        self.go_to_Photo_page()
+        # Check if username or email already exist in the database
+        db = Data_base_Handler.database()
+        if db.check_email(gmail):
+            messagebox.showerror("Error", "Email address is already registered.")
+            db.close()
+            return False
+
+        if db.check_username(username):
+            messagebox.showerror("Error", "Username is already taken. Please choose a different one.")
+            db.close()
+            return False
+
+        db.close()
+
+        return True
+        
+    def sign_up_button_clicked(self):
+        # Validate sign-up information
+        if self.validate_sign_up():
+            # If validation is successful, proceed to the next step
+            self.go_to_Photo_page()
 
     def clear_input(self):
         self.first_name_entry.delete(0, tk.END)
@@ -424,12 +444,14 @@ class Photo (tk.Frame):
 
     def undo_crop(self):
         if self.crop_history:
+            self.redo_history.append(self.image)  # Add current state to redo history
             self.image = self.crop_history.pop()
             self.display_image()
 
     def redo_crop(self):
-        if self.crop_history:
-            self.image = self.crop_history.pop()
+        if self.redo_history:
+            self.crop_history.append(self.image)  # Add current state to undo history
+            self.image = self.redo_history.pop()
             self.display_image()
 
     def rotate_image(self):
@@ -628,7 +650,20 @@ Thank you for using our BMI Calculator and complying with these terms and condit
         user.birthday = Bday
         user.gmail = Gmail
         user.password = Pass
-        
+
+        # Database check for duplicate email and username
+        db = Data_base_Handler.database()
+        check_email = db.check_email(Gmail)
+        check_username = db.check_username(Uname)
+        db.close()
+
+        if check_email:
+            messagebox.showerror("Error", "Email address is already registered")
+            return
+        if check_username:
+            messagebox.showerror("Error", "Username is already taken. Please choose a different one.")
+            return
+
         if Pass == Confirm_Pass:
             user.image = self.image_data
 

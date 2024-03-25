@@ -7,7 +7,9 @@ import Model
 from customtkinter import *
 from PIL import ImageTk, Image
 from io import BytesIO
-
+import random
+import smtplib
+import re
 
 class BMI(tk.Frame):
     def __init__ (self, master):
@@ -401,6 +403,14 @@ class BMI(tk.Frame):
 
             canvas.photo = photo
 
+        self.eye_hide = Image.open("hide.jpg")
+        self.eye_hide = self.eye_hide.resize((22, 22))  
+        self.eye_hide = ImageTk.PhotoImage(self.eye_hide) 
+
+        self.eye_show = Image.open("show.jpg")
+        self.eye_show = self.eye_show.resize((22, 22))  
+        self.eye_show = ImageTk.PhotoImage(self.eye_show)
+
         self.firstname_label = tk.Label(self.profile, text="First Name:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
         self.firstname_label.place(x=40, y=250)
 
@@ -431,7 +441,17 @@ class BMI(tk.Frame):
         self.birthday_entry = tk.Entry(self.profile, font=('Courier', 13), bg='#EEEDEB')
         self.birthday_entry.place(x=180, y=450)
 
-    
+        self.password_label = tk.Label(self.profile, text="Password:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.password_label.place(x=40, y=500)
+
+        self.password_entry = tk.Entry(self.profile, width=16, font=('Courier', 13), bg='#EEEDEB', show='*')
+        self.password_entry.place(x=180, y=500)
+
+        self.toggle_password_button = tk.Button(self.profile, bd=1, bg='white', image=self.eye_show, command=self.toggle_password)
+        self.toggle_password_button.place(x=350, y=500)
+
+        self.password_hidden = True
+
         dbconn = Data_base_Handler.database()
         user_id = self.parent.get_logged_in_user_id()
         user_info = dbconn.get_user_info(user_id)
@@ -443,40 +463,192 @@ class BMI(tk.Frame):
             self.gmail_entry.insert(0, user_info[2])
             self.username_entry.insert(0, user_info[3])
             self.birthday_entry.insert(0, user_info[4])
+            self.password_entry.insert(0, user_info[5])
 
-        self.logout_btn = CTkButton(self.profile, text="Logout", height=50, width=50, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
-                                hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_main_page)
-        self.logout_btn.place(x=151, y=530)
+        
+
         
         self.return_btn = CTkButton(self.profile, text="Return",width=30,height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
                                 hover_color='#747264', corner_radius=30, text_color='black',command=self.close_top_level)
         self.return_btn.place(x=10, y=10)
 
+        self.logout_btn = CTkButton(self.profile, text="Logout", height=30, width=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
+                                hover_color='#747264', corner_radius=30, text_color='black',command=self.go_to_main_page)
+        self.logout_btn.place(x=10, y=560)
+        
         self.save_changes_btn = CTkButton(self.profile, text="Save Changes", width=30, height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
                                 hover_color='#747264', corner_radius=30, text_color='black', command=self.save_profile_changes)
-        self.save_changes_btn.place(x=150, y=500)
-    
+        self.save_changes_btn.place(x=260, y=560)
+
+        self.change_pass_btn = CTkButton(self.profile, text="Change Password", width=30, height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
+                                hover_color='#747264', corner_radius=30, text_color='black', command=self.change_password_window)
+        self.change_pass_btn.place(x=10, y=100)
+
+        self.password_entry.config(state='readonly')
+
+        self.save_password_button = None
+
+    def change_password_window(self):
+        self.password_window = tk.Toplevel(self)
+        self.password_window.title("Change Password")
+        self.password_window.geometry('450x300')
+        self.password_window.config(bg='#3C3633')
+
+        # Label and Entry for Gmail
+        self.gmail_label = tk.Label(self.password_window, text="Enter Your Gmail:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.gmail_label.place(x=10, y=30)
+
+        self.gmail_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23)
+        self.gmail_entry.place(x=200, y=30)
+
+        # OTP Verification
+        self.verification_label = tk.Label(self.password_window, text="Enter OTP Code:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.verification_label.place(x=10, y=120)
+
+        self.otp_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23)
+        self.otp_entry.place(x=200, y=120)
+
+        # Button to Send OTP
+        self.send_otp_button = CTkButton(self.password_window, text="Send OTP", width=150, height=30, corner_radius=30, 
+                                        font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',
+                                        command=self.send_otp)
+        self.send_otp_button.place(x=100, y=60)
+
+        # Button to Verify OTP
+        self.verify_otp_button = CTkButton(self.password_window, text="Verify OTP", width=150, height=30, corner_radius=30, 
+                                        font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',
+                                        command=self.verify_otp)
+        self.verify_otp_button.place(x=100, y=150)
+
+        # New Password Entry
+        self.new_password_label = tk.Label(self.password_window, text="Enter New Password:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.new_password_label.place(x=10, y=190)
+
+        self.new_password_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23, show='*')
+        self.new_password_entry.place(x=200, y=190)
+
+        # # Confirm New Pass
+        # self.cnfrm_new_pass_label = tk.Label(self.password_window, text="Confirm New Password:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        # self.cnfrm_new_pass_label.place(x=10, y=190)
+
+        # self.cnfrm_new_pass_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23, show='*')
+        # self.cnfrm_new_pass_entry.place(x=200, y=190)
+
+        # Save New Password Button (Initially Disabled)
+        self.save_password_button = CTkButton(self.password_window, text="Save Password", width=150, height=30, corner_radius=30,
+                                          font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',
+                                          command=self.save_new_password, state='disabled')
+        self.save_password_button.place(x=100, y=230)
+
+    def send_otp(self):
+        gmail = self.gmail_entry.get()
+
+        if not self.check_gmail(gmail):
+            messagebox.showerror("Error", "Gmail does not exist. Please enter the Gmail you used during sign up.")
+            return
+
+        if gmail == "":
+            messagebox.showerror("Error", "Please enter your Gmail Account.")
+            return None
+        
+        if not self.is_valid_gmail(gmail):
+            messagebox.showerror("Error", "Please enter a valid Gmail Account.")
+            return None
+
+        # Generate a 4-digit OTP
+        self.otp = ''.join([str(random.randint(0, 9)) for _ in range(4)])
+        
+        email_sender = 'gelcabsam@gmail.com'
+        password = 'wnet spkm cjak ofiw'
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(email_sender, password)
+        msg = 'Subject: Your OTP\n\nHello, your OTP is ' + self.otp
+        server.sendmail(email_sender, gmail, msg)
+        server.quit()
+
+    def verify_otp(self):
+        entered_otp = self.otp_entry.get()
+        
+        if entered_otp == "":
+            messagebox.showerror("Error", "Please enter the OTP.")
+            return
+        
+        if entered_otp == self.otp:
+            messagebox.showinfo("Success", "OTP verified. You can now change your password.")
+            self.save_password_button.configure(state='normal')
+        else:
+            messagebox.showerror("Error", "Incorrect OTP. Please try again.")
+            self.save_password_button.configure(state='disabled')
+
+    def check_gmail(self, gmail):
+        data = Data_base_Handler.database()
+        return data.checking_gmail_exist(gmail)
+
+    def is_valid_gmail(self, email):
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            return False
+        
+        if email.endswith('@gmail.com'):
+            return True
+        
+        return False
 
     def save_profile_changes(self):
+        # Ask the user if they want to save the changes
+        response = messagebox.askyesno("Save Changes", "Do you want to save the changes?")
 
-        # Get the entered values from the entry widgets
-        first_name = self.firstname_entry.get()
-        last_name = self.lastname_entry.get()
-        gmail = self.gmail_entry.get()
-        username = self.username_entry.get()
-        birthday = self.birthday_entry.get()
+        # If user chooses to save the changes
+        if response == True:
+            # Get the entered values from the entry widgets
+            first_name = self.firstname_entry.get()
+            last_name = self.lastname_entry.get()
+            gmail = self.gmail_entry.get()
+            username = self.username_entry.get()
+            birthday = self.birthday_entry.get()
+            password = self.password_entry.get()
 
-        # Update user info in the database
+            # Update user info in the database
+            dbconn = Data_base_Handler.database()
+            user_id = self.parent.get_logged_in_user_id()
+            dbconn.get_user_data(user_id, first_name, last_name, gmail, username, birthday, password)
+            dbconn.conn.close()
+
+            # Notify the user that changes have been saved
+            messagebox.showinfo("Success", "Changes saved successfully!")
+        else:
+            # If user chooses not to save changes, return False
+            return False
+        
+    def save_new_password(self):
+        new_password = self.new_password_entry.get()
+
+        # Save the new password in the database
         dbconn = Data_base_Handler.database()
-        user_id = self.parent.get_logged_in_user_id()
-        dbconn.get_user_data(user_id, first_name, last_name, gmail, username, birthday)
-
+        dbconn.update_password(self.gmail_entry.get(), new_password)
         dbconn.conn.close()
 
-        # Notify the user that changes have been saved
-        messagebox.showinfo("Success", "Changes saved successfully!")
+        messagebox.showinfo("Success", "Password changed successfully!")
+        self.password_window.destroy()
 
-            
+        # Update the password entry field in the profile window
+        self.password_entry.config(state='normal')
+        self.password_entry.delete(0, tk.END)
+        self.password_entry.insert(0, new_password)
+        self.password_entry.config(state='readonly')
+
+        
+    def toggle_password(self):
+        if self.password_hidden:
+            self.password_entry.config(show='')
+            self.toggle_password_button.config(image=self.eye_hide)
+            self.password_hidden = False
+        else:
+            self.password_entry.config(show='*')
+            self.toggle_password_button.config(image=self.eye_show)
+            self.password_hidden = True
+
+                
     def go_to_main_page(self):
         self.profile.destroy()
         self.parent.change_window('Welcome_Page')
