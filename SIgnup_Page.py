@@ -230,14 +230,6 @@ class Signup(tk.Frame):
         if last_name == '':
             messagebox.showerror('Error', 'Last name field is empty, please fill it out.')
             return False
-        
-        if not any(char.isupper() for char in username):
-            messagebox.showerror('Error', 'Username must contain at least one capital letter.')
-            return False
-
-        if not any(char.isupper() for char in password):
-            messagebox.showerror('Error', 'Password must contain at least one capital letter.')
-            return False
     
         if gmail == '':
             messagebox.showerror("Error", "Please enter your Gmail Account.")
@@ -259,12 +251,20 @@ class Signup(tk.Frame):
             messagebox.showerror('Error', 'Confirm password field is empty, please fill it out.')
             return False
         
+        if not any(char.isupper() for char in username):
+            messagebox.showerror('Error', 'Username must contain at least one capital letter.')
+            return False
+
+        if not any(char.isupper() for char in password):
+            messagebox.showerror('Error', 'Password must contain at least one capital letter.')
+            return False
+        
         if len(password) < 8:
             messagebox.showerror('Error', 'Password field needs to be atleast 8 characters, please fill it out.')
             return False
         
-        if len(confirm_password) < 8:
-            messagebox.showerror('Error', 'Confirm password field needs to be atleast 8 characters, please fill it out.')
+        if len(username) < 8:
+            messagebox.showerror('Error', 'Username field needs to be atleast 8 characters, please fill it out.')
             return False
         
         if password != confirm_password:
