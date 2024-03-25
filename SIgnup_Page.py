@@ -165,25 +165,51 @@ class Signup(tk.Frame):
         return True
 
     def validate_sign_up(self):
-        first_name = self.first_name_entry.get()
-        last_name = self.last_name_entry.get()
-        gmail = self.gmail_entry.get()
-        username = self.username_entry.get()
-        password = self.password_entry.get()
-        confirm_password = self.confirm_password_entry.get()
-        birthday_str = self.Bday_calendar_entry.get()
-
         first_name = self.first_name_entry.get().strip()
+        last_name = self.last_name_entry.get().strip()
+        gmail = self.gmail_entry.get().strip()
+        username = self.username_entry.get().strip()
+        password = self.password_entry.get().strip()
+        confirm_password = self.confirm_password_entry.get().strip()
+        birthday_str = self.Bday_calendar_entry.get().strip()
+
         if not first_name:
             messagebox.showerror('Error', 'Please enter your first name.')
             return False
-        
+
+        if not last_name:
+            messagebox.showerror('Error', 'Please enter your last name.')
+            return False
+
+        # Capitalize the first letter of the first name
+        if first_name.islower():
+            messagebox.showerror('Error', 'Please capitalize the first letter of your first name.')
+            return False
+        else:
+            first_name = first_name.capitalize()
+
+        # Capitalize the first letter of the last name
+        if last_name.islower():
+            messagebox.showerror('Error', 'Please capitalize the first letter of your last name.')
+            return False
+        else:
+            last_name = last_name.capitalize()
+
+        if len(first_name) <= 1 or len(last_name) <= 1:
+            messagebox.showerror('Error', 'First name and last name must be more than one character.')
+            return False
+
         if not self.validate_first_name(first_name):
             messagebox.showerror('Error', 'First name should not contain numbers or special characters.')
             return False
 
+
         if not self.validate_date(birthday_str):  # Corrected the method call
             messagebox.showerror('Error', 'Please select a date before tomorrow.')
+            return False
+        
+        if len(first_name and last_name) <=1:
+            messagebox.showerror('Error', 'First name and Last name must be more than one character.')
             return False
         
         if password != confirm_password:
@@ -213,6 +239,7 @@ class Signup(tk.Frame):
         if gmail == '':
             messagebox.showerror("Error", "Please enter your Gmail Account.")
             return None
+        
         if not self.is_valid_gmail(gmail):
             messagebox.showerror("Error", "Please enter a valid Gmail Account.")
             return None
