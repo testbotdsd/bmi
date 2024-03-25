@@ -352,26 +352,26 @@ class Photo (tk.Frame):
         self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
         self.crop_button = CTkButton(self.image_window, text="Crop Image", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.start_crop)
-        self.crop_button.place(x=450, y=50)
+        self.crop_button.place(x=440, y=120)
 
     
         self.undo_button = CTkButton(self.image_window, text="Undo", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.undo_crop)
-        self.undo_button.place(x=450, y=100)
+        self.undo_button.place(x=440, y=270)
 
         self.redo_button = CTkButton(self.image_window, text="Redo", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.redo_crop)
-        self.redo_button.place(x=450, y=150)
+        self.redo_button.place(x=515, y=270)
 
         self.rotate_button = CTkButton(self.image_window, text="Rotate Image", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.rotate_image)
-        self.rotate_button.place(x=450, y=200)
+        self.rotate_button.place(x=440, y=195)
 
         self.done_button = CTkButton(self.image_window, text="Done", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.show_profile_image)
-        self.done_button.place(x=450, y=250)
+        self.done_button.place(x=440, y=345)
 
         self.upload_button = CTkButton(self.image_window, text="Upload Image", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.upload_image)
-        self.upload_button.place(x=450, y=300)
+        self.upload_button.place(x=440, y=45)
 
         self.exit_button = CTkButton(self.image_window, text="Exit",width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.close_image_window)
-        self.exit_button.place(x=450, y=350)
+        self.exit_button.place(x=515, y=345)
 
 
     def close_image_window(self):
@@ -557,7 +557,9 @@ class Photo (tk.Frame):
         self.terms_conditions_window.title("TERMS AND CONDITIONS")
         self.terms_conditions_window.geometry("450x600") 
         self.terms_conditions_window.resizable(False, False)
-        self.terms_conditions_window.configure(bg='#3C3633')  
+        self.terms_conditions_window.configure(bg='#3C3633')
+
+        self.terms_conditions_window.protocol("WM_DELETE_WINDOW", self.cancel_action)  
 
         scroll_frame = tk.Frame(self.terms_conditions_window)
         scroll_frame.pack(fill=tk.BOTH, expand=True)

@@ -213,7 +213,9 @@ class Login(tk.Frame):
         self.terms_conditions_window.title("TERMS AND CONDITIONS")
         self.terms_conditions_window.geometry("450x600") 
         self.terms_conditions_window.resizable(False, False)
-        self.terms_conditions_window.configure(bg='#3C3633')  
+        self.terms_conditions_window.configure(bg='#3C3633')
+
+        self.terms_conditions_window.protocol("WM_DELETE_WINDOW", self.cancel_action)  
 
         scroll_frame = tk.Frame(self.terms_conditions_window)
         scroll_frame.pack(fill=tk.BOTH, expand=True)
