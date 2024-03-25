@@ -195,8 +195,12 @@ class Signup(tk.Frame):
         else:
             last_name = last_name.capitalize()
 
-        if len(first_name) <= 1 or len(last_name) <= 1:
-            messagebox.showerror('Error', 'First name and last name must be more than one character.')
+        if len(first_name) <= 1:
+            messagebox.showerror('Error', 'First name must be more than one character.')
+            return False
+
+        if len(last_name) <= 1:
+            messagebox.showerror('Error', 'Last name must be more than one character.')
             return False
 
         if not self.validate_first_name(first_name):
