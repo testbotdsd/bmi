@@ -34,7 +34,7 @@ class MainWindow(tk.Tk):
         #BMI
         self.frames ['BMI'] = BMI_Page.BMI(self)
 
-        self.change_window('Signup')
+        self.change_window('Welcome_Page')
 
     def set_logged_in_user_id(self, user_id):
         self.logged_in_user_id = user_id
