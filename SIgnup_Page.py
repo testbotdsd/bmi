@@ -267,14 +267,6 @@ class Signup(tk.Frame):
             messagebox.showerror('Error', 'Confirm password field needs to be atleast 8 characters, please fill it out.')
             return False
         
-        if not any(char.isupper() for char in username):
-            messagebox.showerror('Error', 'Username must contain at least one capital letter.')
-            return False
-
-        if not any(char.isupper() for char in password):
-            messagebox.showerror('Error', 'Password must contain at least one capital letter.')
-            return False
-        
         if password != confirm_password:
             messagebox.showerror('Error', 'Password and Confirm Password fields do not match.')
             return False
