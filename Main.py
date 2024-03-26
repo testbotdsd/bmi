@@ -23,7 +23,7 @@ class MainWindow(tk.Tk):
         
         #Change Password
         self.frames ['Reset_Password'] = New_Password_Page.Reset_Password(self)
-
+        
         #Sign Up
         self.frames ['Signup'] = SIgnup_Page.Signup(self)
         self.frames ['Photo'] = SIgnup_Page.Photo(self, self.frames['Signup'])

@@ -478,9 +478,9 @@ class BMI(tk.Frame):
                                 hover_color='#747264', corner_radius=30, text_color='black', command=self.save_profile_changes)
         self.save_changes_btn.place(x=260, y=560)
 
-        self.change_pass_btn = CTkButton(self.profile, text="Change Password", width=30, height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
-                                hover_color='#747264', corner_radius=30, text_color='black', command=self.change_password_window)
-        self.change_pass_btn.place(x=10, y=100)
+        self.change_pass_btn = tk.Button(self.profile, text='Change Password?',  font=('Courier', 9), fg='#5e918e', 
+                                                bg='#3C3633', bd=0, command=self.change_password_window)
+        self.change_pass_btn.place(x=260, y=530)
 
         self.password_entry.config(state='readonly')
 
@@ -518,13 +518,21 @@ class BMI(tk.Frame):
                                         command=self.verify_otp)
         self.verify_otp_button.place(x=100, y=150)
 
-        self.eye_hide = Image.open("hide.jpg")
-        self.eye_hide = self.eye_hide.resize((22, 22))  
-        self.eye_hide = ImageTk.PhotoImage(self.eye_hide) 
+        self.eye_hide_2 = Image.open("hide.jpg")
+        self.eye_hide_2 = self.eye_hide_2.resize((22, 22))  
+        self.eye_hide_2 = ImageTk.PhotoImage(self.eye_hide_2) 
 
-        self.eye_show = Image.open("show.jpg")
-        self.eye_show = self.eye_show.resize((22, 22))  
-        self.eye_show = ImageTk.PhotoImage(self.eye_show)
+        self.eye_show_2 = Image.open("show.jpg")
+        self.eye_show_2 = self.eye_show_2.resize((22, 22))  
+        self.eye_show_2 = ImageTk.PhotoImage(self.eye_show_2)
+
+        self.eye_hide_3 = Image.open("hide.jpg")
+        self.eye_hide_3 = self.eye_hide_3.resize((22, 22))  
+        self.eye_hide_3 = ImageTk.PhotoImage(self.eye_hide_3) 
+
+        self.eye_show_3 = Image.open("show.jpg")
+        self.eye_show_3 = self.eye_show_3.resize((22, 22))  
+        self.eye_show_3 = ImageTk.PhotoImage(self.eye_show_3)
 
         self.password_hidden_2 = True
         self.password_hidden_3 = True
@@ -542,10 +550,10 @@ class BMI(tk.Frame):
         self.confirm_password_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23, show='*')
         self.confirm_password_entry.place(x=200, y=250)
 
-        self.toggle_password_button_2 = tk.Button(self.password_window, bd=1, bg='white', image=self.eye_show, command=self.toggle_password_2)
+        self.toggle_password_button_2 = tk.Button(self.password_window, bd=1, bg='white', image=self.eye_show_2, command=self.toggle_password_2)
         self.toggle_password_button_2.place(x=420, y=205)
 
-        self.toggle_password_button_3 = tk.Button(self.password_window, bd=1, bg='white', image=self.eye_show, command=self.toggle_password_3)
+        self.toggle_password_button_3 = tk.Button(self.password_window, bd=1, bg='white', image=self.eye_show_3, command=self.toggle_password_3)
         self.toggle_password_button_3.place(x=420, y=250)
 
         self.save_password_button = CTkButton(self.password_window, text="Save Password", width=150, height=30, corner_radius=30,
@@ -680,21 +688,21 @@ class BMI(tk.Frame):
     def toggle_password_2(self):
         if self.password_hidden_2:
             self.new_password_entry.config(show='')
-            self.toggle_password_button.config(image=self.eye_hide)
+            self.toggle_password_button_2.config(image=self.eye_hide_2)
             self.password_hidden_2 = False
         else:
             self.new_password_entry.config(show='*')
-            self.toggle_password_button.config(image=self.eye_show)
+            self.toggle_password_button_2.config(image=self.eye_show_2)
             self.password_hidden_2 = True
     
     def toggle_password_3(self):
         if self.password_hidden_3:
             self.confirm_password_entry.config(show='')
-            self.toggle_password_button.config(image=self.eye_hide)
+            self.toggle_password_button_3.config(image=self.eye_hide_3)
             self.password_hidden_3 = False
         else:
             self.confirm_password_entry.config(show='*')
-            self.toggle_password_button.config(image=self.eye_show)
+            self.toggle_password_button_3.config(image=self.eye_show_3)
             self.password_hidden_3 = True
 
                 
