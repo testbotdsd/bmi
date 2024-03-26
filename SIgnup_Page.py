@@ -74,7 +74,7 @@ class Signup(tk.Frame):
         self.birthday_label = tk.Label(self, text = 'Birthday', font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
         self.birthday_label.place(x=70, y=205) 
     
-        self.Bday_calendar_entry = DateEntry(self, width=47, background='Grey', foreground='white', borderwidth=2)
+        self.Bday_calendar_entry = DateEntry(self, width=47, background='Grey', foreground='white', borderwidth=2, state='readonly')
         self.Bday_calendar_entry.place (x=70, y=233)
 
         self.eye_hide = Image.open("hide.jpg")
@@ -398,26 +398,29 @@ class Photo (tk.Frame):
         self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
         self.crop_button = CTkButton(self.image_window, text="Crop Image", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.start_crop)
-        self.crop_button.place(x=440, y=120)
+        self.crop_button.place(x=440, y=110)
 
     
         self.undo_button = CTkButton(self.image_window, text="Undo", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.undo_crop)
-        self.undo_button.place(x=440, y=270)
+        self.undo_button.place(x=440, y=275)
 
         self.redo_button = CTkButton(self.image_window, text="Redo", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.redo_crop)
-        self.redo_button.place(x=515, y=270)
+        self.redo_button.place(x=515, y=275)
 
         self.rotate_button = CTkButton(self.image_window, text="Rotate Image", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.rotate_image)
-        self.rotate_button.place(x=440, y=195)
+        self.rotate_button.place(x=440, y=165)
+
+        self.mirror_button = CTkButton(self.image_window, text="Mirror Image", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.mirror_image)
+        self.mirror_button.place(x=440, y=220)
 
         self.done_button = CTkButton(self.image_window, text="Done", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.show_profile_image)
-        self.done_button.place(x=440, y=345)
+        self.done_button.place(x=440, y=335)
 
         self.upload_button = CTkButton(self.image_window, text="Upload Image", width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.upload_image)
-        self.upload_button.place(x=440, y=45)
+        self.upload_button.place(x=440, y=55)
 
         self.exit_button = CTkButton(self.image_window, text="Exit",width=60, height=30, corner_radius=10, font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE',text_color='black', command=self.close_image_window)
-        self.exit_button.place(x=515, y=345)
+        self.exit_button.place(x=515, y=335)
 
 
     def close_image_window(self):
@@ -505,6 +508,13 @@ class Photo (tk.Frame):
             rotated_image = self.image.rotate(90, expand=True)
             self.image = rotated_image
             self.display_image()
+
+    def mirror_image(self):
+        if self.image and self.photo:
+            mirrored_image = self.image.transpose(Image.FLIP_LEFT_RIGHT)
+            self.image = mirrored_image
+            self.display_image()
+
 
     def show_profile_image(self):
         if self.image:

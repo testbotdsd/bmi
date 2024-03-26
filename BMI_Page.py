@@ -39,12 +39,12 @@ class BMI(tk.Frame):
         
         # Age Label and Entry
         self.age_label = tk.Label(self.main_frame, text="Age", bg='#747264', font=("Perpetua", 10, 'bold'), foreground='#E0CCBE')
-        self.age_label.place(x=120, y=70)
+        self.age_label.place(x=120, y=55)
 
         
-        self.age_entry = CTkEntry(self.main_frame, bg_color='#3C3633', corner_radius=15, width=100,
-                                  border_color='#3C3633', )
-        self.age_entry.place(x=150, y=65)
+        self.age_entry = CTkEntry(self.main_frame, bg_color='white', corner_radius=15, width=100,
+                                  border_color='white', fg_color='white', text_color='black')
+        self.age_entry.place(x=150, y=50)
         
         self.age_entry.bind('<KeyRelease>', self.update_age)
 
@@ -376,7 +376,7 @@ class BMI(tk.Frame):
         self.profile.title("Profile") 
         self.profile.geometry('400x600')
         self.profile.config(bg='#3C3633')
-        self.profile.attributes('-topmost', True)
+
         
         font_style = ("Garamond", 15, "bold")
 
@@ -638,6 +638,7 @@ class BMI(tk.Frame):
             dbconn.conn.close()
 
             messagebox.showinfo("Success", "Changes saved successfully!")
+            self.profile.destroy()
         else:
             return False
         
