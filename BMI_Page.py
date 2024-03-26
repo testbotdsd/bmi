@@ -491,7 +491,7 @@ class BMI(tk.Frame):
     def change_password_window(self):
         self.password_window = tk.Toplevel(self)
         self.password_window.title("Change Password")
-        self.password_window.geometry('450x300')
+        self.password_window.geometry('450x400')
         self.password_window.config(bg='#3C3633')
 
         # Label and Entry for Gmail
@@ -520,17 +520,40 @@ class BMI(tk.Frame):
                                         command=self.verify_otp)
         self.verify_otp_button.place(x=100, y=150)
 
+        self.eye_hide = Image.open("hide.jpg")
+        self.eye_hide = self.eye_hide.resize((22, 22))  
+        self.eye_hide = ImageTk.PhotoImage(self.eye_hide) 
+
+        self.eye_show = Image.open("show.jpg")
+        self.eye_show = self.eye_show.resize((22, 22))  
+        self.eye_show = ImageTk.PhotoImage(self.eye_show)
+
+        self.password_hidden_2 = True
+        self.password_hidden_3 = True
+
         # New Password Entry
         self.new_password_label = tk.Label(self.password_window, text="Enter New Password:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.new_password_label.place(x=10, y=190)
+        self.new_password_label.place(x=10, y=205)
 
         self.new_password_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23, show='*')
-        self.new_password_entry.place(x=200, y=190)
+        self.new_password_entry.place(x=200, y=205)
+
+        self.confirm_password_label = tk.Label(self.password_window, text="Confirm Password:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.confirm_password_label.place(x=10, y=250)
+
+        self.confirm_password_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23, show='*')
+        self.confirm_password_entry.place(x=200, y=250)
+
+        self.toggle_password_button_2 = tk.Button(self.password_window, bd=1, bg='white', image=self.eye_show, command=self.toggle_password_2)
+        self.toggle_password_button_2.place(x=420, y=205)
+
+        self.toggle_password_button_3 = tk.Button(self.password_window, bd=1, bg='white', image=self.eye_show, command=self.toggle_password_3)
+        self.toggle_password_button_3.place(x=420, y=250)
 
         self.save_password_button = CTkButton(self.password_window, text="Save Password", width=150, height=30, corner_radius=30,
                                           font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',
                                           command=self.save_new_password, state='disabled')
-        self.save_password_button.place(x=100, y=230)
+        self.save_password_button.place(x=100, y=280)
         
         self.email = None
 
@@ -654,6 +677,26 @@ class BMI(tk.Frame):
             self.password_entry.config(show='*')
             self.toggle_password_button.config(image=self.eye_show)
             self.password_hidden = True
+    
+    def toggle_password_2(self):
+        if self.password_hidden_2:
+            self.new_password_entry.config(show='')
+            self.toggle_password_button.config(image=self.eye_hide)
+            self.password_hidden_2 = False
+        else:
+            self.new_password_entry.config(show='*')
+            self.toggle_password_button.config(image=self.eye_show)
+            self.password_hidden_2 = True
+    
+    def toggle_password_3(self):
+        if self.password_hidden_3:
+            self.confirm_password_entry.config(show='')
+            self.toggle_password_button.config(image=self.eye_hide)
+            self.password_hidden_3 = False
+        else:
+            self.confirm_password_entry.config(show='*')
+            self.toggle_password_button.config(image=self.eye_show)
+            self.password_hidden_3 = True
 
                 
     def go_to_main_page(self):
