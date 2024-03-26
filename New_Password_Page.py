@@ -3,6 +3,7 @@ from tkinter import messagebox, simpledialog
 from customtkinter import *
 import Data_base_Handler
 import Model
+from PIL import Image, ImageTk
 
 class Reset_Password(tk.Frame):
     def __init__(self, master):
@@ -22,9 +23,29 @@ class Reset_Password(tk.Frame):
         
         self.verification_entry = tk.Entry(self.frame_bg, font=('Courier', 12), fg='white', bg='#59504b', show='*')
         self.verification_entry.place(x=100, y=165)
+      
+        self.eye_hide = Image.open("hide.jpg")
+        self.eye_hide = self.eye_hide.resize((22, 22))  
+        self.eye_hide= ImageTk.PhotoImage(self.eye_hide) 
 
-        self.toggle_password_button = tk.Button(self, text="Show", font=('Courier', 10), bd=1, bg='white',fg='black', command=self.toggle_password)
-        self.toggle_password_button.place(x=180, y=230)
+        self.eye_show= Image.open("show.jpg")
+        self.eye_show= self.eye_show.resize((22, 22))  
+        self.eye_show= ImageTk.PhotoImage(self.eye_show)
+
+        self.eye_hide_2 = Image.open("hide.jpg")
+        self.eye_hide_2 = self.eye_hide_2.resize((22, 22))  
+        self.eye_hide_2= ImageTk.PhotoImage(self.eye_hide_2) 
+
+        self.eye_show_2= Image.open("show.jpg")
+        self.eye_show_2= self.eye_show_2.resize((22, 22))  
+        self.eye_show_2= ImageTk.PhotoImage(self.eye_show_2)
+
+
+        self.toggle_password_button = tk.Button(self.frame_bg , bd=1, bg='white', image=self.eye_show, command=self.toggle_password)
+        self.toggle_password_button.place(x=310, y=164)
+
+        self.toggle_password_button_2 = tk.Button(self.frame_bg , bd=1, bg='white', image=self.eye_show_2,command=self.toggle_password_2)
+        self.toggle_password_button_2.place(x=310, y=324)
 
         # Confirm Password
         self.verification_label_2 = tk.Label(self.frame_bg, text="Confirm New Password", font=('Courier', 15), fg='white', bg='#3C3633')
@@ -45,7 +66,9 @@ class Reset_Password(tk.Frame):
                                      command=self.go_to_otp)
         self.back_button.place(x=5, y=10)
 
+
         self.password_hidden = True
+        self.password_hidden_2= True
         self.sent_otp = None
         self.email = None
 
@@ -53,16 +76,32 @@ class Reset_Password(tk.Frame):
         password = self.verification_entry.get()
         confirm_password = self.verification_entry_2.get()
 
-        if not password or not confirm_password:
+        if len(password) < 8:
+            messagebox.showerror('Error', 'New Password fields need to be at least 8 characters, please fill them out.')
+            return False    
+        
+        elif not any(char.isupper() for char in password):
+            messagebox.showerror('Error', 'New Password must contain at least one capital letter.')
+            return False    
+        
+        elif not password or not confirm_password:
             messagebox.showerror("Error", "Please enter your New Password and Confirm New Password.")
+            
         elif password != confirm_password:
+            
             messagebox.showerror("Error", "Passwords do not match.")
         elif not self.sent_otp:
             messagebox.showerror("Error", "Please send OTP first.")
+            
         else:
             entered_otp = simpledialog.askstring("OTP Verification", "Enter the OTP sent to your email:")
             if entered_otp == self.sent_otp:
+                # Use self.email here for the Gmail value
                 data = Data_base_Handler.database()
+                self.old_password = data.get_password(self.email)  # Fetch old password
+                if password == self.old_password:
+                    messagebox.showerror("Error", "New password should not be the same as the old one.")
+                    return  # Don't proceed further
                 data.update_password(self.email, password)
 
                 messagebox.showinfo("Success", "Password updated successfully.")
@@ -75,15 +114,24 @@ class Reset_Password(tk.Frame):
 
     def toggle_password(self):
         if self.password_hidden:
-            self.verification_entry.config(show='')
-            self.verification_entry_2.config(show='')
-            self.toggle_password_button.config(text="Hide", bg='#3C3633', fg='white')
+            self.verification_entry.config (show='') 
+            self.toggle_password_button.config(bg='#3C3633', fg='white', image=self.eye_hide)
             self.password_hidden = False
         else:
-            self.verification_entry.config(show='*')
-            self.verification_entry_2.config(show='*')
-            self.toggle_password_button.config(text="Show", bg='white', fg='#3C3633')
+            self.verification_entry.config (show='*') 
+            self.toggle_password_button.config(bg='white', fg='#3C3633', image=self.eye_show)
             self.password_hidden = True
+
+    def toggle_password_2(self):
+        if self.password_hidden_2:
+            self.verification_entry_2.config (show='') 
+            self.toggle_password_button_2.config(bg='#3C3633', fg='white', image=self.eye_hide_2)
+            self.password_hidden_2 = False
+        else:
+            self.verification_entry_2.config (show='*') 
+            self.toggle_password_button_2.config(bg='white', fg='#3C3633', image=self.eye_show_2)
+            self.password_hidden_2 = True
+    
 
     def reset_fields(self):
         self.verification_entry.delete(0, tk.END)

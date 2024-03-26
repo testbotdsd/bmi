@@ -134,6 +134,15 @@ class database:
         self.cursor.execute(query, (user_id,))
         user_info = self.cursor.fetchone()
         return user_info
+    
+    def get_password(self, gmail):
+        query = f"SELECT password FROM {self.Sign_up_table} WHERE gmail = ?"
+        self.cursor.execute(query, (gmail,))
+        row = self.cursor.fetchone()
+        if row:
+            return row[0]
+        else:
+            return None
 
     def get_user_data(self, user_id, first_name, last_name, gmail, username, birthday, password):
         """
@@ -162,6 +171,18 @@ class database:
         self.cursor.execute(query, (username,))
         result = self.cursor.fetchone()
         return result[0] > 0
+    
+    def get_password(self, gmail):
+        """
+        Retrieve the password associated with the given email from the database.
+        """
+        query = "SELECT password FROM sign_up_table WHERE gmail = ?"
+        self.cursor.execute(query, (gmail,))
+        row = self.cursor.fetchone()
+        if row:
+            return row[0]  # Return the password if found
+        else:
+            return None  
 
     def close(self):
             """

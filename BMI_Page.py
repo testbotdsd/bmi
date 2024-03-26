@@ -1,3 +1,4 @@
+import Data_base_Handler
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -326,7 +327,7 @@ class BMI(tk.Frame):
         
         self.table.pack(side=tk.TOP, fill=tk.BOTH, expand=True)  # Adjust this based on your layout
         
-        self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat", command=self.delete_history)
+        self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, fg='black', bg='white', relief="solid", command=self.delete_history)
         self.return_button = tk.Button(self.show_history, text="Back", height=2, width=10, fg='black', bg='white', relief="solid", command=self.destroy_top_level)
 
         self.delete_button.place(x=820, y=530)
@@ -345,7 +346,7 @@ class BMI(tk.Frame):
 
     def destroy_top_level(self):
         self.show_history.destroy()
-           
+
     def get_bmi_list(self):
         dbconn=Data_base_Handler.database()
         self.bmi_list=dbconn.get_Bmilist()
@@ -464,9 +465,6 @@ class BMI(tk.Frame):
             self.username_entry.insert(0, user_info[3])
             self.birthday_entry.insert(0, user_info[4])
             self.password_entry.insert(0, user_info[5])
-
-        
-
         
         self.return_btn = CTkButton(self.profile, text="Return",width=30,height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
                                 hover_color='#747264', corner_radius=30, text_color='black',command=self.close_top_level)
@@ -480,9 +478,9 @@ class BMI(tk.Frame):
                                 hover_color='#747264', corner_radius=30, text_color='black', command=self.save_profile_changes)
         self.save_changes_btn.place(x=260, y=560)
 
-        self.change_pass_btn = CTkButton(self.profile, text="Change Password", width=30, height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
-                                hover_color='#747264', corner_radius=30, text_color='black', command=self.change_password_window)
-        self.change_pass_btn.place(x=10, y=100)
+        self.change_pass_btn = tk.Button(self.profile, text='Change Password?',  font=('Courier', 9), fg='#5e918e', 
+                                                bg='#3C3633', bd=0, command=self.change_password_window)
+        self.change_pass_btn.place(x=260, y=530)
 
         self.password_entry.config(state='readonly')
 
@@ -491,7 +489,7 @@ class BMI(tk.Frame):
     def change_password_window(self):
         self.password_window = tk.Toplevel(self)
         self.password_window.title("Change Password")
-        self.password_window.geometry('450x300')
+        self.password_window.geometry('450x400')
         self.password_window.config(bg='#3C3633')
 
         # Label and Entry for Gmail
@@ -520,25 +518,50 @@ class BMI(tk.Frame):
                                         command=self.verify_otp)
         self.verify_otp_button.place(x=100, y=150)
 
+        self.eye_hide_2 = Image.open("hide.jpg")
+        self.eye_hide_2 = self.eye_hide_2.resize((22, 22))  
+        self.eye_hide_2 = ImageTk.PhotoImage(self.eye_hide_2) 
+
+        self.eye_show_2 = Image.open("show.jpg")
+        self.eye_show_2 = self.eye_show_2.resize((22, 22))  
+        self.eye_show_2 = ImageTk.PhotoImage(self.eye_show_2)
+
+        self.eye_hide_3 = Image.open("hide.jpg")
+        self.eye_hide_3 = self.eye_hide_3.resize((22, 22))  
+        self.eye_hide_3 = ImageTk.PhotoImage(self.eye_hide_3) 
+
+        self.eye_show_3 = Image.open("show.jpg")
+        self.eye_show_3 = self.eye_show_3.resize((22, 22))  
+        self.eye_show_3 = ImageTk.PhotoImage(self.eye_show_3)
+
+        self.password_hidden_2 = True
+        self.password_hidden_3 = True
+
         # New Password Entry
         self.new_password_label = tk.Label(self.password_window, text="Enter New Password:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        self.new_password_label.place(x=10, y=190)
+        self.new_password_label.place(x=10, y=205)
 
         self.new_password_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23, show='*')
-        self.new_password_entry.place(x=200, y=190)
+        self.new_password_entry.place(x=200, y=205)
 
-        # # Confirm New Pass
-        # self.cnfrm_new_pass_label = tk.Label(self.password_window, text="Confirm New Password:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
-        # self.cnfrm_new_pass_label.place(x=10, y=190)
+        self.confirm_password_label = tk.Label(self.password_window, text="Confirm Password:", font=('Courier', 13), fg='#EEEDEB', bg='#3C3633')
+        self.confirm_password_label.place(x=10, y=250)
 
-        # self.cnfrm_new_pass_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23, show='*')
-        # self.cnfrm_new_pass_entry.place(x=200, y=190)
+        self.confirm_password_entry = tk.Entry(self.password_window, font=('Courier', 11), bg='#EEEDEB', width=23, show='*')
+        self.confirm_password_entry.place(x=200, y=250)
 
-        # Save New Password Button (Initially Disabled)
+        self.toggle_password_button_2 = tk.Button(self.password_window, bd=1, bg='white', image=self.eye_show_2, command=self.toggle_password_2)
+        self.toggle_password_button_2.place(x=420, y=205)
+
+        self.toggle_password_button_3 = tk.Button(self.password_window, bd=1, bg='white', image=self.eye_show_3, command=self.toggle_password_3)
+        self.toggle_password_button_3.place(x=420, y=250)
+
         self.save_password_button = CTkButton(self.password_window, text="Save Password", width=150, height=30, corner_radius=30,
                                           font=('Courier', 15, 'bold'), bg_color='#3C3633', fg_color='#E0CCBE', text_color='black',
                                           command=self.save_new_password, state='disabled')
-        self.save_password_button.place(x=100, y=230)
+        self.save_password_button.place(x=100, y=280)
+        
+        self.email = None
 
     def send_otp(self):
         gmail = self.gmail_entry.get()
@@ -614,30 +637,44 @@ class BMI(tk.Frame):
             dbconn.get_user_data(user_id, first_name, last_name, gmail, username, birthday, password)
             dbconn.conn.close()
 
-            # Notify the user that changes have been saved
             messagebox.showinfo("Success", "Changes saved successfully!")
         else:
-            # If user chooses not to save changes, return False
             return False
         
     def save_new_password(self):
         new_password = self.new_password_entry.get()
+        gmail = self.gmail_entry.get()
 
-        # Save the new password in the database
-        dbconn = Data_base_Handler.database()
-        dbconn.update_password(self.gmail_entry.get(), new_password)
-        dbconn.conn.close()
+        # Retrieve the old password from the database
+        old_password = Data_base_Handler.database().get_password(gmail)
 
-        messagebox.showinfo("Success", "Password changed successfully!")
-        self.password_window.destroy()
+        if new_password == old_password:
+            messagebox.showerror("Error", "New password should not be the same as the old one.")
+            return
 
-        # Update the password entry field in the profile window
-        self.password_entry.config(state='normal')
-        self.password_entry.delete(0, tk.END)
-        self.password_entry.insert(0, new_password)
-        self.password_entry.config(state='readonly')
+        if len(new_password) < 8:
+            messagebox.showerror('Error', 'New Password field needs to be at least 8 characters, please fill it out.')
+            return False    
 
-        
+        elif not any(char.isupper() for char in new_password):
+            messagebox.showerror('Error', 'New Password must contain at least one capital letter.')
+            return False  
+
+        else:
+            # Save the new password in the database
+            dbconn = Data_base_Handler.database()
+            dbconn.update_password(gmail, new_password)
+            dbconn.conn.close()
+
+            messagebox.showinfo("Success", "Password changed successfully!")
+            self.password_window.destroy()
+
+            # Update the password entry field in the profile window
+            self.password_entry.config(state='normal')
+            self.password_entry.delete(0, tk.END)
+            self.password_entry.insert(0, new_password)
+            self.password_entry.config(state='readonly')
+
     def toggle_password(self):
         if self.password_hidden:
             self.password_entry.config(show='')
@@ -647,6 +684,26 @@ class BMI(tk.Frame):
             self.password_entry.config(show='*')
             self.toggle_password_button.config(image=self.eye_show)
             self.password_hidden = True
+    
+    def toggle_password_2(self):
+        if self.password_hidden_2:
+            self.new_password_entry.config(show='')
+            self.toggle_password_button_2.config(image=self.eye_hide_2)
+            self.password_hidden_2 = False
+        else:
+            self.new_password_entry.config(show='*')
+            self.toggle_password_button_2.config(image=self.eye_show_2)
+            self.password_hidden_2 = True
+    
+    def toggle_password_3(self):
+        if self.password_hidden_3:
+            self.confirm_password_entry.config(show='')
+            self.toggle_password_button_3.config(image=self.eye_hide_3)
+            self.password_hidden_3 = False
+        else:
+            self.confirm_password_entry.config(show='*')
+            self.toggle_password_button_3.config(image=self.eye_show_3)
+            self.password_hidden_3 = True
 
                 
     def go_to_main_page(self):
