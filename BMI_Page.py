@@ -1,3 +1,4 @@
+import Data_base_Handler
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -326,7 +327,7 @@ class BMI(tk.Frame):
         
         self.table.pack(side=tk.TOP, fill=tk.BOTH, expand=True)  # Adjust this based on your layout
         
-        self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, font="TimesNewRoman 10 bold", fg='black', bg='white', relief="flat", command=self.delete_history)
+        self.delete_button = tk.Button(self.show_history, text="Delete", height=2, width=10, fg='black', bg='white', relief="solid", command=self.delete_history)
         self.return_button = tk.Button(self.show_history, text="Back", height=2, width=10, fg='black', bg='white', relief="solid", command=self.destroy_top_level)
 
         self.delete_button.place(x=820, y=530)
@@ -345,7 +346,7 @@ class BMI(tk.Frame):
 
     def destroy_top_level(self):
         self.show_history.destroy()
-           
+
     def get_bmi_list(self):
         dbconn=Data_base_Handler.database()
         self.bmi_list=dbconn.get_Bmilist()
@@ -464,9 +465,6 @@ class BMI(tk.Frame):
             self.username_entry.insert(0, user_info[3])
             self.birthday_entry.insert(0, user_info[4])
             self.password_entry.insert(0, user_info[5])
-
-        
-
         
         self.return_btn = CTkButton(self.profile, text="Return",width=30,height=30, bg_color="#3C3633", font=font_style, fg_color="#E0CCBE", 
                                 hover_color='#747264', corner_radius=30, text_color='black',command=self.close_top_level)
@@ -631,14 +629,20 @@ class BMI(tk.Frame):
             dbconn.get_user_data(user_id, first_name, last_name, gmail, username, birthday, password)
             dbconn.conn.close()
 
-            # Notify the user that changes have been saved
             messagebox.showinfo("Success", "Changes saved successfully!")
         else:
-            # If user chooses not to save changes, return False
             return False
         
     def save_new_password(self):
         new_password = self.new_password_entry.get()
+        gmail = self.gmail_entry.get()
+
+        # Retrieve the old password from the database
+        old_password = Data_base_Handler.database().get_password(gmail)
+
+        if new_password == old_password:
+            messagebox.showerror("Error", "New password should not be the same as the old one.")
+            return
 
         if len(new_password) < 8:
             messagebox.showerror('Error', 'New Password field needs to be at least 8 characters, please fill it out.')
@@ -651,12 +655,7 @@ class BMI(tk.Frame):
         else:
             # Save the new password in the database
             dbconn = Data_base_Handler.database()
-            self.old_password = dbconn.get_password(self.email)  # Fetch old password
-            if new_password == self.old_password:
-                messagebox.showerror("Error", "New password should not be the same as the old one.")
-                return False  # Don't proceed further
-            
-            dbconn.update_password(self.gmail_entry.get(), new_password)
+            dbconn.update_password(gmail, new_password)
             dbconn.conn.close()
 
             messagebox.showinfo("Success", "Password changed successfully!")
