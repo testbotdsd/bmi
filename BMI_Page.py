@@ -636,13 +636,18 @@ class BMI(tk.Frame):
     def save_new_password(self):
         new_password = self.new_password_entry.get()
         gmail = self.gmail_entry.get()
+        confirmpass = self.confirm_password_entry.get()
 
         # Retrieve the old password from the database
         old_password = Data_base_Handler.database().get_password(gmail)
 
         if new_password == old_password:
             messagebox.showerror("Error", "New password should not be the same as the old one.")
-            return
+            return False
+        
+        if new_password != confirmpass:
+            messagebox.showerror("Error", "Passwords do not match.")
+            return False
 
         if len(new_password) < 8:
             messagebox.showerror('Error', 'New Password field needs to be at least 8 characters, please fill it out.')

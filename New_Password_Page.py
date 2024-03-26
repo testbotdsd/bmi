@@ -65,7 +65,6 @@ class Reset_Password(tk.Frame):
             messagebox.showerror("Error", "Please enter your New Password and Confirm New Password.")
             
         elif password != confirm_password:
-            
             messagebox.showerror("Error", "Passwords do not match.")
         elif not self.sent_otp:
             messagebox.showerror("Error", "Please send OTP first.")
