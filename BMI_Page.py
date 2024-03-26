@@ -606,10 +606,8 @@ class BMI(tk.Frame):
             dbconn.get_user_data(user_id, first_name, last_name, gmail, username, birthday, password)
             dbconn.conn.close()
 
-            # Notify the user that changes have been saved
             messagebox.showinfo("Success", "Changes saved successfully!")
         else:
-            # If user chooses not to save changes, return False
             return False
         
     def save_new_password(self):
@@ -645,9 +643,6 @@ class BMI(tk.Frame):
             self.password_entry.delete(0, tk.END)
             self.password_entry.insert(0, new_password)
             self.password_entry.config(state='readonly')
-
-
-
 
     def toggle_password(self):
         if self.password_hidden:
