@@ -171,6 +171,18 @@ class database:
         self.cursor.execute(query, (username,))
         result = self.cursor.fetchone()
         return result[0] > 0
+    
+    def get_password(self, gmail):
+        """
+        Retrieve the password associated with the given email from the database.
+        """
+        query = "SELECT password FROM sign_up_table WHERE gmail = ?"
+        self.cursor.execute(query, (gmail,))
+        row = self.cursor.fetchone()
+        if row:
+            return row[0]  # Return the password if found
+        else:
+            return None  
 
     def close(self):
             """
